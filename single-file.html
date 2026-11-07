@@ -13,6 +13,8 @@
 @media(max-width:700px){.grove-cards{grid-template-columns:1fr;gap:15px}.grove-cards article{padding:22px}.grove-cards h2{font-size:29px}.song-corner{padding:20px 16px}.song-heading h2{font-size:29px}.song-lyrics{grid-template-columns:1fr}.lyric-line p{font-size:22px}.break-invitation{flex-wrap:wrap;padding:15px}.break-invitation>div{flex-basis:100%}.break-invitation button{flex:1}.rest-stop{width:154px}.fish-pond{gap:5px;padding:12px 3px;grid-template-rows:repeat(2,95px);min-height:240px;border-width:5px}.swimming-fish svg{height:58px}.swimming-fish span{font-size:9px}#restDialog{padding:20px}#restDialog h2{font-size:29px}.puzzle-tools{flex-wrap:wrap}.grove-shortcut{width:100%}header nav{max-width:225px;justify-content:flex-end}.brand{font-size:17px}}
 @media(max-width:360px){header{padding-inline:4%;gap:6px}.brand{font-size:16px}header nav{max-width:175px}nav button{font-size:9px;padding-inline:6px}}
 @media(prefers-reduced-motion:reduce){.swimming-fish{animation:none;transform:none}}
+.video-corner{margin:36px 0;padding:30px;border:1px solid #d5ddc9;border-radius:22px;background:#f1f0e4;scroll-margin-top:20px}.video-heading h2{font-size:36px;margin:16px 0}.video-heading>p{font-size:14px;line-height:1.9;max-width:750px}.video-filters{display:grid;grid-template-columns:1fr 1fr auto;gap:15px;align-items:end;margin:25px 0 18px}.video-filters label{display:grid;gap:9px;font-size:13px}.video-filters select{min-width:0;width:100%}.video-filters button{font-size:12px;min-height:48px}.video-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;margin:20px 0}.video-card{background:#fffdf4;border:1px solid #d9dfcb;padding:22px;border-radius:16px;display:flex;flex-direction:column;align-items:flex-start;min-width:0}.video-kind{font-size:10px;letter-spacing:.8px;font-weight:600;color:#7a633e}.video-card h3{font:26px/1.25 Georgia,serif;font-weight:400;margin:17px 0 8px;overflow-wrap:anywhere}.video-zh{font-size:14px;line-height:1.7;margin:0 0 10px}.video-creator{font-size:12px;color:#607658;line-height:1.6}.video-level{font-size:11px;color:#4e6c49;padding:5px 9px;background:#e8eddb;border-radius:20px;margin-top:12px}.video-why{font-size:13px;line-height:1.8;margin:17px 0 12px}.video-tip{background:#f0eddf;border-radius:10px;font-size:13px;line-height:1.8;padding:13px;flex:1;margin:0 0 14px}.video-tip strong,.video-tip span{display:block}.video-tip strong{font-size:11px;letter-spacing:.3px;margin-bottom:5px}.video-accent{font-size:10px;color:#68745e;margin-bottom:16px;line-height:1.6}.video-watch{display:block;width:100%;padding:13px 10px;text-align:center;border-radius:9px;background:var(--ink);color:#fff9e8;text-decoration:none;font-size:13px;min-height:46px}.video-watch:hover{background:#35684f}.video-source{font-size:11px;color:var(--ink);padding:14px 0 0;min-height:44px;line-height:1.7}.video-watch:focus-visible,.video-source:focus-visible{outline:3px solid var(--orange);outline-offset:4px}.video-guidance{font-size:12px;line-height:1.9;color:#5e7258;max-width:950px}.video-footer{border-top:1px solid #d4dcc8;margin-top:22px;padding-top:16px;display:flex;align-items:center;justify-content:space-between;gap:15px}.video-footer p{font-size:12px;line-height:1.8}.video-footer button{font-size:12px;flex-shrink:0}#externalMediaNotice{font-size:12px;line-height:1.8;background:#f7e9c9;padding:15px;border-radius:12px}#externalMediaNotice button{font-size:11px;margin:8px}
+@media(max-width:700px){.video-corner{padding:22px 16px;margin:28px 0}.video-heading h2{font-size:30px}.video-filters{grid-template-columns:1fr;gap:13px}.video-cards{grid-template-columns:1fr}.video-card{padding:21px}.video-footer{display:block}.video-footer button{width:100%}.video-card h3{font-size:28px}}
 </style></head><body>
 <header><a class="brand" href="#home">♧ <span>Little Deer<span class="brand-sub">ENGLISH TRAIL</span></span></a><nav><button id="mapNav">Learning Map</button><button id="examNav">GEPT Practice</button><button id="restNav">Play & Songs</button><button id="songNowPlaying" hidden>❚❚ Pause Song</button><button id="libraryNav">My Phrase Library</button><button id="music" aria-pressed="false">♫ Music Off</button></nav></header>
 <main>
@@ -30,8 +32,11 @@
 <section id="restPage" hidden>
 <div class="page-heading"><div><span class="eyebrow">REST, PLAY, COME BACK CURIOUS</span><h1>The Rest Grove<span class="small-title">撈撈魚、拼拼圖，聽一首小歌</span></h1></div><span id="groveStats" class="level-progress"></span></div>
 <p class="exam-intro">不用趕時間，也不用答題。休息一下，隨時回到英文步道。遊戲不會改動你的教材收藏。</p>
-<div class="grove-cards"><article><span class="grove-icon">🐟</span><h2>Little Fish Pond</h2><p>用滑鼠、觸控或鍵盤撈魚。不計時，輕鬆收集五條小魚。</p><button id="openFish">Catch Some Fish · 去撈魚 ↗</button></article><article><span class="grove-icon">🧩</span><h2>Forest Picture Puzzle</h2><p>點兩塊圖交換位置，慢慢拼出小鹿的風景。可看原圖，不限次重玩。</p><button id="openPuzzle">Make a Picture · 拼一張圖 ↗</button></article><article><span class="grove-icon">♫</span><h2>Little English Songs</h2><p>三首原創簡單英文節奏小歌，附中英歌詞。合成歌聲，可跟唱，也能單純聽。</p><button id="goSongs">Just Listen · 聽歌放鬆 ↓</button></article></div>
-<div id="songCorner" class="song-corner"><div class="song-heading"><span class="eyebrow">LITTLE ENGLISH SONGS</span><h2>Sing a little. Smile a little.</h2><p>點播放才會出聲；歌曲可跨頁繼續聽。聽題目、錄音或玩遊戲時會暫停，結束後再繼續。</p></div><label class="filter-label">Choose a Song · 選首小歌<select id="songSelect"></select></label><audio id="songPlayer" controls preload="none"></audio><div class="song-tools"><button id="previousSong">← Previous · 上一首</button><button id="nextSong">Next · 下一首 →</button><label><input id="songLoop" type="checkbox"> Loop · 單曲循環</label></div><p id="songStatus" role="status">按播放器的 ▶ 開始。原創旋律與歌詞，使用合成歌聲。</p><div id="songLyrics" class="song-lyrics"></div><details class="source-note"><summary>Music Credits · 音樂與授權</summary><p>三首小歌的旋律、歌詞與伴奏均為本作品原創，歌聲以本機語音合成與音高／節奏處理製作，並非真人演唱。可用於本站公開播放與 YouTube 示範影片。<a href="https://luckydeer3776.github.io/little-deer-english-trail/AUDIO-CREDITS.md" target="_blank" rel="noopener">來源與授權紀錄</a></p></details></div>
+<div class="grove-cards"><article><span class="grove-icon">🐟</span><h2>Little Fish Pond</h2><p>用滑鼠、觸控或鍵盤撈魚。不計時，輕鬆收集五條小魚。</p><button id="openFish">Catch Some Fish · 去撈魚 ↗</button></article><article><span class="grove-icon">🧩</span><h2>Forest Picture Puzzle</h2><p>點兩塊圖交換位置，慢慢拼出小鹿的風景。可看原圖，不限次重玩。</p><button id="openPuzzle">Make a Picture · 拼一張圖 ↗</button></article><article><span class="grove-icon">♫</span><h2>Songs & Stories</h2><p>依程度挑選 YouTube 兒歌、知名歌手與小故事。也能聽原創小歌。</p><button id="goSongs">Watch & Listen · 選支影片 ↓</button></article></div>
+<div id="videoCorner" class="video-corner"><div class="video-heading"><span class="eyebrow">YOUTUBE PICKS FOR YOUR LEVEL</span><h2>Songs & Little Stories</h2><p>兒歌、知名歌手、小故事與短片，依自己的程度挑一支。只想放鬆聽也可以，不會要求作答或設定完成日期。</p></div>
+<div class="video-filters"><label>Level · 建議程度<select id="videoLevel" aria-label="影片建議程度"></select></label><label>Type · 影片類型<select id="videoKind" aria-label="影片類型"><option value="all">All Videos · 全部影片</option><option value="song">Songs · 英文歌</option><option value="story">Stories & Shorts · 故事與短片</option></select></label><button id="matchVideoTrail">Match My Trail · 依目前步道</button></div>
+<p id="videoCount" class="level-progress" role="status"></p><div id="videoCards" class="video-cards"></div><p class="video-guidance">程度是本站的練習建議，依句型、語速與觀看任務安排，並非影片的官方英檢分級。覺得吃力時，可換簡單一級；若影片有 CC，可開英文字幕或調慢速度。</p>
+<p id="externalMediaNotice" hidden role="status">已暫停本站音樂，避免與 YouTube 重疊。回到這個分頁會恢復原本的背景音樂設定。<button id="resumeSiteAudio">Resume Site Audio · 恢復本站聲音</button></p><div class="video-footer"><p>點連結會在 YouTube 新分頁開啟；字幕及播放情況依 YouTube 提供。</p><button id="goOriginalSongs">Original Sing-alongs · 原創小歌 ↓</button></div></div><div id="songCorner" class="song-corner"><div class="song-heading"><span class="eyebrow">ORIGINAL SING-ALONGS · 合成歌聲</span><h2>Sing a little. Smile a little.</h2><p>點播放才會出聲；歌曲可跨頁繼續聽。聽題目、錄音或玩遊戲時會暫停，結束後再繼續。</p></div><label class="filter-label">Choose a Song · 選首小歌<select id="songSelect"></select></label><audio id="songPlayer" controls preload="none"></audio><div class="song-tools"><button id="previousSong">← Previous · 上一首</button><button id="nextSong">Next · 下一首 →</button><label><input id="songLoop" type="checkbox"> Loop · 單曲循環</label></div><p id="songStatus" role="status">按播放器的 ▶ 開始。原創旋律與歌詞，使用合成歌聲。</p><div id="songLyrics" class="song-lyrics"></div><details class="source-note"><summary>Music Credits · 音樂與授權</summary><p>三首小歌的旋律、歌詞與伴奏均為本作品原創，歌聲以本機語音合成與音高／節奏處理製作，並非真人演唱。可用於本站公開播放與 YouTube 示範影片。<a href="https://luckydeer3776.github.io/little-deer-english-trail/AUDIO-CREDITS.md" target="_blank" rel="noopener">來源與授權紀錄</a></p></details></div>
 <button id="groveBackMap" class="primary">Back to the Trail · 回到步道 ↗</button>
 </section></main><footer><span>♧ LITTLE DEER ENGLISH TRAIL</span><div>進度保存在這個瀏覽器 <button id="export">Export JSON 匯出</button><label class="file-label">Import JSON 匯入<input id="import" type="file" accept="application/json,.json"></label></div><p id="storageNotice" role="status"></p></footer>
 <dialog id="lesson"><button id="close" class="close" aria-label="關閉教材">×</button><span class="eyebrow">PRACTICE · AT YOUR OWN PACE</span><h2 id="lessonTitle"></h2><p id="taskMeta" class="task-meta"></p><div id="taskVisual"></div><div id="passage" class="passage" hidden></div><button id="flip" class="flashcard" aria-label="翻面看中文"><span id="phraseText"></span><small>↻ Tap to flip · 點一下翻面</small></button><button id="lessonMusic" aria-pressed="false">♫ Music Off</button><button id="lessonSongStop" hidden>■ Stop Song · 停止歌曲</button><button id="listen">▶ Listen · 聽美式英文</button><p id="audioStatus" role="status"></p><p id="context"></p><h3 id="question"></h3><div id="options"></div>
@@ -1514,8 +1519,8 @@ $('#stopRecord').onclick=()=>{if(recorder?.state==='recording')recorder.stop()};
 function closeLesson(){stopSpeech();cleanupRecording();$('#lesson').close()}
 function renderLibrary(){const q=$('#search').value.toLocaleLowerCase().trim();const list=lessons.filter(l=>records[l.id]&&(l.en+' '+l.zh+' '+l.context+' '+l.title+' '+LEVELS[l.level].zh).toLocaleLowerCase().includes(q)).sort((a,b)=>($('#sort').value==='old'?1:-1)*(Date.parse(records[a.id].completedAt)-Date.parse(records[b.id].completedAt)));$('#phrases').replaceChildren();if(!list.length)$('#phrases').append(element('p',q?'找不到符合的句子。':'Your trail starts here. 完成練習，收藏第一句英文。'));for(const l of list){const article=element('article',undefined,'phrase-entry');article.append(element('small',day(new Date(records[l.id].completedAt))+' · '+LEVELS[l.level].zh+(records[l.id].method==='self-review'?' · 自評練習':' · Completed')),element('h2',l.en),element('p',l.zh),element('p',l.context));const listen=element('button','▶ Listen');listen.onclick=()=>speak(l.en);const practice=element('button','Practice · 再練習');practice.onclick=()=>openLesson(l);article.append(listen,practice);$('#phrases').append(article)}}
 // Original instrumental loop, synthesized locally; no recordings or external audio assets.
-function initAudio(){if(audio)return;const AC=window.AudioContext||window.webkitAudioContext;if(!AC)throw Error('audio unavailable');audio=new AC();master=audio.createGain();master.gain.value=0;master.connect(audio.destination);let beat=0;const melody=[72,76,79,76,74,77,81,77,71,74,79,74,72,76,79,83];function tick(){if(audio.state==='running'&&musicOn&&!speaking&&!recordingActive&&$('#recording').paused&&!window.TrailLeisure?.isSongPlaying()){const start=audio.currentTime;const play=(note,duration,volume,type)=>{const osc=audio.createOscillator(),gain=audio.createGain();osc.type=type;osc.frequency.value=440*2**((note-69)/12);gain.gain.setValueAtTime(0,start);gain.gain.linearRampToValueAtTime(volume,start+.025);gain.gain.exponentialRampToValueAtTime(.0001,start+duration);osc.connect(gain);gain.connect(master);osc.start(start);osc.stop(start+duration+.02)};play(melody[beat%16],.48,.22,'sine');if(beat%4===0)play([48,53,55,48][Math.floor(beat/4)%4],1.5,.17,'triangle');beat++}}timer=setInterval(tick,360);tick()}
-function updateMusic(){window.TrailLeisure?.syncAudio();if(master)master.gain.setTargetAtTime(musicOn&&!speaking&&!recordingActive&&$('#recording').paused&&!window.TrailLeisure?.isSongPlaying()?.12:0,audio.currentTime,.025);$('#music').textContent=musicOn?'♫ Music On':'♫ Music Off';$('#music').setAttribute('aria-pressed',String(musicOn));$('#lessonMusic').textContent=$('#music').textContent;$('#lessonMusic').setAttribute('aria-pressed',String(musicOn));$('#restMusic').textContent=$('#music').textContent;$('#restMusic').setAttribute('aria-pressed',String(musicOn))}
+function initAudio(){if(audio)return;const AC=window.AudioContext||window.webkitAudioContext;if(!AC)throw Error('audio unavailable');audio=new AC();master=audio.createGain();master.gain.value=0;master.connect(audio.destination);let beat=0;const melody=[72,76,79,76,74,77,81,77,71,74,79,74,72,76,79,83];function tick(){if(audio.state==='running'&&musicOn&&!speaking&&!recordingActive&&$('#recording').paused&&!window.TrailLeisure?.isSongPlaying()&&!window.TrailLeisure?.externalAudioPaused()){const start=audio.currentTime;const play=(note,duration,volume,type)=>{const osc=audio.createOscillator(),gain=audio.createGain();osc.type=type;osc.frequency.value=440*2**((note-69)/12);gain.gain.setValueAtTime(0,start);gain.gain.linearRampToValueAtTime(volume,start+.025);gain.gain.exponentialRampToValueAtTime(.0001,start+duration);osc.connect(gain);gain.connect(master);osc.start(start);osc.stop(start+duration+.02)};play(melody[beat%16],.48,.22,'sine');if(beat%4===0)play([48,53,55,48][Math.floor(beat/4)%4],1.5,.17,'triangle');beat++}}timer=setInterval(tick,360);tick()}
+function updateMusic(){window.TrailLeisure?.syncAudio();if(master)master.gain.setTargetAtTime(musicOn&&!speaking&&!recordingActive&&$('#recording').paused&&!window.TrailLeisure?.isSongPlaying()&&!window.TrailLeisure?.externalAudioPaused()?.12:0,audio.currentTime,.025);$('#music').textContent=musicOn?'♫ Music On':'♫ Music Off';$('#music').setAttribute('aria-pressed',String(musicOn));$('#lessonMusic').textContent=$('#music').textContent;$('#lessonMusic').setAttribute('aria-pressed',String(musicOn));$('#restMusic').textContent=$('#music').textContent;$('#restMusic').setAttribute('aria-pressed',String(musicOn))}
 $('#music').onclick=async()=>{musicOn=!musicOn;try{if(musicOn){initAudio();await audio.resume()}updateMusic()}catch{musicOn=false;updateMusic();notice('音樂無法播放，仍可繼續學習。')}};
 $('#lessonMusic').onclick=()=>$('#music').onclick();
 function stopSpeech(refresh=true){speechSerial++;clearTimeout(speechTimer);if('speechSynthesis'in window)speechSynthesis.cancel();speaking=false;if(refresh)updateMusic()}
@@ -1526,19 +1531,232 @@ function refreshDate(){const next=day();if(next!==today){today=next;renderMap();
 setInterval(refreshDate,15000);document.addEventListener('visibilitychange',()=>{if(!document.hidden){refreshDate();if(musicOn&&audio)audio.resume().catch(()=>{})}});window.addEventListener('focus',refreshDate);window.addEventListener('storage',e=>{if(e.key===KEY){try{merge(JSON.parse(e.newValue||'{"records":[]}').records||[]);renderMap();if(page==='libraryPage')renderLibrary();if(page==='examPage')renderExam()}catch{}}});
 $('#export').onclick=()=>{const blob=new Blob([JSON.stringify({app:'Little Deer English Trail',version:1,records:Object.values(records),drafts},null,2)],{type:'application/json'});const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='little-deer-'+day()+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),2000);notice('備份已匯出（完成紀錄與文字草稿；不包含錄音）。')};$('#import').onchange=async e=>{const f=e.target.files[0];if(!f)return;try{if(f.size>2e6)throw Error();const data=JSON.parse(await f.text());if(data.version!==1||!Array.isArray(data.records))throw Error();const count=merge(data.records);mergeDrafts(data.drafts);save();renderMap();if(page==='libraryPage')renderLibrary();if(page==='examPage')renderExam();notice(`已合併 ${count} 筆紀錄；重複與無效紀錄已略過。既有草稿保留。`)}catch{notice('匯入失敗：請選擇有效的版本 1 JSON 備份（小於 2 MB）。')}e.target.value=''};
 refreshTypes();renderMap();
+</script><script>// External official-channel links only; suggested study levels are editorial, not official ratings.
+window.TRAIL_VIDEOS = [
+  {
+    "id": "yt-hello",
+    "kind": "song",
+    "levels": [
+      "foundation",
+      "elementary"
+    ],
+    "title": "Hello!",
+    "zh": "打招呼與心情兒歌",
+    "creator": "Super Simple Songs",
+    "url": "https://www.youtube.com/watch?v=tVlcKp3bWH8",
+    "source": "https://supersimple.com/song/hello/",
+    "why": "句子短、重複多，適合先熟悉問候與心情。",
+    "tip": "先完整聽一次；第二次只跟唱問候的部分，不必一次學會全部。",
+    "accent": "北美英語歌唱",
+    "checkedOn": "2026-11-07"
+  },
+  {
+    "id": "yt-one-finger",
+    "kind": "song",
+    "levels": [
+      "foundation"
+    ],
+    "title": "One Little Finger",
+    "zh": "身體部位與動作兒歌",
+    "creator": "Super Simple Songs",
+    "url": "https://www.youtube.com/watch?v=EqVHR2vIwIE",
+    "source": "https://supersimple.com/song/one-little-finger/",
+    "why": "用身體動作配合常見單字，起步時也能跟得上。",
+    "tip": "邊聽邊指身體部位；這次只記兩個新字就好。",
+    "accent": "北美英語歌唱",
+    "checkedOn": "2026-11-07"
+  },
+  {
+    "id": "yt-voa-welcome",
+    "kind": "story",
+    "levels": [
+      "foundation",
+      "elementary"
+    ],
+    "title": "Let’s Learn English — Welcome!",
+    "zh": "生活小短劇：初次見面",
+    "creator": "VOA Learning English",
+    "url": "https://www.youtube.com/watch?v=WR9_nsLyaEY",
+    "source": "https://learningenglish.voanews.com/a/lets-learn-english-lesson-one/3111026.html",
+    "why": "以生活情境介紹人物與問候，適合練慢速美式英文。",
+    "tip": "先看人物在做什麼，再重播一小段，模仿一句自我介紹。",
+    "accent": "美式英語",
+    "checkedOn": "2026-11-07"
+  },
+  {
+    "id": "yt-jungle",
+    "kind": "song",
+    "levels": [
+      "elementary"
+    ],
+    "title": "Walking in the Jungle",
+    "zh": "動物、數字與動作兒歌",
+    "creator": "Super Simple Songs",
+    "url": "https://www.youtube.com/watch?v=GoSq-yZcJ-4",
+    "source": "https://supersimple.com/song/walking-in-the-jungle/",
+    "why": "重複的動作與數數句型，搭配圖像比較容易理解。",
+    "tip": "挑一段跟著動一動，再用自己的話說出看到的動物。",
+    "accent": "北美英語歌唱",
+    "checkedOn": "2026-11-07"
+  },
+  {
+    "id": "yt-lion-mouse",
+    "kind": "story",
+    "levels": [
+      "elementary"
+    ],
+    "title": "The Lion and the Mouse",
+    "zh": "獅子與老鼠：互相幫忙的小故事",
+    "creator": "English Singsing",
+    "url": "https://www.youtube.com/watch?v=z46K8WqBFnw",
+    "source": "https://www.youtube.com/watch?v=z46K8WqBFnw",
+    "why": "角色與情節清楚，另有跟讀段落，適合從短句進入故事。",
+    "tip": "先看約前兩分鐘的故事段；想跟讀時再看後面的練習。",
+    "accent": "美式英語配音",
+    "checkedOn": "2026-11-07"
+  },
+  {
+    "id": "yt-count-on-me",
+    "kind": "song",
+    "levels": [
+      "intermediate"
+    ],
+    "title": "Count on Me",
+    "zh": "朋友之間的支持與陪伴",
+    "creator": "Bruno Mars",
+    "url": "https://www.youtube.com/watch?v=6k8cpUkKK4c",
+    "source": "https://www.youtube.com/watch?v=6k8cpUkKK4c",
+    "why": "旋律親切、主題具體；可練條件句與表達支持。",
+    "tip": "使用官方歌詞影片，先抓副歌意思，再挑一句適合朋友間使用的表達。",
+    "accent": "美式英語歌唱",
+    "checkedOn": "2026-11-07"
+  },
+  {
+    "id": "yt-harry",
+    "kind": "story",
+    "levels": [
+      "intermediate"
+    ],
+    "title": "Harry the Dirty Dog",
+    "zh": "不愛洗澡的小狗冒險",
+    "creator": "Storyline Online · Betty White",
+    "url": "https://www.youtube.com/watch?v=7j0OY3236jw",
+    "source": "https://storylineonline.net/books/harry-the-dirty-dog/",
+    "why": "有畫面支援的真人朗讀，適合練事件順序與過去式。",
+    "tip": "先看一小段，再說出小狗去了哪裡、發生什麼事；不必逐字翻譯。",
+    "accent": "美式英語朗讀",
+    "checkedOn": "2026-11-07"
+  },
+  {
+    "id": "yt-wonderful-world",
+    "kind": "song",
+    "levels": [
+      "upper"
+    ],
+    "title": "What a Wonderful World",
+    "zh": "用歌欣賞身邊的世界",
+    "creator": "Louis Armstrong",
+    "url": "https://www.youtube.com/watch?v=rBrd_3VMC3c",
+    "source": "https://www.ververecords.com/video/louis-armstrong-what-a-wonderful-world-official-video/",
+    "why": "字面並不全難，但獨特唱腔、連音與隱含情感值得細聽。",
+    "tip": "先找出描述景物的意象；再用三句英文描述今天讓你開心的事。",
+    "accent": "美式英語歌唱／獨特唱腔",
+    "checkedOn": "2026-11-07"
+  },
+  {
+    "id": "yt-icarus",
+    "kind": "story",
+    "levels": [
+      "upper"
+    ],
+    "title": "The Myth of Icarus and Daedalus",
+    "zh": "伊卡洛斯與代達羅斯的神話",
+    "creator": "TED-Ed · Amy Adkins",
+    "url": "https://www.youtube.com/watch?v=3s2QPQnuaGk",
+    "source": "https://ed.ted.com/lessons/the-myth-of-icarus-and-daedalus-amy-adkins",
+    "why": "完整的短篇敘事，能練原因、結果、人物動機與寓意。",
+    "tip": "人名先不用背；先用起因、選擇、結果三個重點重述故事。",
+    "accent": "美式英語敘事",
+    "checkedOn": "2026-11-07"
+  },
+  {
+    "id": "yt-sound-silence",
+    "kind": "song",
+    "levels": [
+      "advanced"
+    ],
+    "title": "The Sound of Silence",
+    "zh": "在意象與比喻中聽懂情感",
+    "creator": "Simon & Garfunkel",
+    "url": "https://www.youtube.com/watch?v=NAEppFUWLfc",
+    "source": "https://www.youtube.com/watch?v=NAEppFUWLfc",
+    "why": "現場演唱搭配抽象意象，適合分析語氣、隱喻與主題。",
+    "tip": "先單純聽一遍，再挑一個意象，用英文提出自己的解讀。",
+    "accent": "美式英語現場演唱",
+    "checkedOn": "2026-11-07"
+  },
+  {
+    "id": "yt-bilingual-brain",
+    "kind": "film",
+    "levels": [
+      "advanced"
+    ],
+    "title": "The Benefits of a Bilingual Brain",
+    "zh": "語言與大腦：動畫知識短片",
+    "creator": "TED-Ed · Mia Nacamulli",
+    "url": "https://www.youtube.com/watch?v=MMmOLN5zBLY",
+    "source": "https://ed.ted.com/lessons/how-speaking-multiple-languages-benefits-the-brain-mia-nacamulli",
+    "why": "從生活語言延伸到學術詞彙、分類與論述，適合進階聽力。",
+    "tip": "先抓影片的主要分類，再以自己的話摘要；也可記下一個想進一步了解的問題。",
+    "accent": "英語專業敘事",
+    "checkedOn": "2026-11-07"
+  },
+  {
+    "id": "yt-times-changing",
+    "kind": "song",
+    "levels": [
+      "superior"
+    ],
+    "title": "The Times They Are A-Changin’",
+    "zh": "在歌曲中讀出時代與修辭",
+    "creator": "Bob Dylan",
+    "url": "https://www.youtube.com/watch?v=90WD_ats6eE",
+    "source": "https://www.youtube.com/watch?v=90WD_ats6eE",
+    "why": "省略語、特殊唱腔與修辭較多，適合文化脈絡和立場分析的延伸練習。",
+    "tip": "先享受旋律，再比較歌曲如何對不同聽眾說話；可用英文討論它的說服方式。",
+    "accent": "美式英語歌唱／民謠唱腔",
+    "checkedOn": "2026-11-07"
+  },
+  {
+    "id": "yt-single-story",
+    "kind": "film",
+    "levels": [
+      "superior"
+    ],
+    "title": "The Danger of a Single Story",
+    "zh": "個人故事如何改變我們看世界的方式",
+    "creator": "TED · Chimamanda Ngozi Adichie",
+    "url": "https://www.youtube.com/watch?v=D9Ihs241zeg",
+    "source": "https://www.ted.com/talks/chimamanda_ngozi_adichie_the_danger_of_a_single_story",
+    "why": "自然語速的個人敘事與論述，適合分析觀點、例證和文化假設。",
+    "tip": "完整演講較長，可先看前三分鐘，再逐段整理例子與主張，最後提出一個不同觀點。",
+    "accent": "奈及利亞英語／自然語速",
+    "checkedOn": "2026-11-07"
+  }
+];
 </script><script>'use strict';
 (()=>{
-  const kinds={fish:{title:'Little Fish Pond',zh:'撈魚小池塘',icon:'🐟'},puzzle:{title:'Forest Picture Puzzle',zh:'森林拼圖',icon:'🧩'},songs:{title:'Little English Songs',zh:'英文小歌',icon:'♫'}};
+  const kinds={fish:{title:'Little Fish Pond',zh:'撈魚小池塘',icon:'🐟'},puzzle:{title:'Forest Picture Puzzle',zh:'森林拼圖',icon:'🧩'},songs:{title:'Songs & Stories',zh:'歌曲與故事',icon:'♫'}};
   const shuffled=values=>{const a=[...values];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
   const randomKind=()=>Object.keys(kinds)[Math.floor(Math.random()*3)];
   let stats={fish:0,puzzle:0},plans={},sessionPracticed=new Set(),pendingBreak=null,activeGame=null;
   try{const s=JSON.parse(localStorage.getItem('little-deer-rest-v1')||'{}');for(const k of ['fish','puzzle'])if(Number.isSafeInteger(s[k])&&s[k]>=0)stats[k]=s[k]}catch{}
   function saveStats(){try{localStorage.setItem('little-deer-rest-v1',JSON.stringify(stats))}catch{}renderHub()}
-  function renderHub(){$('#groveStats').textContent=`🐟 ${stats.fish} ponds · 🧩 ${stats.puzzle} pictures`;}
+  function renderHub(){$('#groveStats').textContent=`🐟 ${stats.fish} ponds · 🧩 ${stats.puzzle} pictures`;renderVideos()}
   function completed(id){if(sessionPracticed.has(id))return;sessionPracticed.add(id);if(sessionPracticed.size%3===0){pendingBreak=randomKind();renderInvitation()}}
   function renderInvitation(){const el=$('#breakInvitation');el.hidden=!pendingBreak;if(pendingBreak)$('#breakMessage').textContent=`已練習 ${sessionPracticed.size} 個不同站點。想去${kinds[pendingBreak].zh}休息一下嗎？也可繼續學習。`}
   function renderRestMarkers(){document.querySelectorAll('#trail .rest-stop').forEach(el=>el.remove());const list=mapLessons();if(!plans[mapLevel]){const p=[];let cycle=shuffled(Object.keys(kinds)),after=list.length<3?0:1+Math.floor(Math.random()*2);while(after<list.length-1){if(!cycle.length)cycle=shuffled(Object.keys(kinds));p.push({after,kind:cycle.pop()});after+=2+Math.floor(Math.random()*3)}plans[mapLevel]=p}for(const item of plans[mapLevel]){const a=point(item.after),b=point(item.after+1),el=element('button',undefined,'rest-stop');el.style.left=(a.x+b.x)/2+'%';el.style.top=(a.y+b.y)/2+'px';el.append(element('span',kinds[item.kind].icon+' '+kinds[item.kind].title),element('small','✦ Optional Break · 休息小站'));el.setAttribute('aria-label',kinds[item.kind].title+' · 可選休息小站');el.onclick=()=>openRest(item.kind);$('#trail').append(el)}renderInvitation()}
-  function openRest(kind){pendingBreak=null;renderInvitation();if(kind==='songs'){show('restPage');goSongs();return}if(moving)cancelTravel();stopSpeech();activeGame=kind;$('#restTitle').textContent=kinds[kind].title;$('#restInstructions').textContent=kind==='fish'?'點選游動的小魚，撈到五條就完成。沒有倒數，想停隨時停。':'先點一塊，再點另一塊交換位置，拼成完整風景。不必拖曳，也能用鍵盤操作。';$('#fishGame').hidden=kind!=='fish';$('#puzzleGame').hidden=kind!=='puzzle';if(kind==='fish')startFish();else startPuzzle();if(!$('#restDialog').open)$('#restDialog').showModal();updateMusic()}
+  function openRest(kind){pendingBreak=null;renderInvitation();if(kind==='songs'){show('restPage');goVideos(mapLevel);return}if(moving)cancelTravel();stopSpeech();activeGame=kind;$('#restTitle').textContent=kinds[kind].title;$('#restInstructions').textContent=kind==='fish'?'點選游動的小魚，撈到五條就完成。沒有倒數，想停隨時停。':'先點一塊，再點另一塊交換位置，拼成完整風景。不必拖曳，也能用鍵盤操作。';$('#fishGame').hidden=kind!=='fish';$('#puzzleGame').hidden=kind!=='puzzle';if(kind==='fish')startFish();else startPuzzle();if(!$('#restDialog').open)$('#restDialog').showModal();updateMusic()}
   function cleanupGames(){activeGame=null;$('#fishPond').replaceChildren();puzzleSelected=null;updateMusic()}
   function closeRest(){$('#restDialog').close();cleanupGames()}
   $('#restDialog').addEventListener('cancel',()=>{setTimeout(cleanupGames,0)});
@@ -1569,13 +1787,25 @@ refreshTypes();renderMap();
   function goSongs(){$('#songCorner').scrollIntoView({block:'start',behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});$('#songSelect').focus({preventScroll:true})}
   for(const s of songs){const o=element('option',s.title+' · '+s.zh);o.value=s.id;$('#songSelect').append(o)}
   song.volume=.6;
-  song.onplay=()=>{songWanted=true;$('#songStatus').textContent='♫ '+songs[songIndex].title+' · 可跟唱，也可以只聽。';updateMusic()};
+  song.onplay=()=>{externalWatch=false;$('#externalMediaNotice').hidden=true;songWanted=true;$('#songStatus').textContent='♫ '+songs[songIndex].title+' · 可跟唱，也可以只聽。';updateMusic()};
   song.onpause=()=>{if(autoPauses>0)autoPauses--;else{songWanted=false;$('#songStatus').textContent='已暫停。按 ▶ 可繼續。'}updateMusic()};
   song.onended=()=>{songWanted=false;$('#songStatus').textContent='✦ 小歌唱完了。可重播、換一首，或回到步道。';updateMusic()};
   song.onerror=()=>{songWanted=false;pauseAutomatically();$('#songStatus').textContent='歌曲暫時無法載入；可繼續閱讀歌詞、遊戲與學習。';updateMusic()};
   song.ontimeupdate=()=>{const index=songs[songIndex].lines.findIndex(l=>song.currentTime>=l.start&&song.currentTime<l.end);[...$('#songLyrics').children].forEach((el,i)=>{el.classList.toggle('current-line',index>=0&&index%4===i);if(index>=0&&index%4===i)el.setAttribute('aria-current','true');else el.removeAttribute('aria-current')})};
   $('#songSelect').onchange=()=>selectSong(songs.findIndex(s=>s.id===$('#songSelect').value),songWanted);$('#previousSong').onclick=()=>selectSong(songIndex-1,songWanted);$('#nextSong').onclick=()=>selectSong(songIndex+1,songWanted);$('#songLoop').onchange=()=>{song.loop=$('#songLoop').checked};function stopSong(){songWanted=false;song.pause();updateMusic()}$('#songNowPlaying').onclick=stopSong;$('#lessonSongStop').onclick=stopSong;
-  window.TrailLeisure={renderMap:renderRestMarkers,completed,renderHub,syncAudio,isSongPlaying};
+  // Editorial recommendations open at the original publisher, without embeds.
+  const videos=window.TRAIL_VIDEOS,levelCodes={foundation:'A1',elementary:'A2',intermediate:'B1',upper:'B2',advanced:'C1',superior:'C2'};
+  let videoFilterTouched=false,externalWatch=false;
+  const allLevels=element('option','All Levels · 全部程度');allLevels.value='all';$('#videoLevel').append(allLevels);
+  for(const [id,level] of Object.entries(LEVELS)){const o=element('option',level.en+' · '+level.zh+'（'+levelCodes[id]+'）');o.value=id;$('#videoLevel').append(o)}
+  $('#videoLevel').value=mapLevel;
+  function renderVideos(){const level=$('#videoLevel').value,kind=$('#videoKind').value,list=videos.filter(v=>(level==='all'||v.levels.includes(level))&&(kind==='all'||kind==='song'&&v.kind==='song'||kind==='story'&&v.kind!=='song'));$('#videoCards').replaceChildren();$('#videoCount').textContent=`${list.length} picks · ${level==='all'?'全部程度':LEVELS[level].zh+' '+levelCodes[level]} · 可單純欣賞，不必作答`;for(const v of list){const article=element('article',undefined,'video-card');const category=v.kind==='song'?'♫ Song · 英文歌':v.kind==='story'?'▻ Story · 小故事':'▻ Short Film / Talk · 短片與敘事';article.append(element('small',category,'video-kind'),element('h3',v.title),element('p',v.zh,'video-zh'),element('small',v.creator,'video-creator'),element('div',v.levels.map(l=>LEVELS[l].zh+' '+levelCodes[l]).join(' / '),'video-level'),element('p',v.why,'video-why'));const tip=element('p',undefined,'video-tip');tip.append(element('strong','Try This · 這樣聽看'),element('span',v.tip));article.append(tip,element('small',v.accent,'video-accent'));const watch=element('a','▶ Watch on YouTube · 開啟影片 ↗','video-watch');watch.href=v.url;watch.target='_blank';watch.rel='noopener noreferrer';watch.dataset.videoId=v.id;watch.onclick=prepareExternalVideo;article.append(watch);if(v.source!==v.url){const source=element('a','Publisher Page · 官方介紹 ↗','video-source');source.href=v.source;source.target='_blank';source.rel='noopener noreferrer';source.onclick=prepareExternalVideo;article.append(source)}$('#videoCards').append(article)}if(!list.length)$('#videoCards').append(element('p','這個篩選目前沒有影片，可改選全部類型或較簡單程度。'))}
+  function prepareExternalVideo(){stopSong();externalWatch=true;$('#externalMediaNotice').hidden=false;updateMusic()}
+  function resumeSiteAudio(){externalWatch=false;$('#externalMediaNotice').hidden=true;updateMusic()}
+  function goVideos(level){if(level&&LEVELS[level]){$('#videoLevel').value=level;videoFilterTouched=false}renderVideos();$('#videoCorner').scrollIntoView({block:'start',behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});$('#videoLevel').focus({preventScroll:true})}
+  $('#videoLevel').onchange=()=>{videoFilterTouched=true;renderVideos()};$('#videoKind').onchange=renderVideos;$('#matchVideoTrail').onclick=()=>goVideos(mapLevel);$('#goSongs').onclick=()=>goVideos(mapLevel);$('#goOriginalSongs').onclick=goSongs;$('#resumeSiteAudio').onclick=resumeSiteAudio;$('#restNav').onclick=()=>{if(!videoFilterTouched)$('#videoLevel').value=mapLevel;show('restPage')};window.addEventListener('focus',()=>{if(externalWatch)resumeSiteAudio()});
+
+  window.TrailLeisure={renderMap:renderRestMarkers,completed,renderHub,syncAudio,isSongPlaying,externalAudioPaused:()=>externalWatch};
   selectSong(0);renderHub();renderMap();
 })();
 </script></body></html>

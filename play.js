@@ -1,16 +1,16 @@
 'use strict';
 (()=>{
-  const kinds={fish:{title:'Little Fish Pond',zh:'撈魚小池塘',icon:'🐟'},puzzle:{title:'Forest Picture Puzzle',zh:'森林拼圖',icon:'🧩'},songs:{title:'Little English Songs',zh:'英文小歌',icon:'♫'}};
+  const kinds={fish:{title:'Little Fish Pond',zh:'撈魚小池塘',icon:'🐟'},puzzle:{title:'Forest Picture Puzzle',zh:'森林拼圖',icon:'🧩'},songs:{title:'Songs & Stories',zh:'歌曲與故事',icon:'♫'}};
   const shuffled=values=>{const a=[...values];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
   const randomKind=()=>Object.keys(kinds)[Math.floor(Math.random()*3)];
   let stats={fish:0,puzzle:0},plans={},sessionPracticed=new Set(),pendingBreak=null,activeGame=null;
   try{const s=JSON.parse(localStorage.getItem('little-deer-rest-v1')||'{}');for(const k of ['fish','puzzle'])if(Number.isSafeInteger(s[k])&&s[k]>=0)stats[k]=s[k]}catch{}
   function saveStats(){try{localStorage.setItem('little-deer-rest-v1',JSON.stringify(stats))}catch{}renderHub()}
-  function renderHub(){$('#groveStats').textContent=`🐟 ${stats.fish} ponds · 🧩 ${stats.puzzle} pictures`;}
+  function renderHub(){$('#groveStats').textContent=`🐟 ${stats.fish} ponds · 🧩 ${stats.puzzle} pictures`;renderVideos()}
   function completed(id){if(sessionPracticed.has(id))return;sessionPracticed.add(id);if(sessionPracticed.size%3===0){pendingBreak=randomKind();renderInvitation()}}
   function renderInvitation(){const el=$('#breakInvitation');el.hidden=!pendingBreak;if(pendingBreak)$('#breakMessage').textContent=`已練習 ${sessionPracticed.size} 個不同站點。想去${kinds[pendingBreak].zh}休息一下嗎？也可繼續學習。`}
   function renderRestMarkers(){document.querySelectorAll('#trail .rest-stop').forEach(el=>el.remove());const list=mapLessons();if(!plans[mapLevel]){const p=[];let cycle=shuffled(Object.keys(kinds)),after=list.length<3?0:1+Math.floor(Math.random()*2);while(after<list.length-1){if(!cycle.length)cycle=shuffled(Object.keys(kinds));p.push({after,kind:cycle.pop()});after+=2+Math.floor(Math.random()*3)}plans[mapLevel]=p}for(const item of plans[mapLevel]){const a=point(item.after),b=point(item.after+1),el=element('button',undefined,'rest-stop');el.style.left=(a.x+b.x)/2+'%';el.style.top=(a.y+b.y)/2+'px';el.append(element('span',kinds[item.kind].icon+' '+kinds[item.kind].title),element('small','✦ Optional Break · 休息小站'));el.setAttribute('aria-label',kinds[item.kind].title+' · 可選休息小站');el.onclick=()=>openRest(item.kind);$('#trail').append(el)}renderInvitation()}
-  function openRest(kind){pendingBreak=null;renderInvitation();if(kind==='songs'){show('restPage');goSongs();return}if(moving)cancelTravel();stopSpeech();activeGame=kind;$('#restTitle').textContent=kinds[kind].title;$('#restInstructions').textContent=kind==='fish'?'點選游動的小魚，撈到五條就完成。沒有倒數，想停隨時停。':'先點一塊，再點另一塊交換位置，拼成完整風景。不必拖曳，也能用鍵盤操作。';$('#fishGame').hidden=kind!=='fish';$('#puzzleGame').hidden=kind!=='puzzle';if(kind==='fish')startFish();else startPuzzle();if(!$('#restDialog').open)$('#restDialog').showModal();updateMusic()}
+  function openRest(kind){pendingBreak=null;renderInvitation();if(kind==='songs'){show('restPage');goVideos(mapLevel);return}if(moving)cancelTravel();stopSpeech();activeGame=kind;$('#restTitle').textContent=kinds[kind].title;$('#restInstructions').textContent=kind==='fish'?'點選游動的小魚，撈到五條就完成。沒有倒數，想停隨時停。':'先點一塊，再點另一塊交換位置，拼成完整風景。不必拖曳，也能用鍵盤操作。';$('#fishGame').hidden=kind!=='fish';$('#puzzleGame').hidden=kind!=='puzzle';if(kind==='fish')startFish();else startPuzzle();if(!$('#restDialog').open)$('#restDialog').showModal();updateMusic()}
   function cleanupGames(){activeGame=null;$('#fishPond').replaceChildren();puzzleSelected=null;updateMusic()}
   function closeRest(){$('#restDialog').close();cleanupGames()}
   $('#restDialog').addEventListener('cancel',()=>{setTimeout(cleanupGames,0)});
@@ -41,12 +41,24 @@
   function goSongs(){$('#songCorner').scrollIntoView({block:'start',behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});$('#songSelect').focus({preventScroll:true})}
   for(const s of songs){const o=element('option',s.title+' · '+s.zh);o.value=s.id;$('#songSelect').append(o)}
   song.volume=.6;
-  song.onplay=()=>{songWanted=true;$('#songStatus').textContent='♫ '+songs[songIndex].title+' · 可跟唱，也可以只聽。';updateMusic()};
+  song.onplay=()=>{externalWatch=false;$('#externalMediaNotice').hidden=true;songWanted=true;$('#songStatus').textContent='♫ '+songs[songIndex].title+' · 可跟唱，也可以只聽。';updateMusic()};
   song.onpause=()=>{if(autoPauses>0)autoPauses--;else{songWanted=false;$('#songStatus').textContent='已暫停。按 ▶ 可繼續。'}updateMusic()};
   song.onended=()=>{songWanted=false;$('#songStatus').textContent='✦ 小歌唱完了。可重播、換一首，或回到步道。';updateMusic()};
   song.onerror=()=>{songWanted=false;pauseAutomatically();$('#songStatus').textContent='歌曲暫時無法載入；可繼續閱讀歌詞、遊戲與學習。';updateMusic()};
   song.ontimeupdate=()=>{const index=songs[songIndex].lines.findIndex(l=>song.currentTime>=l.start&&song.currentTime<l.end);[...$('#songLyrics').children].forEach((el,i)=>{el.classList.toggle('current-line',index>=0&&index%4===i);if(index>=0&&index%4===i)el.setAttribute('aria-current','true');else el.removeAttribute('aria-current')})};
   $('#songSelect').onchange=()=>selectSong(songs.findIndex(s=>s.id===$('#songSelect').value),songWanted);$('#previousSong').onclick=()=>selectSong(songIndex-1,songWanted);$('#nextSong').onclick=()=>selectSong(songIndex+1,songWanted);$('#songLoop').onchange=()=>{song.loop=$('#songLoop').checked};function stopSong(){songWanted=false;song.pause();updateMusic()}$('#songNowPlaying').onclick=stopSong;$('#lessonSongStop').onclick=stopSong;
-  window.TrailLeisure={renderMap:renderRestMarkers,completed,renderHub,syncAudio,isSongPlaying};
+  // Editorial recommendations open at the original publisher, without embeds.
+  const videos=window.TRAIL_VIDEOS,levelCodes={foundation:'A1',elementary:'A2',intermediate:'B1',upper:'B2',advanced:'C1',superior:'C2'};
+  let videoFilterTouched=false,externalWatch=false;
+  const allLevels=element('option','All Levels · 全部程度');allLevels.value='all';$('#videoLevel').append(allLevels);
+  for(const [id,level] of Object.entries(LEVELS)){const o=element('option',level.en+' · '+level.zh+'（'+levelCodes[id]+'）');o.value=id;$('#videoLevel').append(o)}
+  $('#videoLevel').value=mapLevel;
+  function renderVideos(){const level=$('#videoLevel').value,kind=$('#videoKind').value,list=videos.filter(v=>(level==='all'||v.levels.includes(level))&&(kind==='all'||kind==='song'&&v.kind==='song'||kind==='story'&&v.kind!=='song'));$('#videoCards').replaceChildren();$('#videoCount').textContent=`${list.length} picks · ${level==='all'?'全部程度':LEVELS[level].zh+' '+levelCodes[level]} · 可單純欣賞，不必作答`;for(const v of list){const article=element('article',undefined,'video-card');const category=v.kind==='song'?'♫ Song · 英文歌':v.kind==='story'?'▻ Story · 小故事':'▻ Short Film / Talk · 短片與敘事';article.append(element('small',category,'video-kind'),element('h3',v.title),element('p',v.zh,'video-zh'),element('small',v.creator,'video-creator'),element('div',v.levels.map(l=>LEVELS[l].zh+' '+levelCodes[l]).join(' / '),'video-level'),element('p',v.why,'video-why'));const tip=element('p',undefined,'video-tip');tip.append(element('strong','Try This · 這樣聽看'),element('span',v.tip));article.append(tip,element('small',v.accent,'video-accent'));const watch=element('a','▶ Watch on YouTube · 開啟影片 ↗','video-watch');watch.href=v.url;watch.target='_blank';watch.rel='noopener noreferrer';watch.dataset.videoId=v.id;watch.onclick=prepareExternalVideo;article.append(watch);if(v.source!==v.url){const source=element('a','Publisher Page · 官方介紹 ↗','video-source');source.href=v.source;source.target='_blank';source.rel='noopener noreferrer';source.onclick=prepareExternalVideo;article.append(source)}$('#videoCards').append(article)}if(!list.length)$('#videoCards').append(element('p','這個篩選目前沒有影片，可改選全部類型或較簡單程度。'))}
+  function prepareExternalVideo(){stopSong();externalWatch=true;$('#externalMediaNotice').hidden=false;updateMusic()}
+  function resumeSiteAudio(){externalWatch=false;$('#externalMediaNotice').hidden=true;updateMusic()}
+  function goVideos(level){if(level&&LEVELS[level]){$('#videoLevel').value=level;videoFilterTouched=false}renderVideos();$('#videoCorner').scrollIntoView({block:'start',behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});$('#videoLevel').focus({preventScroll:true})}
+  $('#videoLevel').onchange=()=>{videoFilterTouched=true;renderVideos()};$('#videoKind').onchange=renderVideos;$('#matchVideoTrail').onclick=()=>goVideos(mapLevel);$('#goSongs').onclick=()=>goVideos(mapLevel);$('#goOriginalSongs').onclick=goSongs;$('#resumeSiteAudio').onclick=resumeSiteAudio;$('#restNav').onclick=()=>{if(!videoFilterTouched)$('#videoLevel').value=mapLevel;show('restPage')};window.addEventListener('focus',()=>{if(externalWatch)resumeSiteAudio()});
+
+  window.TrailLeisure={renderMap:renderRestMarkers,completed,renderHub,syncAudio,isSongPlaying,externalAudioPaused:()=>externalWatch};
   selectSong(0);renderHub();renderMap();
 })();

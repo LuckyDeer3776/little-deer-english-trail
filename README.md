@@ -75,3 +75,11 @@ Songs may continue between website sections after the user starts playback. Back
 `play.js` manages rest markers, games and song coordination. `songs-data.js` contains song metadata, audio paths and bilingual lyric timings. MP3s are in `assets/audio/`; puzzle SVGs are in `assets/art/`. Add future songs using the same metadata schema, with a verified license and credits. Game win counts use the separate local key `little-deer-rest-v1`. They are independent from phrase completions and are not part of the learning JSON backup.
 
 The standalone HTML embeds the two puzzle images and three MP3s so it can play them without downloading adjacent files. This makes that optional file larger than the modular website.
+
+## Level-matched YouTube songs and stories
+
+The Songs & Little Stories section appears first in Play & Songs. It offers 13 external recommendations: nursery songs, well-known singers, story read-alouds, narrative animation and short talks. Filter by suggested level and song/story type, or match the current trail. Each card includes an original Traditional Chinese description, why it may suit that level, a listening tip, creator/accent information and a direct YouTube watch link. The six study groups correspond to the site's A1 foundation through superior-level extension activities; these are editorial recommendations, not official ratings.
+
+YouTube opens only after an explicit click in a new tab. No remote player, thumbnails or third-party media load while browsing the cards. Opening a video pauses local songs and temporarily mutes the site's instrumental music without changing the user's Music On preference. Returning focus restores the background setting; an explicit Resume Site Audio button is also available. Learning completions are unaffected.
+
+`videos-data.js` contains the recommendation data (`id`, `kind`, `levels`, `title`, `zh`, `creator`, `url`, `source`, `why`, `tip`, `accent`, `checkedOn`). Add verified official watch links and describe a realistic study activity. `MEDIA-SOURCES.md` records sources and verification limits. Only links are provided; external songs, lyrics, artwork and videos are not included in the project license or rehosted.

@@ -51,3 +51,11 @@ All three picture-listening tasks now display the complete English answer choice
 - Safari hardware remains pending: specifically verify MP3 controls/looping, resume after Web Speech and microphone interruptions, direct fish touch targets, puzzle taps and reduced-motion preference on a physical iPhone.
 
 Additional checks passed for automatic song interruption/resumption during synthetic-microphone capture and recorded-audio playback, Stop Song inside a lesson, map keyboard suppression behind a game, normal fish animation and continued answering after a forced MP3 load failure. Standalone embedded songs and puzzle art were verified over HTTP without separate asset requests. Direct file:// navigation could not be tested because the managed browser blocks that scheme by administrator policy.
+
+## Level-matched YouTube recommendations — local Chromium PASS
+
+- Catalog schema contained 13 unique recommendations with direct HTTPS YouTube watch URLs, valid 11-character video IDs, creator/source metadata and original study guidance. All six level groups provided both song and story/short-film choices. Level/type filters, All Levels and Match My Trail returned the expected cards.
+- Clicking a recommendation opened its direct watch URL in a new tab with noopener/noreferrer. No YouTube iframe, thumbnail or third-party media request occurred before a click. Popup content was stubbed in this test: external YouTube video playback is NOT claimed as verified; source checks and the environment's 403/throttling limits are recorded in MEDIA-SOURCES.md.
+- Opening an external viewing link paused the original local song and temporarily suppressed instrumental music while retaining the user's Music On preference. Resume Site Audio restored that preference. Learning completions remained unchanged.
+- The original song player remained reachable and playable. The rebuilt standalone included all 13 recommendation cards plus embedded original audio. Existing fish/puzzle/song tests passed after the new catalog was integrated.
+- Phone layout down to 320px and desktop layout passed with no horizontal page overflow or uncaught JavaScript errors. Safari hardware remains pending, especially new-tab focus return and media resume behavior.

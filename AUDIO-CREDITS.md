@@ -23,3 +23,7 @@ Official sources checked during production:
 - A copy of the official Flite notice is retained in FLITE-NOTICE.txt for acknowledgment and provenance; it does not replace this project's license for original compositions and mixes.
 
 All fish/puzzle illustrations are also original inline or local SVG artwork. Original synthesized background music from the first release remains separate from these vocal songs. Ordinary lesson Listen continues to use the device's en-US Web Speech voice.
+
+## External YouTube recommendations
+
+Songs & Little Stories adds official external viewing links, including nursery-song publishers and well-known artists. Those third-party recordings are not hosted, embedded, sampled or licensed under this project's original-music permission. See MEDIA-SOURCES.md for creator links, editorial level guidance and the separate rights scope.
