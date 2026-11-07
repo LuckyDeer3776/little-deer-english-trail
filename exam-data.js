@@ -9,14 +9,14 @@ window.EXAM_TASKS = [
     "en": "Can I bring you some water?",
     "zh": "我可以幫你拿些水嗎？",
     "context": "依題目情境練習，作答後可反覆重做。",
-    "question": "看圖，聽三個英文敘述，選出相符的選項。",
+    "question": "看圖，可先按 Listen 聽英文敘述，再點選與圖片相符的完整句子。",
     "mode": "choice",
     "hint": "留意人物正在做什麼。",
     "explain": "選出描述畫面中動作的句子；比較動作與物品。",
     "options": [
-      "A",
-      "B",
-      "C"
+      "A person is giving someone water.",
+      "A person is washing a car.",
+      "A person is closing a door."
     ],
     "answer": 0,
     "picture": "water",
@@ -31,14 +31,14 @@ window.EXAM_TASKS = [
     "en": "They are waiting for the bus.",
     "zh": "他們正在等公車。",
     "context": "依題目情境練習，作答後可反覆重做。",
-    "question": "看圖，聽三個英文敘述，選出相符的選項。",
+    "question": "看圖，可先按 Listen 聽英文敘述，再點選與圖片相符的完整句子。",
     "mode": "choice",
     "hint": "留意人物正在做什麼。",
     "explain": "選出描述畫面中動作的句子；比較動作與物品。",
     "options": [
-      "A",
-      "B",
-      "C"
+      "They are swimming.",
+      "They are waiting for the bus.",
+      "They are eating lunch."
     ],
     "answer": 1,
     "picture": "bus",
@@ -137,14 +137,14 @@ window.EXAM_TASKS = [
     "en": "Meet us at the bus stop.",
     "zh": "在公車站和我們會合。",
     "context": "依題目情境練習，作答後可反覆重做。",
-    "question": "聽短文和問題，選出正確圖片。",
+    "question": "聽短文和問題，點選正確的圖片作答。每張圖片下方都有英文選項。",
     "mode": "choice",
     "hint": "聽清楚問的是地點還是物品。",
     "explain": "將問題的重點與短文中的名詞配對。",
     "options": [
-      "A",
-      "B",
-      "C"
+      "A bottle of water",
+      "A bus stop",
+      "An open book"
     ],
     "answer": 1,
     "audio": "Meet us at the bus stop after lunch. We will take a bus to the museum. Question: Where should you meet us?",
@@ -163,14 +163,14 @@ window.EXAM_TASKS = [
     "en": "Please bring a bottle of water.",
     "zh": "請帶一瓶水。",
     "context": "依題目情境練習，作答後可反覆重做。",
-    "question": "聽短文和問題，選出正確圖片。",
+    "question": "聽短文和問題，點選正確的圖片作答。每張圖片下方都有英文選項。",
     "mode": "choice",
     "hint": "聽清楚問的是地點還是物品。",
     "explain": "將問題的重點與短文中的名詞配對。",
     "options": [
-      "A",
-      "B",
-      "C"
+      "A bottle of water",
+      "A bus stop",
+      "An open book"
     ],
     "answer": 0,
     "audio": "Please bring a bottle of water to the park. It will be a hot day. Question: What should you bring?",
@@ -564,15 +564,15 @@ window.EXAM_TASKS = [
     "en": "The bus has not arrived yet.",
     "zh": "公車還沒到。",
     "context": "依題目情境練習，作答後可反覆重做。",
-    "question": "看圖聽敘述，選出正確選項。",
+    "question": "看圖，可先按 Listen 聽英文敘述，再點選與圖片相符的完整句子。",
     "mode": "choice",
     "hint": "找出題目的關鍵資訊，再試一次。",
     "explain": "畫面中的人站在公車站旁等待。",
     "options": [
-      "A",
-      "B",
-      "C",
-      "D"
+      "The passengers are already on the bus.",
+      "The street is empty.",
+      "People are waiting beside the bus stop.",
+      "A woman is driving a car."
     ],
     "answer": 2,
     "picture": "bus",

@@ -4,6 +4,10 @@
 #examPage{padding-top:5px;min-height:70vh}.exam-intro{color:var(--muted);line-height:1.8}.exam-filters{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:26px 0}.exam-filters label,.filter-label{display:grid;gap:9px;font-size:13px}.exam-filters select,.filter-label select{width:100%}.study-summary{display:flex;align-items:center;justify-content:space-between;gap:20px;background:#e8eddd;border-radius:15px;padding:18px 22px;margin-bottom:25px}.study-summary p{line-height:1.8;max-width:650px;font-size:14px}.study-summary button{flex-shrink:0}#examTasks{display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:18px}.task-tile{border:1px solid #d6dfcb;border-radius:15px;padding:22px;background:#fffdf5;display:flex;flex-direction:column;align-items:flex-start}.task-tile h2{font-size:25px;margin:16px 0 10px}.task-tile p{font-size:13px;line-height:1.7;flex:1}.task-tile small{font-size:11px;color:#5a6b56}.task-tile button{width:100%;margin-top:10px}.source-note{border-top:1px solid #d6dfcb;margin:32px 0;padding:22px 0;font-size:13px;line-height:1.9}.source-note a{color:var(--ink)}summary{cursor:pointer;min-height:44px}.task-meta{font-size:12px;color:#657752;line-height:1.7}.passage{white-space:pre-wrap;padding:20px;background:#fffaf0;border-left:3px solid #83966f;border-radius:4px;font-size:15px;line-height:1.9;margin:20px 0;max-height:270px;overflow:auto}.task-picture{width:100%;max-height:200px;display:block;border-radius:12px;background:#e5eddb;margin:15px 0}.picture-options{display:flex;gap:8px}.picture-options figure{margin:0;flex:1}.picture-options figcaption{text-align:center;font-size:13px}.picture-options svg{height:100px}textarea{display:block;width:100%;padding:14px;border:1px solid #b9c7ab;border-radius:9px;background:#fffdf6;font:16px system-ui;color:var(--ink);line-height:1.6;resize:vertical;margin:10px 0}textarea:focus-visible{outline:3px solid var(--orange);outline-offset:2px}#writtenResponse,#spokenResponse{margin:20px 0}#recording{width:100%;margin-top:15px}.reference{border-radius:12px;background:#e7edda;padding:20px;margin:18px 0;white-space:pre-wrap;line-height:1.8;font-size:14px}#reviewChecks label{display:flex;align-items:flex-start;gap:10px;line-height:1.7;padding:10px 0;font-size:14px}#reviewChecks input{width:20px;height:20px;flex-shrink:0}#retry,#nextTask,#showReference{margin:8px 5px 8px 0}#completeReview{background:#e2eacb}#lesson{max-width:650px}.home-bottom{letter-spacing:.5px}#examNotice{font-size:13px}.filter-label{margin:20px 0}header nav{flex-wrap:wrap}.level-progress{font-size:12px;color:#5d7157}
 @media(max-width:700px){.exam-filters{grid-template-columns:1fr;gap:12px}.study-summary{display:block;padding:16px}.study-summary button{width:100%}.task-tile h2{font-size:24px}#examTasks{grid-template-columns:1fr}header{gap:10px}nav{max-width:215px}nav button{min-height:44px;font-size:10px}.filter-label{width:100%;margin:0}.map-layout aside .legend{columns:1}.map-layout aside{gap:12px}.task-picture{max-height:170px}.passage{font-size:14px}dialog{padding:20px}#lessonTitle{font-size:28px}}
 .secondary-start{display:block;margin-top:12px;border:0;padding-left:0;font-size:13px}.secondary-start:hover{background:transparent;text-decoration:underline}
+
+#options.picture-choice-options{grid-template-columns:repeat(3,minmax(0,1fr));align-items:stretch}#options .picture-choice{display:flex;flex-direction:column;padding:8px;align-items:stretch;text-align:center;min-width:0;gap:8px}#options .picture-choice .task-picture{height:100px;margin:0}#options .picture-choice span{font-size:13px;line-height:1.5}#options button{line-height:1.6}
+@media(max-width:420px){#options .picture-choice .task-picture{height:75px}#options .picture-choice span{font-size:11px}}
+#taskVisual>.task-picture{max-height:150px}
 </style></head><body>
 <header><a class="brand" href="#home">♧ <span>Little Deer<span class="brand-sub">ENGLISH TRAIL</span></span></a><nav><button id="mapNav">Learning Map</button><button id="examNav">GEPT Practice</button><button id="libraryNav">My Phrase Library</button><button id="music" aria-pressed="false">♫ Music Off</button></nav></header>
 <main>
@@ -46,14 +50,14 @@ window.EXAM_TASKS = [
     "en": "Can I bring you some water?",
     "zh": "我可以幫你拿些水嗎？",
     "context": "依題目情境練習，作答後可反覆重做。",
-    "question": "看圖，聽三個英文敘述，選出相符的選項。",
+    "question": "看圖，可先按 Listen 聽英文敘述，再點選與圖片相符的完整句子。",
     "mode": "choice",
     "hint": "留意人物正在做什麼。",
     "explain": "選出描述畫面中動作的句子；比較動作與物品。",
     "options": [
-      "A",
-      "B",
-      "C"
+      "A person is giving someone water.",
+      "A person is washing a car.",
+      "A person is closing a door."
     ],
     "answer": 0,
     "picture": "water",
@@ -68,14 +72,14 @@ window.EXAM_TASKS = [
     "en": "They are waiting for the bus.",
     "zh": "他們正在等公車。",
     "context": "依題目情境練習，作答後可反覆重做。",
-    "question": "看圖，聽三個英文敘述，選出相符的選項。",
+    "question": "看圖，可先按 Listen 聽英文敘述，再點選與圖片相符的完整句子。",
     "mode": "choice",
     "hint": "留意人物正在做什麼。",
     "explain": "選出描述畫面中動作的句子；比較動作與物品。",
     "options": [
-      "A",
-      "B",
-      "C"
+      "They are swimming.",
+      "They are waiting for the bus.",
+      "They are eating lunch."
     ],
     "answer": 1,
     "picture": "bus",
@@ -174,14 +178,14 @@ window.EXAM_TASKS = [
     "en": "Meet us at the bus stop.",
     "zh": "在公車站和我們會合。",
     "context": "依題目情境練習，作答後可反覆重做。",
-    "question": "聽短文和問題，選出正確圖片。",
+    "question": "聽短文和問題，點選正確的圖片作答。每張圖片下方都有英文選項。",
     "mode": "choice",
     "hint": "聽清楚問的是地點還是物品。",
     "explain": "將問題的重點與短文中的名詞配對。",
     "options": [
-      "A",
-      "B",
-      "C"
+      "A bottle of water",
+      "A bus stop",
+      "An open book"
     ],
     "answer": 1,
     "audio": "Meet us at the bus stop after lunch. We will take a bus to the museum. Question: Where should you meet us?",
@@ -200,14 +204,14 @@ window.EXAM_TASKS = [
     "en": "Please bring a bottle of water.",
     "zh": "請帶一瓶水。",
     "context": "依題目情境練習，作答後可反覆重做。",
-    "question": "聽短文和問題，選出正確圖片。",
+    "question": "聽短文和問題，點選正確的圖片作答。每張圖片下方都有英文選項。",
     "mode": "choice",
     "hint": "聽清楚問的是地點還是物品。",
     "explain": "將問題的重點與短文中的名詞配對。",
     "options": [
-      "A",
-      "B",
-      "C"
+      "A bottle of water",
+      "A bus stop",
+      "An open book"
     ],
     "answer": 0,
     "audio": "Please bring a bottle of water to the park. It will be a hot day. Question: What should you bring?",
@@ -601,15 +605,15 @@ window.EXAM_TASKS = [
     "en": "The bus has not arrived yet.",
     "zh": "公車還沒到。",
     "context": "依題目情境練習，作答後可反覆重做。",
-    "question": "看圖聽敘述，選出正確選項。",
+    "question": "看圖，可先按 Listen 聽英文敘述，再點選與圖片相符的完整句子。",
     "mode": "choice",
     "hint": "找出題目的關鍵資訊，再試一次。",
     "explain": "畫面中的人站在公車站旁等待。",
     "options": [
-      "A",
-      "B",
-      "C",
-      "D"
+      "The passengers are already on the bus.",
+      "The street is empty.",
+      "People are waiting beside the bus stop.",
+      "A woman is driving a car."
     ],
     "answer": 2,
     "picture": "bus",
@@ -1308,7 +1312,7 @@ function picture(scene){const svg=document.createElementNS('http://www.w3.org/20
 function cleanupRecording(){recordSerial++;clearTimeout(recordLimit);if(recorder&&recorder.state!=='inactive')recorder.stop();if(mediaStream)mediaStream.getTracks().forEach(t=>t.stop());mediaStream=null;recorder=null;recordingActive=false;recorded=false;$('#recording').pause();$('#recording').removeAttribute('src');$('#recording').hidden=true;if(recordURL)URL.revokeObjectURL(recordURL);recordURL=null;$('#record').disabled=false;$('#stopRecord').hidden=true;updateMusic()}
 function wordCount(text){return(text.match(/[A-Za-z]+(?:['’-][A-Za-z]+)*/g)||[]).length}
 function saveDraft(text){if(current){drafts[current.id]=text.slice(0,40000);save()}}
-function openLesson(l){stopSpeech();cleanupRecording();current=l;flipped=false;attempted=false;submitted=false;reviewReady=false;$('#lessonTitle').textContent=l.title;$('#taskMeta').textContent=LEVELS[l.level].en+' · '+LEVELS[l.level].zh+' / '+(TYPES[l.type]||SKILLS[l.skill]);$('#phraseText').textContent=l.en;$('#flip').hidden=l.level!=='foundation';$('#taskVisual').replaceChildren();if(l.picture)$('#taskVisual').append(picture(l.picture));if(l.pictureOptions){const row=element('div',undefined,'picture-options');l.pictureOptions.forEach((scene,i)=>{const fig=element('figure');fig.append(picture(scene),element('figcaption',String.fromCharCode(65+i)));row.append(fig)});$('#taskVisual').append(row)}$('#passage').hidden=!l.passage;$('#passage').textContent=l.passage||'';$('#context').textContent='情境 · '+l.context;$('#question').textContent=l.question;$('#feedback').textContent=l.mode==='choice'?'選一個答案試試看；答錯可不限次重試。':l.mode==='text'?'輸入完整句子後核對，可不限次重試。':'完成作答後，對照參考範例並自評。';$('#audioStatus').textContent='';$('#listen').hidden=l.skill==='reading'||l.skill==='writing'&&!l.audio;$('#listen').textContent=l.audio?'▶ Listen to Prompt · 聽題目':'▶ Listen · 聽美式英文';$('#backMap').hidden=true;$('#nextTask').hidden=true;$('#retry').hidden=true;$('#showReference').hidden=true;$('#reference').hidden=true;$('#reference').textContent='';$('#selfReview').hidden=true;$('#reviewChecks').replaceChildren();$('#options').replaceChildren();$('#writtenResponse').hidden=!['text','open'].includes(l.mode);$('#spokenResponse').hidden=l.mode!=='speak';$('#response').value=drafts[l.id]||'';$('#spokenNotes').value=drafts[l.id]||'';$('#recordStatus').textContent='';updateWordCount();if(l.mode==='choice')l.options.forEach((opt,i)=>{const b=element('button',String.fromCharCode(65+i)+'. '+opt);b.onclick=()=>answer(i);$('#options').append(b)});if(!$('#lesson').open)$('#lesson').showModal()}
+function openLesson(l){stopSpeech();cleanupRecording();current=l;flipped=false;attempted=false;submitted=false;reviewReady=false;$('#lessonTitle').textContent=l.title;$('#taskMeta').textContent=LEVELS[l.level].en+' · '+LEVELS[l.level].zh+' / '+(TYPES[l.type]||SKILLS[l.skill]);$('#phraseText').textContent=l.en;$('#flip').hidden=l.level!=='foundation';$('#taskVisual').replaceChildren();if(l.picture)$('#taskVisual').append(picture(l.picture));$('#passage').hidden=!l.passage;$('#passage').textContent=l.passage||'';$('#context').textContent='情境 · '+l.context;$('#question').textContent=l.question;$('#feedback').textContent=l.mode==='choice'?'選一個答案試試看；答錯可不限次重試。':l.mode==='text'?'輸入完整句子後核對，可不限次重試。':'完成作答後，對照參考範例並自評。';$('#audioStatus').textContent='';$('#listen').hidden=l.skill==='reading'||l.skill==='writing'&&!l.audio;$('#listen').textContent=l.audio?'▶ Listen to Prompt · 聽題目':'▶ Listen · 聽美式英文';$('#backMap').hidden=true;$('#nextTask').hidden=true;$('#retry').hidden=true;$('#showReference').hidden=true;$('#reference').hidden=true;$('#reference').textContent='';$('#selfReview').hidden=true;$('#reviewChecks').replaceChildren();$('#options').replaceChildren();$('#options').className=l.pictureOptions?'picture-choice-options':'';$('#writtenResponse').hidden=!['text','open'].includes(l.mode);$('#spokenResponse').hidden=l.mode!=='speak';$('#response').value=drafts[l.id]||'';$('#spokenNotes').value=drafts[l.id]||'';$('#recordStatus').textContent='';updateWordCount();if(l.mode==='choice')l.options.forEach((opt,i)=>{const b=element('button');if(l.pictureOptions){b.className='picture-choice';b.append(picture(l.pictureOptions[i]))}b.append(element('span',String.fromCharCode(65+i)+'. '+opt));b.onclick=()=>answer(i);$('#options').append(b)});if(!$('#lesson').open)$('#lesson').showModal()}
 function markComplete(method){if(!records[current.id]){records[current.id]={id:current.id,completedAt:new Date().toISOString(),method};save()}$('#backMap').hidden=false;$('#nextTask').hidden=current.level==='foundation';$('#retry').hidden=false;renderMap();if(page==='libraryPage')renderLibrary()}
 function showSolution(){if(!attempted&&!submitted)return;const l=current;$('#reference').hidden=false;$('#reference').replaceChildren();const parts=[];if(l.audio)parts.push('Transcript · 聽力文字\n'+l.audio);if(l.sample)parts.push('Reference · 參考作答（開放式題目不只一種答案）\n'+l.sample);else if(l.options)parts.push('Answer · 答案\n'+l.options[l.answer]);if(l.zh)parts.push('Phrase · '+l.en+'\n'+l.zh);if(l.explain)parts.push('Explanation · '+l.explain);$('#reference').textContent=parts.join('\n\n')}
 function answer(i){attempted=true;$('#showReference').hidden=false;$('#retry').hidden=false;if(i!==current.answer){$('#feedback').textContent='再試一次 · '+current.hint+' 答錯不會扣除既有進度。';return}$('#feedback').textContent='✓ 答對了！'+current.explain+' 已收藏，可隨時再練。';showSolution();markComplete('answer')}

@@ -36,3 +36,7 @@ Phone-sized Chromium tests do not establish iPhone Safari compatibility. Verify 
 ## Publishing
 
 The owner-created public repository is LuckyDeer3776/little-deer-english-trail. GitHub Pages serves main from the repository root. Only application source and public documentation are committed. Test recordings, completion backups and local draft data are excluded. Release status and live URL are confirmed in the delivery message after deployment.
+
+## Picture-answer clarity fix
+
+All three picture-listening tasks now display the complete English answer choices instead of letter-only placeholders. Both picture-answer tasks show directly clickable images with descriptive English captions. Targeted Chromium checks verified all five affected tasks: readable option content, correct choice counts, image click handling, incorrect-answer retry, hidden reference on a fresh attempt, and desktop/mobile layouts, with no JavaScript errors. These checks validate practice behavior; they do not assess official-exam equivalence.
