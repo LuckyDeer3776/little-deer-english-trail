@@ -1,0 +1,7 @@
+Little Deer English Trail 🦌
+跟著小鹿走進英文步道，每天學一句生活中用得到的美式英文！
+適合 A1 初學者：繁體中文輔助、英文朗讀、情境小測驗，完成後自動收藏到 My Phrase Library。
+進度保存在目前瀏覽器，可匯出／匯入 JSON 備份。背景音樂為本作品原創的無人聲合成旋律。
+
+立即體驗：https://luckydeer3776.github.io/little-deer-english-trail/
+#DEVDAYCOMMUNITU #LittleDeerEnglishTrail #英文學習 #每日英文 #A1English

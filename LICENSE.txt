@@ -1,0 +1,5 @@
+Copyright (c) 2026 Little Deer English Trail contributors
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software, original teaching content, and original synthesized music, to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies, including public website playback and inclusion in YouTube demonstration videos, subject to retaining this copyright and permission notice in substantial copies of the software.
+
+THE WORK IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND. No separate music attribution is required in website UI or video descriptions. Device-provided speech voices and emoji glyphs are rendered by users' platforms and are not bundled media assets.
