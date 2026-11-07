@@ -83,3 +83,7 @@ The Songs & Little Stories section appears first in Play & Songs. It offers 13 e
 YouTube opens only after an explicit click in a new tab. No remote player, thumbnails or third-party media load while browsing the cards. Opening a video pauses local songs and temporarily mutes the site's instrumental music without changing the user's Music On preference. Returning focus restores the background setting; an explicit Resume Site Audio button is also available. Learning completions are unaffected.
 
 `videos-data.js` contains the recommendation data (`id`, `kind`, `levels`, `title`, `zh`, `creator`, `url`, `source`, `why`, `tip`, `accent`, `checkedOn`). Add verified official watch links and describe a realistic study activity. `MEDIA-SOURCES.md` records sources and verification limits. Only links are provided; external songs, lyrics, artwork and videos are not included in the project license or rehosted.
+
+## QR code and YouTube promotion kit
+
+Open `promo/` for a browser preview and direct downloads. The kit contains a 45-second 1920×1080 H.264/AAC promotional MP4, a 1280×720 YouTube thumbnail, a printable QR poster, PNG/SVG QR codes, Chinese/English SRT subtitles and copy-ready YouTube title/description text. The QR points directly to the canonical public website; it does not use a short-link provider. Filming used fresh demo-only browser contexts and this project's actual UI. The soundtrack is an original instrumental score; no external YouTube performances or footage are included. See promo/README.md for validation and rights details.

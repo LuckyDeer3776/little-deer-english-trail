@@ -59,3 +59,7 @@ Additional checks passed for automatic song interruption/resumption during synth
 - Opening an external viewing link paused the original local song and temporarily suppressed instrumental music while retaining the user's Music On preference. Resume Site Audio restored that preference. Learning completions remained unchanged.
 - The original song player remained reachable and playable. The rebuilt standalone included all 13 recommendation cards plus embedded original audio. Existing fish/puzzle/song tests passed after the new catalog was integrated.
 - Phone layout down to 320px and desktop layout passed with no horizontal page overflow or uncaught JavaScript errors. Safari hardware remains pending, especially new-tab focus return and media resume behavior.
+
+## Promotion kit
+
+The promo/ download page includes a 45-second 1080p H.264/AAC film, a PNG/SVG website QR, a portrait QR poster, a YouTube thumbnail, Chinese/English SRT files and suggested description text. Independent QR decoding, full movie decoding, browser playback/seek, download hash matching and responsive preview checks passed. Details and actual-device/platform limits are recorded in promo/README.md. Only original site footage and original music are included; external YouTube performances are not part of the film.

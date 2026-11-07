@@ -20,5 +20,6 @@ for name in ['lessons.js', 'exam-data.js', 'songs-data.js', 'app.js', 'videos-da
     parts.append('<script>' + code + '</script>')
 html = html.replace('</body>', ''.join(parts) + '</body>')
 html = html.replace('href="AUDIO-CREDITS.md"', 'href="https://luckydeer3776.github.io/little-deer-english-trail/AUDIO-CREDITS.md"')
+html = html.replace('href="promo/"', 'href="https://luckydeer3776.github.io/little-deer-english-trail/promo/"')
 (root / 'single-file.html').write_text(html)
 print('single-file.html built with embedded original audio and art.')
