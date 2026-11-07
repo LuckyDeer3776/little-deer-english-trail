@@ -1,54 +1,1339 @@
 <!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#234d3d"><title>Little Deer English Trail</title><style>:root{--ink:#244d3f;--cream:#f8f6ed;--orange:#c75b3a;--muted:#677568}*{box-sizing:border-box}body{margin:0;background:var(--cream);color:var(--ink);font:16px 'DM Sans',system-ui,sans-serif}button,input,select{font:inherit}button,.file-label{cursor:pointer}button{border:1px solid #bbc7b5;border-radius:9px;background:transparent;color:var(--ink);padding:12px 16px;min-height:44px}button:hover{background:#e3ead8}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,.file-label:focus-within{outline:3px solid var(--orange);outline-offset:4px}button:disabled{cursor:default;opacity:.65}header{max-width:1400px;margin:auto;padding:26px 5%;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #d9ded0}.brand{display:flex;align-items:center;gap:10px;font:600 25px 'Playfair Display',Georgia,serif;color:var(--ink);text-decoration:none}.brand-sub{display:block;font:10px 'DM Sans',sans-serif;letter-spacing:3px;margin-top:4px}nav{display:flex;gap:8px}nav button{border:0;font-size:13px}#music{border:1px solid #c4cdbb;border-radius:30px}main{max-width:1400px;margin:auto;padding:0 5%}h1,h2{font-family:'Playfair Display',Georgia,serif;font-weight:500}h1{font-size:clamp(38px,5.4vw,76px);line-height:1.08;letter-spacing:-2px;margin:24px 0}h1 em{color:#788965;font-weight:500}h2{font-size:32px}.eyebrow{font-size:11px;letter-spacing:2px;font-weight:700}.home{display:grid;grid-template-columns:1fr 1fr;gap:30px;padding-top:60px}.hero-copy{padding:20px 0 30px}.intro{font-size:23px;line-height:1.4}.hero-copy p:not(.intro){color:var(--muted);font-size:15px;line-height:1.9}.primary{background:var(--ink);color:white;border:0;padding:18px 25px;border-radius:8px}.primary:hover{background:#35684f}.primary span{margin-left:25px;font-size:12px}.hero-meta{font-size:10px;letter-spacing:1.5px;margin-top:35px}.hero-meta span{margin:0 15px;color:var(--orange)}.hero-art{position:relative;min-height:540px;background:#e7ecda;border-radius:50% 50% 5px 5px;overflow:hidden}.sun{position:absolute;top:65px;right:70px;background:#e9bb68;border-radius:50%;width:95px;height:95px}.hill{position:absolute;border-radius:50% 50% 0 0;width:150%;height:350px;bottom:-40px;left:-30%;background:#aabd92;transform:rotate(-16deg)}.h2{background:#ced7ae;bottom:70px;left:-5%;transform:rotate(22deg)}.hero-path{position:absolute;bottom:-50px;left:30%;width:150px;height:340px;border:35px solid #f1e4bb;border-bottom:0;border-radius:50%;transform:rotate(28deg)}.tree{position:absolute;color:#496c50;font-size:145px;line-height:1}.t1{left:30px;top:160px}.t2{right:25px;top:250px;font-size:180px}.t3{right:145px;top:210px;font-size:90px}.deer-big{position:absolute;bottom:105px;left:38%;font-size:105px;filter:drop-shadow(2px 12px 0 #496c5020)}.art-label{position:absolute;top:55px;left:35px;font-size:10px;letter-spacing:2px}.art-label b{display:block;font:italic 22px Georgia;margin-top:8px;letter-spacing:0}.flower{position:absolute;bottom:30px;left:35px;font-size:55px;color:#f7f4da}.home-bottom{grid-column:1/-1;display:flex;justify-content:space-between;font-size:11px;padding:25px 0;border-top:1px solid #d7ddcd;letter-spacing:1px;margin-top:20px}.page-heading{display:flex;justify-content:space-between;align-items:center;margin:40px 0 25px}.page-heading h1{font-size:48px}.small-title{display:block;font:14px system-ui;letter-spacing:1px;margin-top:15px}.map-layout{display:grid;grid-template-columns:240px 1fr;gap:25px}aside{padding:5px 20px 20px 0}aside h2{margin-top:0}.muted{color:var(--muted);font-size:13px;line-height:1.8}.legend{font-size:13px;line-height:2.3;border-block:1px solid #d4dccb;padding:15px 0}.arrows{text-align:center;width:160px;margin:20px 0}.arrows button{padding:8px 14px;margin:2px;background:#fff9}#mapViewport{background:#e6eddc;border:1px solid #d6dfcb;border-radius:24px;max-height:650px;overflow:auto;position:relative;scroll-behavior:smooth}#trail{position:relative;min-width:300px;background:radial-gradient(ellipse at 10% 20%,#9cb88244 0 10%,transparent 11%),radial-gradient(ellipse at 95% 60%,#9cb88244 0 12%,transparent 13%)}#route{position:absolute;inset:0;width:100%;height:100%}.station{position:absolute;width:150px;transform:translate(-50%,-50%);text-align:center}.station button{border-radius:50%;height:54px;width:54px;background:#fcfaee;border:3px solid #8c9c77;font-weight:bold}.station.today button{background:var(--orange);color:white;border-color:#f8e4cb;box-shadow:0 0 0 6px #c75b3a22}.station.completed button{background:var(--ink);color:white}.station.locked{color:#697363}.station.locked button{background:#d6dfce;border-color:#a8b79c}.station strong{display:block;font-size:12px;margin:9px 0 4px}.station small{font-size:10px}.station .marker{border-radius:8px;width:150px;height:auto;font-size:10px;line-height:1.5;border:1px solid #c2cfb5;background:#fffaf0;margin-top:5px;padding:6px}#deer{position:absolute;font-size:42px;z-index:2;transform:translate(-50%,-100%);pointer-events:none;filter:drop-shadow(0 5px 1px #0002)}#deer.walking{animation:hop .24s infinite alternate}@keyframes hop{to{transform:translate(-50%,-115%) rotate(5deg)}}#libraryPage{padding-top:45px;min-height:65vh}.library-tools{display:flex;gap:15px;margin:25px 0}input,select{padding:14px;border:1px solid #bbc7b5;border-radius:8px;background:#fffdf5;color:var(--ink)}input[type=search]{flex:1;min-width:0}#phrases{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}.phrase-entry{background:#fffdf5;border:1px solid #d6dfcb;border-radius:15px;padding:24px}.phrase-entry h2{font-size:25px}.phrase-entry small{color:var(--muted)}footer{max-width:1400px;margin:45px auto 0;padding:25px 5%;border-top:1px solid #d9ded0;font-size:11px;display:flex;flex-wrap:wrap;gap:20px;align-items:center;justify-content:space-between}footer button,.file-label{font-size:11px;padding:8px;border:0;display:inline-block}.file-label input{position:absolute;width:1px;height:1px;opacity:0}#storageNotice{width:100%;margin:0}dialog{color:var(--ink);background:var(--cream);border:0;border-radius:22px;padding:32px;max-width:540px;width:calc(100% - 24px);max-height:92dvh;box-shadow:0 20px 90px #17352644}dialog::backdrop{background:#17352680;backdrop-filter:blur(4px)}.close{float:right;border:0;font-size:26px;padding:0 10px}.flashcard{display:block;width:100%;background:#e7ecda;min-height:160px;text-align:center;padding:25px;margin:20px 0;font:28px Georgia;line-height:1.4}.flashcard small{display:block;font:11px system-ui;margin-top:20px;color:#5b7158}#context{line-height:1.8;font-size:14px}#options{display:grid;gap:9px}#options button{text-align:left;background:#fffaf0}#feedback{line-height:1.7}#audioStatus{font-size:12px}body:has(dialog[open]){overflow:hidden}[hidden]{display:none!important}@media(max-width:700px){header{padding:18px 5%;align-items:flex-start}.brand{font-size:20px}nav{gap:0;max-width:220px;justify-content:flex-end;flex-wrap:wrap}nav button{font-size:10px;padding:6px 8px;min-height:36px}.home{grid-template-columns:1fr;padding-top:25px}.hero-copy{padding-bottom:0}.hero-art{min-height:380px}.hero-copy h1{font-size:57px}.hero-meta{margin-top:23px}.home-bottom{gap:15px;flex-wrap:wrap;margin-top:0}.home-bottom span:last-child{display:none}.page-heading h1{font-size:37px}.map-layout{grid-template-columns:1fr}.map-layout aside{display:flex;flex-wrap:wrap;gap:12px;align-items:center;padding:0}aside h2{display:none}.legend{font-size:11px;line-height:1.7;border:0;padding:0;columns:2;flex:1}.muted{width:100%;margin:0}.arrows{margin:0;width:155px}#daily{font-size:12px;width:100%}#mapNotice{font-size:12px}#mapViewport{max-height:65dvh}.library-tools{flex-direction:column}#progress{font-size:11px}.page-heading{gap:8px}footer{line-height:1.8}dialog{padding:24px}.flashcard{font-size:25px}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
 .brand{flex-shrink:0}.station small{display:block;line-height:1.6}.station .marker{color:var(--ink);background:#fffaf0}.station.completed .marker{color:var(--ink);background:#fffaf0;border:1px solid #bdc9b0}@media(max-width:700px){.brand{font-size:18px;gap:7px}.brand-sub{font-size:8px;letter-spacing:2px}nav{max-width:205px}}
+#examPage{padding-top:5px;min-height:70vh}.exam-intro{color:var(--muted);line-height:1.8}.exam-filters{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:26px 0}.exam-filters label,.filter-label{display:grid;gap:9px;font-size:13px}.exam-filters select,.filter-label select{width:100%}.study-summary{display:flex;align-items:center;justify-content:space-between;gap:20px;background:#e8eddd;border-radius:15px;padding:18px 22px;margin-bottom:25px}.study-summary p{line-height:1.8;max-width:650px;font-size:14px}.study-summary button{flex-shrink:0}#examTasks{display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:18px}.task-tile{border:1px solid #d6dfcb;border-radius:15px;padding:22px;background:#fffdf5;display:flex;flex-direction:column;align-items:flex-start}.task-tile h2{font-size:25px;margin:16px 0 10px}.task-tile p{font-size:13px;line-height:1.7;flex:1}.task-tile small{font-size:11px;color:#5a6b56}.task-tile button{width:100%;margin-top:10px}.source-note{border-top:1px solid #d6dfcb;margin:32px 0;padding:22px 0;font-size:13px;line-height:1.9}.source-note a{color:var(--ink)}summary{cursor:pointer;min-height:44px}.task-meta{font-size:12px;color:#657752;line-height:1.7}.passage{white-space:pre-wrap;padding:20px;background:#fffaf0;border-left:3px solid #83966f;border-radius:4px;font-size:15px;line-height:1.9;margin:20px 0;max-height:270px;overflow:auto}.task-picture{width:100%;max-height:200px;display:block;border-radius:12px;background:#e5eddb;margin:15px 0}.picture-options{display:flex;gap:8px}.picture-options figure{margin:0;flex:1}.picture-options figcaption{text-align:center;font-size:13px}.picture-options svg{height:100px}textarea{display:block;width:100%;padding:14px;border:1px solid #b9c7ab;border-radius:9px;background:#fffdf6;font:16px system-ui;color:var(--ink);line-height:1.6;resize:vertical;margin:10px 0}textarea:focus-visible{outline:3px solid var(--orange);outline-offset:2px}#writtenResponse,#spokenResponse{margin:20px 0}#recording{width:100%;margin-top:15px}.reference{border-radius:12px;background:#e7edda;padding:20px;margin:18px 0;white-space:pre-wrap;line-height:1.8;font-size:14px}#reviewChecks label{display:flex;align-items:flex-start;gap:10px;line-height:1.7;padding:10px 0;font-size:14px}#reviewChecks input{width:20px;height:20px;flex-shrink:0}#retry,#nextTask,#showReference{margin:8px 5px 8px 0}#completeReview{background:#e2eacb}#lesson{max-width:650px}.home-bottom{letter-spacing:.5px}#examNotice{font-size:13px}.filter-label{margin:20px 0}header nav{flex-wrap:wrap}.level-progress{font-size:12px;color:#5d7157}
+@media(max-width:700px){.exam-filters{grid-template-columns:1fr;gap:12px}.study-summary{display:block;padding:16px}.study-summary button{width:100%}.task-tile h2{font-size:24px}#examTasks{grid-template-columns:1fr}header{gap:10px}nav{max-width:215px}nav button{min-height:44px;font-size:10px}.filter-label{width:100%;margin:0}.map-layout aside .legend{columns:1}.map-layout aside{gap:12px}.task-picture{max-height:170px}.passage{font-size:14px}dialog{padding:20px}#lessonTitle{font-size:28px}}
+.secondary-start{display:block;margin-top:12px;border:0;padding-left:0;font-size:13px}.secondary-start:hover{background:transparent;text-decoration:underline}
 </style></head><body>
-<header><a class="brand" href="#home">♧ <span>Little Deer<span class="brand-sub">ENGLISH TRAIL</span></span></a><nav><button id="mapNav">Learning Map</button><button id="libraryNav">My Phrase Library</button><button id="music" aria-pressed="false">♫ Music Off</button></nav></header>
+<header><a class="brand" href="#home">♧ <span>Little Deer<span class="brand-sub">ENGLISH TRAIL</span></span></a><nav><button id="mapNav">Learning Map</button><button id="examNav">GEPT Practice</button><button id="libraryNav">My Phrase Library</button><button id="music" aria-pressed="false">♫ Music Off</button></nav></header>
 <main>
-<section id="home" class="home"><div class="hero-copy"><span class="eyebrow">#DEVDAYCOMMUNITU · A LITTLE EVERY DAY</span><h1>Little Deer<br><em>English Trail</em></h1><p class="intro">Small steps.<br>A world of new words.</p><p>跟著小鹿，每天走一小段路，<br>學一句生活中用得到的美式英文。</p><button id="start" class="primary">Start Learning <span>開始學習 ↗</span></button><div class="hero-meta">A1 BEGINNER FRIENDLY <span>✦</span> ONE PHRASE A DAY</div></div><div class="hero-art" aria-label="小鹿的森林英文學習步道"><div class="sun"></div><div class="hill h1"></div><div class="hill h2"></div><div class="hero-path"></div><span class="tree t1">♠</span><span class="tree t2">♠</span><span class="tree t3">♠</span><span class="deer-big">🦌</span><span class="art-label">YOUR NEXT ADVENTURE<br><b>begins with hello.</b></span><span class="flower">✿</span></div><div class="home-bottom"><span>01 / EXPLORE</span><span>Listen. Learn. Take another step.</span><span>Made for curious minds ↗</span></div></section>
-<section id="mapPage" hidden><div class="page-heading"><div><span class="eyebrow">YOUR DAILY ADVENTURE</span><h1>Learning Map<span class="small-title">一日一句，慢慢走</span></h1></div><div id="progress"></div></div><div class="map-layout"><aside><h2>A little progress,<br>every day.</h2><p id="daily"></p><div class="legend">◉ Today 今日<br>○ To Do 可補做<br>✓ Completed 已完成<br>🔒 Locked 尚未開放</div><p class="muted">點選站點，小鹿會沿步道前進。也可使用方向鍵，逐站探索。</p><div class="arrows" aria-label="移動小鹿"><button data-step="-1" aria-label="向上">↑</button><div><button data-step="-1" aria-label="向左">←</button><button data-step="1" aria-label="向下">↓</button><button data-step="1" aria-label="向右">→</button></div></div><p id="mapNotice" role="status"></p></aside><div id="mapViewport"><div id="trail"><svg id="route" aria-hidden="true"></svg><div id="stations"></div><div id="deer" aria-label="玩家小鹿">🦌</div></div></div></div></section>
+<section id="home" class="home"><div class="hero-copy"><span class="eyebrow">#DEVDAYCOMMUNITU · A LITTLE EVERY DAY</span><h1>Little Deer<br><em>English Trail</em></h1><p class="intro">Small steps.<br>A world of new words.</p><p>跟著小鹿，從生活英文走向全民英檢。<br>聽、說、讀、寫，依自己的步調反覆練習。</p><button id="start" class="primary">Start Learning <span>開始學習 ↗</span></button><button id="startExam" class="secondary-start">Explore GEPT · 英檢練習 ↗</button><div class="hero-meta">A1 TO GEPT <span>✦</span> LEARN AT YOUR OWN PACE</div></div><div class="hero-art" aria-label="小鹿的森林英文學習步道"><div class="sun"></div><div class="hill h1"></div><div class="hill h2"></div><div class="hero-path"></div><span class="tree t1">♠</span><span class="tree t2">♠</span><span class="tree t3">♠</span><span class="deer-big">🦌</span><span class="art-label">YOUR NEXT ADVENTURE<br><b>begins with hello.</b></span><span class="flower">✿</span></div><div class="home-bottom"><span>01 / EXPLORE</span><span>Listen. Learn. Take another step.</span><span>Made for curious minds ↗</span></div></section>
+<section id="mapPage" hidden><div class="page-heading"><div><span class="eyebrow">YOUR OWN ADVENTURE</span><h1>Learning Map<span class="small-title">隨時開始，不限次數</span></h1></div><div id="progress"></div></div><div class="map-layout"><aside><h2>A little progress,<br>every day.</h2><p id="daily"></p><label class="filter-label">Trail · 選擇步道<select id="mapLevel" aria-label="地圖級別"></select></label><div class="legend">○ To Do 可練習<br>✓ Completed 已完成<br>↻ Retry 隨時重做</div><p class="muted">點選站點，小鹿會沿步道前進。也可使用方向鍵，逐站探索。</p><div class="arrows" aria-label="移動小鹿"><button data-step="-1" aria-label="向上">↑</button><div><button data-step="-1" aria-label="向左">←</button><button data-step="1" aria-label="向下">↓</button><button data-step="1" aria-label="向右">→</button></div></div><p id="mapNotice" role="status"></p></aside><div id="mapViewport"><div id="trail"><svg id="route" aria-hidden="true"></svg><div id="stations"></div><div id="deer" aria-label="玩家小鹿">🦌</div></div></div></div></section>
 <section id="libraryPage" hidden><span class="eyebrow">WORDS TO KEEP</span><h1>My Phrase Library</h1><p>每一小步，都成為你的收藏。</p><div class="library-tools"><input id="search" type="search" placeholder="Search phrases · 搜尋中英文" aria-label="搜尋中英文"><select id="sort" aria-label="完成日期排序"><option value="new">Newest first · 最新完成</option><option value="old">Oldest first · 最早完成</option></select></div><div id="phrases"></div></section>
-</main><footer><span>♧ LITTLE DEER ENGLISH TRAIL</span><div>進度保存在這個瀏覽器 <button id="export">Export JSON 匯出</button><label class="file-label">Import JSON 匯入<input id="import" type="file" accept="application/json,.json"></label></div><p id="storageNotice" role="status"></p></footer>
-<dialog id="lesson"><button id="close" class="close" aria-label="關閉教材">×</button><span class="eyebrow">DAILY PRACTICE · A1</span><h2 id="lessonTitle"></h2><button id="flip" class="flashcard" aria-label="翻面看中文"><span id="phraseText"></span><small>↻ Tap to flip · 點一下翻面</small></button><button id="lessonMusic" aria-pressed="false">♫ Music Off</button><button id="listen">▶ Listen · 聽美式英文</button><p id="audioStatus" role="status"></p><p id="context"></p><h3 id="question"></h3><div id="options"></div><p id="feedback" role="status"></p><button id="backMap" class="primary" hidden>Back to Map · 回到地圖 ↗</button></dialog>
-<script>// Add a new unique, permanent id and Taipei opening date. The trail grows automatically.
+<section id="examPage" hidden>
+<div class="page-heading"><div><span class="eyebrow">YOUR NEXT CHALLENGE</span><h1>GEPT Practice<span class="small-title">從初級到優級，依自己的步調練習</span></h1></div><span id="examProgress"></span></div>
+<p class="exam-intro">全部題目隨時開放，沒有完成期限。答錯可以不限次數重試，已完成的題目也能再練。</p>
+<div class="exam-filters"><label>Level · 級別<select id="examLevel"></select></label><label>Skill · 技能<select id="examSkill"><option value="all">All Skills · 全部</option><option value="listening">Listening · 聽力</option><option value="reading">Reading · 閱讀</option><option value="writing">Writing · 寫作</option><option value="speaking">Speaking · 口說</option></select></label><label>Task · 題型<select id="examType"><option value="all">All Types · 全部題型</option></select></label></div>
+<div class="study-summary"><p id="levelDescription"></p><button id="continuePractice" class="primary">Continue Practice · 接著練習 ↗</button></div>
+<p id="examNotice" role="status"></p><div id="examTasks"></div>
+<details class="source-note"><summary>About These Exercises · 題型與作答方式</summary><p>本站提供原創分題練習，依 GEPT 各級題型設計；不是官方題庫、完整正式模擬卷或通過保證。高級與優級為縮短素材的進階準備練習。選擇與單句題可核對答案；開放式寫作及口說以參考範例、自我檢核完成，不提供官方級分。</p><p>官方題型說明：<a href="https://www.gept.org.tw/Exam_Intro/t01_introduction.asp" target="_blank" rel="noopener">初級</a> · <a href="https://www.gept.org.tw/Exam_Intro/t02_introduction.asp" target="_blank" rel="noopener">中級</a> · <a href="https://www.gept.org.tw/Exam_Intro/t03_introduction.asp" target="_blank" rel="noopener">中高級</a> · <a href="https://www.gept.org.tw/Exam_Intro/t04_introduction.asp" target="_blank" rel="noopener">高級</a> · <a href="https://www.gept.org.tw/Exam_Intro/t05_introduction.asp" target="_blank" rel="noopener">優級</a>。優級為專案辦理，實際報考方式請以官方資訊為準。</p><p>錄音僅供目前頁面回放，不會上傳或放入備份。文字草稿保存在這個瀏覽器，可隨 JSON 一起備份。</p></details>
+</section></main><footer><span>♧ LITTLE DEER ENGLISH TRAIL</span><div>進度保存在這個瀏覽器 <button id="export">Export JSON 匯出</button><label class="file-label">Import JSON 匯入<input id="import" type="file" accept="application/json,.json"></label></div><p id="storageNotice" role="status"></p></footer>
+<dialog id="lesson"><button id="close" class="close" aria-label="關閉教材">×</button><span class="eyebrow">PRACTICE · AT YOUR OWN PACE</span><h2 id="lessonTitle"></h2><p id="taskMeta" class="task-meta"></p><div id="taskVisual"></div><div id="passage" class="passage" hidden></div><button id="flip" class="flashcard" aria-label="翻面看中文"><span id="phraseText"></span><small>↻ Tap to flip · 點一下翻面</small></button><button id="lessonMusic" aria-pressed="false">♫ Music Off</button><button id="listen">▶ Listen · 聽美式英文</button><p id="audioStatus" role="status"></p><p id="context"></p><h3 id="question"></h3><div id="options"></div>
+<div id="writtenResponse" hidden><label for="response">Your Answer · 你的作答</label><textarea id="response" rows="6" spellcheck="true" lang="en" placeholder="Write in English… 可慢慢寫，草稿會自動保存"></textarea><p id="wordCount" class="muted"></p><button id="submitResponse">Check / Review · 核對與檢視</button></div>
+<div id="spokenResponse" hidden><p class="muted">可直接錄音再回放；若無法使用麥克風，可大聲練習並輸入回答筆記。錄音不會上傳。</p><button id="record">● Record · 開始錄音</button><button id="stopRecord" hidden>■ Stop · 停止錄音</button><audio id="recording" controls hidden></audio><p id="recordStatus" role="status"></p><label for="spokenNotes">Answer Notes · 回答筆記</label><textarea id="spokenNotes" rows="3" placeholder="記下你實際說出的內容…"></textarea><button id="reviewSpeaking">Review · 檢視練習</button></div>
+<button id="showReference" hidden>Show Reference · 看參考與解說</button><div id="reference" class="reference" hidden></div>
+<div id="selfReview" hidden><p>Self Review · 自我檢核（不代表官方評分）</p><div id="reviewChecks"></div><button id="completeReview">Save Practice · 完成自評並收藏</button></div>
+<button id="retry" hidden>↻ Try Again · 再練一次</button><button id="nextTask" hidden>Next Practice · 下一題 →</button><p id="feedback" role="status"></p><button id="backMap" class="primary" hidden>Back to Map · 回到地圖 ↗</button></dialog>
+<script>// Foundation phrases. Keep permanent IDs; all lessons are available without dates.
 window.LESSONS = [
-{id:'hello-001',date:'2026-11-05',title:'A Friendly Hello',en:'Good morning! How are you?',zh:'早安！你好嗎？',context:'早上遇見鄰居，用友善的語氣打招呼。',question:'早上見到鄰居，可以說什麼？',options:['Good morning! How are you?','Good night!','Turn left.'],answer:0,hint:'想想「早安」的英文。',explain:'Good morning 是早安；How are you? 是常見的問候。'},
-{id:'water-002',date:'2026-11-06',title:'A Little Kindness',en:'Can I bring you some water?',zh:'我可以幫你拿些水嗎？',context:'朋友坐下休息，你想主動拿水給他。',question:'這句話是在做什麼？',options:['詢問方向','主動提供水','向人道別'],answer:1,hint:'bring 是帶來，water 是水。',explain:'Can I…? 可以用來主動提供幫忙，語氣友善。'},
-{id:'help-003',date:'2026-11-07',title:'Here to Help',en:'How can I help you?',zh:'我可以怎麼幫你？',context:'有人看起來需要協助，你主動詢問。',question:'看到有人需要協助，你可以說？',options:['How can I help you?','See you tomorrow.','I am fine.'],answer:0,hint:'help 的意思是「幫忙」。',explain:'How can I help you? 適合在商店或日常生活中主動詢問需要什麼協助。'},
-{id:'direction-004',date:'2026-11-08',title:'Find Your Way',en:'Excuse me. Where is the bus stop?',zh:'不好意思，公車站在哪裡？',context:'你在陌生街道上，想詢問公車站的位置。',question:'問路前，哪個說法最有禮貌？',options:['Go away.','Excuse me.','Good night.'],answer:1,hint:'先用「不好意思」引起對方注意。',explain:'Excuse me 用來禮貌地開口；Where is…? 用來詢問位置。'},
-{id:'thanks-005',date:'2026-11-09',title:'A Thankful Heart',en:'Thank you for your help.',zh:'謝謝你的幫忙。',context:'路人幫你找到公車站，你向他道謝。',question:'別人幫忙後，你會說？',options:['Where is it?','Thank you for your help.','I need water.'],answer:1,hint:'Thank you 表示感謝。',explain:'Thank you for… 用來感謝對方做的事。'},
-{id:'price-006',date:'2026-11-10',title:'At the Little Shop',en:'How much is this?',zh:'這個多少錢？',context:'在商店看到喜歡的杯子，你詢問價格。',question:'想問價格，應該說？',options:['How much is this?','How are you?','Where are you?'],answer:0,hint:'How much 用來問多少錢。',explain:'指著商品說 How much is this? 就能詢問價格。'},
-{id:'again-007',date:'2026-11-11',title:'One More Time',en:'Could you say that again, please?',zh:'可以請你再說一次嗎？',context:'沒聽清楚對方的話，你禮貌地請他再說一次。',question:'聽不清楚時，可以說？',options:['Goodbye.','No water.','Could you say that again, please?'],answer:2,hint:'again 是「再一次」。',explain:'Could you…please? 是禮貌的請求方式。'},
-{id:'bye-008',date:'2026-11-12',title:'See You Soon',en:'Have a nice day!',zh:'祝你有美好的一天！',context:'與店員或朋友道別時，送上一句祝福。',question:'哪句是友善的道別祝福？',options:['Have a nice day!','How much?','Turn right.'],answer:0,hint:'nice day 是美好的一天。',explain:'Have a nice day! 是美式英文常見的道別祝福。'}
+{id:'hello-001',title:'A Friendly Hello',en:'Good morning! How are you?',zh:'早安！你好嗎？',context:'早上遇見鄰居，用友善的語氣打招呼。',question:'早上見到鄰居，可以說什麼？',options:['Good morning! How are you?','Good night!','Turn left.'],answer:0,hint:'想想「早安」的英文。',explain:'Good morning 是早安；How are you? 是常見的問候。'},
+{id:'water-002',title:'A Little Kindness',en:'Can I bring you some water?',zh:'我可以幫你拿些水嗎？',context:'朋友坐下休息，你想主動拿水給他。',question:'這句話是在做什麼？',options:['詢問方向','主動提供水','向人道別'],answer:1,hint:'bring 是帶來，water 是水。',explain:'Can I…? 可以用來主動提供幫忙，語氣友善。'},
+{id:'help-003',title:'Here to Help',en:'How can I help you?',zh:'我可以怎麼幫你？',context:'有人看起來需要協助，你主動詢問。',question:'看到有人需要協助，你可以說？',options:['How can I help you?','See you tomorrow.','I am fine.'],answer:0,hint:'help 的意思是「幫忙」。',explain:'How can I help you? 適合在商店或日常生活中主動詢問需要什麼協助。'},
+{id:'direction-004',title:'Find Your Way',en:'Excuse me. Where is the bus stop?',zh:'不好意思，公車站在哪裡？',context:'你在陌生街道上，想詢問公車站的位置。',question:'問路前，哪個說法最有禮貌？',options:['Go away.','Excuse me.','Good night.'],answer:1,hint:'先用「不好意思」引起對方注意。',explain:'Excuse me 用來禮貌地開口；Where is…? 用來詢問位置。'},
+{id:'thanks-005',title:'A Thankful Heart',en:'Thank you for your help.',zh:'謝謝你的幫忙。',context:'路人幫你找到公車站，你向他道謝。',question:'別人幫忙後，你會說？',options:['Where is it?','Thank you for your help.','I need water.'],answer:1,hint:'Thank you 表示感謝。',explain:'Thank you for… 用來感謝對方做的事。'},
+{id:'price-006',title:'At the Little Shop',en:'How much is this?',zh:'這個多少錢？',context:'在商店看到喜歡的杯子，你詢問價格。',question:'想問價格，應該說？',options:['How much is this?','How are you?','Where are you?'],answer:0,hint:'How much 用來問多少錢。',explain:'指著商品說 How much is this? 就能詢問價格。'},
+{id:'again-007',title:'One More Time',en:'Could you say that again, please?',zh:'可以請你再說一次嗎？',context:'沒聽清楚對方的話，你禮貌地請他再說一次。',question:'聽不清楚時，可以說？',options:['Goodbye.','No water.','Could you say that again, please?'],answer:2,hint:'again 是「再一次」。',explain:'Could you…please? 是禮貌的請求方式。'},
+{id:'bye-008',title:'See You Soon',en:'Have a nice day!',zh:'祝你有美好的一天！',context:'與店員或朋友道別時，送上一句祝福。',question:'哪句是友善的道別祝福？',options:['Have a nice day!','How much?','Turn right.'],answer:0,hint:'nice day 是美好的一天。',explain:'Have a nice day! 是美式英文常見的道別祝福。'}
+];
+</script><script>// Original practice tasks. No official examination questions reproduced.
+window.EXAM_TASKS = [
+  {
+    "id": "gept-elementary-001",
+    "level": "elementary",
+    "skill": "listening",
+    "type": "picture",
+    "title": "Picture Listening",
+    "en": "Can I bring you some water?",
+    "zh": "我可以幫你拿些水嗎？",
+    "context": "依題目情境練習，作答後可反覆重做。",
+    "question": "看圖，聽三個英文敘述，選出相符的選項。",
+    "mode": "choice",
+    "hint": "留意人物正在做什麼。",
+    "explain": "選出描述畫面中動作的句子；比較動作與物品。",
+    "options": [
+      "A",
+      "B",
+      "C"
+    ],
+    "answer": 0,
+    "picture": "water",
+    "audio": "A. A person is giving someone water. B. A person is washing a car. C. A person is closing a door."
+  },
+  {
+    "id": "gept-elementary-002",
+    "level": "elementary",
+    "skill": "listening",
+    "type": "picture",
+    "title": "Picture Listening",
+    "en": "They are waiting for the bus.",
+    "zh": "他們正在等公車。",
+    "context": "依題目情境練習，作答後可反覆重做。",
+    "question": "看圖，聽三個英文敘述，選出相符的選項。",
+    "mode": "choice",
+    "hint": "留意人物正在做什麼。",
+    "explain": "選出描述畫面中動作的句子；比較動作與物品。",
+    "options": [
+      "A",
+      "B",
+      "C"
+    ],
+    "answer": 1,
+    "picture": "bus",
+    "audio": "A. They are swimming. B. They are waiting for the bus. C. They are eating lunch."
+  },
+  {
+    "id": "gept-elementary-003",
+    "level": "elementary",
+    "skill": "listening",
+    "type": "response",
+    "title": "Listen and Respond",
+    "en": "What time does the store open?",
+    "zh": "商店幾點開門？",
+    "context": "依題目情境練習，作答後可反覆重做。",
+    "question": "聽一句英文，選出最合適的回應。",
+    "mode": "choice",
+    "hint": "判斷是在問時間，還是在提出邀請。",
+    "explain": "回應要符合問句的目的，而不只是包含相同單字。",
+    "options": [
+      "At nine in the morning.",
+      "It is blue.",
+      "Two apples."
+    ],
+    "answer": 0,
+    "audio": "What time does the store open?"
+  },
+  {
+    "id": "gept-elementary-004",
+    "level": "elementary",
+    "skill": "listening",
+    "type": "response",
+    "title": "Listen and Respond",
+    "en": "Would you like some tea?",
+    "zh": "你想喝點茶嗎？",
+    "context": "依題目情境練習，作答後可反覆重做。",
+    "question": "聽一句英文，選出最合適的回應。",
+    "mode": "choice",
+    "hint": "判斷是在問時間，還是在提出邀請。",
+    "explain": "回應要符合問句的目的，而不只是包含相同單字。",
+    "options": [
+      "By bus.",
+      "Yes, please.",
+      "At the park."
+    ],
+    "answer": 1,
+    "audio": "Would you like some tea?"
+  },
+  {
+    "id": "gept-elementary-005",
+    "level": "elementary",
+    "skill": "listening",
+    "type": "dialogue",
+    "title": "Short Conversation",
+    "en": "It is next to the bakery.",
+    "zh": "它在麵包店旁邊。",
+    "context": "依題目情境練習，作答後可反覆重做。",
+    "question": "聽對話，回答問題。",
+    "mode": "choice",
+    "hint": "注意位置，或計算數量與價格。",
+    "explain": "第一段答案由 next to 得知；購物題則需要將單價乘以數量。",
+    "options": [
+      "Next to the bakery.",
+      "Behind the school.",
+      "Inside the station."
+    ],
+    "answer": 0,
+    "audio": "A: Where is the library? B: It is next to the bakery. Question: Where is the library?"
+  },
+  {
+    "id": "gept-elementary-006",
+    "level": "elementary",
+    "skill": "listening",
+    "type": "dialogue",
+    "title": "Short Conversation",
+    "en": "I will take two.",
+    "zh": "我要兩個。",
+    "context": "依題目情境練習，作答後可反覆重做。",
+    "question": "聽對話，回答問題。",
+    "mode": "choice",
+    "hint": "注意位置，或計算數量與價格。",
+    "explain": "第一段答案由 next to 得知；購物題則需要將單價乘以數量。",
+    "options": [
+      "Five dollars.",
+      "Ten dollars.",
+      "Two dollars."
+    ],
+    "answer": 1,
+    "audio": "A: How much is the sandwich? B: It is five dollars. A: I will take two. Question: How much will the customer pay?"
+  },
+  {
+    "id": "gept-elementary-007",
+    "level": "elementary",
+    "skill": "listening",
+    "type": "short-talk-picture",
+    "title": "Short Talk and Pictures",
+    "en": "Meet us at the bus stop.",
+    "zh": "在公車站和我們會合。",
+    "context": "依題目情境練習，作答後可反覆重做。",
+    "question": "聽短文和問題，選出正確圖片。",
+    "mode": "choice",
+    "hint": "聽清楚問的是地點還是物品。",
+    "explain": "將問題的重點與短文中的名詞配對。",
+    "options": [
+      "A",
+      "B",
+      "C"
+    ],
+    "answer": 1,
+    "audio": "Meet us at the bus stop after lunch. We will take a bus to the museum. Question: Where should you meet us?",
+    "pictureOptions": [
+      "water",
+      "bus",
+      "book"
+    ]
+  },
+  {
+    "id": "gept-elementary-008",
+    "level": "elementary",
+    "skill": "listening",
+    "type": "short-talk-picture",
+    "title": "Short Talk and Pictures",
+    "en": "Please bring a bottle of water.",
+    "zh": "請帶一瓶水。",
+    "context": "依題目情境練習，作答後可反覆重做。",
+    "question": "聽短文和問題，選出正確圖片。",
+    "mode": "choice",
+    "hint": "聽清楚問的是地點還是物品。",
+    "explain": "將問題的重點與短文中的名詞配對。",
+    "options": [
+      "A",
+      "B",
+      "C"
+    ],
+    "answer": 0,
+    "audio": "Please bring a bottle of water to the park. It will be a hot day. Question: What should you bring?",
+    "pictureOptions": [
+      "water",
+      "bus",
+      "book"
+    ]
+  },
+  {
+    "id": "gept-elementary-009",
+    "level": "elementary",
+    "skill": "reading",
+    "type": "vocabulary",
+    "title": "Words in Context",
+    "en": "I would like some water.",
+    "zh": "我想喝點水。",
+    "context": "依題目情境練習，作答後可反覆重做。",
+    "question": "I am thirsty. I would like some ___.",
+    "mode": "choice",
+    "hint": "注意句子的意思與主詞。",
+    "explain": "thirsty 是口渴，因此需要 water。",
+    "options": [
+      "water",
+      "chairs",
+      "shoes",
+      "paper"
+    ],
+    "answer": 0
+  },
+  {
+    "id": "gept-elementary-010",
+    "level": "elementary",
+    "skill": "reading",
+    "type": "vocabulary",
+    "title": "Words in Context",
+    "en": "My sister eats breakfast at seven.",
+    "zh": "我姊姊七點吃早餐。",
+    "context": "依題目情境練習，作答後可反覆重做。",
+    "question": "My sister ___ breakfast at seven every day.",
+    "mode": "choice",
+    "hint": "注意句子的意思與主詞。",
+    "explain": "主詞 My sister 是第三人稱單數；習慣性的動作用現在簡單式 eats。",
+    "options": [
+      "eat",
+      "eating",
+      "eats",
+      "to eat"
+    ],
+    "answer": 2
+  },
+  {
+    "id": "gept-elementary-011",
+    "level": "elementary",
+    "skill": "reading",
+    "type": "cloze",
+    "title": "Passage Gap",
+    "en": "It is raining, so she takes the bus.",
+    "zh": "下雨了，所以她搭公車。",
+    "context": "依題目情境練習，作答後可反覆重做。",
+    "question": "選出最適合填入空格的字。",
+    "mode": "choice",
+    "hint": "判斷空格需要連接詞或時間介系詞。",
+    "explain": "前面是原因，後面是結果，用 so 連接。",
+    "options": [
+      "but",
+      "so",
+      "or",
+      "because"
+    ],
+    "answer": 1,
+    "passage": "Mia walks to school every day. Today it is raining, ___ she takes the bus."
+  },
+  {
+    "id": "gept-elementary-012",
+    "level": "elementary",
+    "skill": "reading",
+    "type": "cloze",
+    "title": "Passage Gap",
+    "en": "It starts at three.",
+    "zh": "它三點開始。",
+    "context": "依題目情境練習，作答後可反覆重做。",
+    "question": "選出最適合填入空格的字。",
+    "mode": "choice",
+    "hint": "判斷空格需要連接詞或時間介系詞。",
+    "explain": "明確的鐘點前用 at。",
+    "options": [
+      "in",
+      "on",
+      "at",
+      "to"
+    ],
+    "answer": 2,
+    "passage": "Dear Ben, Please come to my party on Saturday. It starts ___ three in the afternoon. See you! Amy"
+  },
+  {
+    "id": "gept-elementary-013",
+    "level": "elementary",
+    "skill": "reading",
+    "type": "reading",
+    "title": "A Shop Notice",
+    "en": "The shop closes at six.",
+    "zh": "商店六點關門。",
+    "context": "依題目情境練習，作答後可反覆重做。",
+    "question": "What time does the shop close on Friday?",
+    "mode": "choice",
+    "hint": "找出題目的關鍵資訊，再試一次。",
+    "explain": "Friday 是平日；公告寫平日營業到下午六點。",
+    "options": [
+      "At five.",
+      "At six.",
+      "At seven.",
+      "At nine."
+    ],
+    "answer": 1,
+    "passage": "Deer Bakery\nMonday–Friday: 9 a.m.–6 p.m.\nSaturday: 9 a.m.–5 p.m.\nSunday: Closed."
+  },
+  {
+    "id": "gept-elementary-014",
+    "level": "elementary",
+    "skill": "reading",
+    "type": "reading",
+    "title": "Two Messages",
+    "en": "Let us meet at the library.",
+    "zh": "我們在圖書館見面吧。",
+    "context": "依題目情境練習，作答後可反覆重做。",
+    "question": "Where will they meet?",
+    "mode": "choice",
+    "hint": "找出題目的關鍵資訊，再試一次。",
+    "explain": "要整合後面的更新訊息；地點改成 library，時間仍是兩點。",
+    "options": [
+      "The park.",
+      "The bakery.",
+      "The library.",
+      "The station."
+    ],
+    "answer": 2,
+    "passage": "Message 1 — Leo: Let us meet at the park at two.\nMessage 2 — May: It may rain. Can we meet at the library instead?\nMessage 3 — Leo: Good idea. See you there at two."
+  },
+  {
+    "id": "gept-elementary-015",
+    "level": "elementary",
+    "skill": "writing",
+    "type": "rewrite",
+    "title": "Change the Sentence",
+    "en": "She does not like coffee.",
+    "zh": "她不喜歡咖啡。",
+    "context": "依題目情境練習，作答後可反覆重做。",
+    "question": "改成否定句，完整寫出：She likes coffee. → She …",
+    "mode": "text",
+    "hint": "注意提示的句型、主詞和動詞；可以一直重試。",
+    "explain": "第三人稱的否定句用 does not + 原形動詞。",
+    "accepted": [
+      "She does not like coffee.",
+      "She doesn't like coffee."
+    ],
+    "sample": "She does not like coffee."
+  },
+  {
+    "id": "gept-elementary-016",
+    "level": "elementary",
+    "skill": "writing",
+    "type": "rewrite",
+    "title": "Yesterday",
+    "en": "I walked to school yesterday.",
+    "zh": "我昨天走路上學。",
+    "context": "依題目情境練習，作答後可反覆重做。",
+    "question": "改成過去式，使用 yesterday：I walk to school every day.",
+    "mode": "text",
+    "hint": "注意提示的句型、主詞和動詞；可以一直重試。",
+    "explain": "walk 的規則過去式是 walked；時間改成 yesterday。",
+    "accepted": [
+      "I walked to school yesterday."
+    ],
+    "sample": "I walked to school yesterday."
+  },
+  {
+    "id": "gept-elementary-017",
+    "level": "elementary",
+    "skill": "writing",
+    "type": "combine",
+    "title": "Join with And",
+    "en": "Tom is kind and helpful.",
+    "zh": "Tom 很親切，也很樂於助人。",
+    "context": "依題目情境練習，作答後可反覆重做。",
+    "question": "用 and 合併，避免重複主詞：Tom is kind. Tom is helpful.",
+    "mode": "text",
+    "hint": "注意提示的句型、主詞和動詞；可以一直重試。",
+    "explain": "同一主詞可共用 is，用 and 連接兩個形容詞。",
+    "accepted": [
+      "Tom is kind and helpful."
+    ],
+    "sample": "Tom is kind and helpful."
+  },
+  {
+    "id": "gept-elementary-018",
+    "level": "elementary",
+    "skill": "writing",
+    "type": "combine",
+    "title": "Give a Reason",
+    "en": "I stayed home because it was raining.",
+    "zh": "我待在家，因為當時在下雨。",
+    "context": "依題目情境練習，作答後可反覆重做。",
+    "question": "用 because 合成一句，從 I stayed 開始：I stayed home. It was raining.",
+    "mode": "text",
+    "hint": "注意提示的句型、主詞和動詞；可以一直重試。",
+    "explain": "because 引導原因。",
+    "accepted": [
+      "I stayed home because it was raining."
+    ],
+    "sample": "I stayed home because it was raining."
+  },
+  {
+    "id": "gept-elementary-019",
+    "level": "elementary",
+    "skill": "writing",
+    "type": "reorder",
+    "title": "Put Words in Order",
+    "en": "How can I help you?",
+    "zh": "我可以怎麼幫你？",
+    "context": "依題目情境練習，作答後可反覆重做。",
+    "question": "重組全部字詞：you / can / help / I / How / ?",
+    "mode": "text",
+    "hint": "注意提示的句型、主詞和動詞；可以一直重試。",
+    "explain": "疑問詞 How + can + 主詞 I + 原形動詞 help。",
+    "accepted": [
+      "How can I help you?"
+    ],
+    "sample": "How can I help you?"
+  },
+  {
+    "id": "gept-elementary-020",
+    "level": "elementary",
+    "skill": "writing",
+    "type": "reorder",
+    "title": "A Polite Request",
+    "en": "May I have some water?",
+    "zh": "我可以喝點水嗎？",
+    "context": "依題目情境練習，作答後可反覆重做。",
+    "question": "重組全部字詞：have / I / some / May / water / ?",
+    "mode": "text",
+    "hint": "注意提示的句型、主詞和動詞；可以一直重試。",
+    "explain": "May I…? 是禮貌地提出請求。",
+    "accepted": [
+      "May I have some water?"
+    ],
+    "sample": "May I have some water?"
+  },
+  {
+    "id": "gept-elementary-021",
+    "level": "elementary",
+    "skill": "writing",
+    "type": "paragraph",
+    "title": "A Day at the Park",
+    "en": "We had a picnic in the park.",
+    "zh": "我們在公園野餐。",
+    "context": "依題目情境練習，作答後可反覆重做。",
+    "question": "看圖寫約 50 個英文字：說明人物、活動與感受。可先寫短一點，再慢慢補充。",
+    "mode": "open",
+    "hint": "找出題目的關鍵資訊，再試一次。",
+    "explain": "對照題目中的資訊，留意文意與句子結構。",
+    "sample": "Last Sunday, I went to the park with my brother. We brought water and sandwiches. We sat under a tree and had a picnic. After lunch, we played with a ball on the grass. The weather was sunny, and we had a wonderful afternoon together.",
+    "picture": "picnic",
+    "targetWords": 50,
+    "minWords": 15
+  },
+  {
+    "id": "gept-elementary-022",
+    "level": "elementary",
+    "skill": "writing",
+    "type": "paragraph",
+    "title": "A Busy Morning",
+    "en": "I take the bus to school.",
+    "zh": "我搭公車上學。",
+    "context": "依題目情境練習，作答後可反覆重做。",
+    "question": "看圖寫約 50 個英文字：這些人在哪裡？要做什麼？你覺得他們心情如何？",
+    "mode": "open",
+    "hint": "找出題目的關鍵資訊，再試一次。",
+    "explain": "對照題目中的資訊，留意文意與句子結構。",
+    "sample": "It is Monday morning. Some people are waiting at a bus stop. A student has a school bag, and a woman is holding a book. The bus is coming soon. Everyone is ready for a new day. I think the student feels happy because he can see his friends at school.",
+    "picture": "bus",
+    "targetWords": 50,
+    "minWords": 15
+  },
+  {
+    "id": "gept-elementary-023",
+    "level": "elementary",
+    "skill": "speaking",
+    "type": "repeat",
+    "title": "Listen and Repeat",
+    "en": "Please turn left at the next street.",
+    "zh": "請在下一條街左轉。",
+    "context": "依題目情境練習，作答後可反覆重做。",
+    "question": "先聽句子，再複誦。可重播、重新錄音，不限次數。",
+    "mode": "speak",
+    "hint": "找出題目的關鍵資訊，再試一次。",
+    "explain": "對照題目中的資訊，留意文意與句子結構。",
+    "sample": "Please turn left at the next street.",
+    "audio": "Please turn left at the next street.",
+    "hidePrompt": true
+  },
+  {
+    "id": "gept-elementary-024",
+    "level": "elementary",
+    "skill": "speaking",
+    "type": "repeat",
+    "title": "Listen and Repeat",
+    "en": "The train leaves at half past nine.",
+    "zh": "火車九點半出發。",
+    "context": "依題目情境練習，作答後可反覆重做。",
+    "question": "先聽句子，再複誦。可重播、重新錄音，不限次數。",
+    "mode": "speak",
+    "hint": "找出題目的關鍵資訊，再試一次。",
+    "explain": "對照題目中的資訊，留意文意與句子結構。",
+    "sample": "The train leaves at half past nine.",
+    "audio": "The train leaves at half past nine.",
+    "hidePrompt": true
+  },
+  {
+    "id": "gept-elementary-025",
+    "level": "elementary",
+    "skill": "speaking",
+    "type": "read-aloud",
+    "title": "Read Aloud",
+    "en": "Our town has a small library. It is next to the park. I go there every Saturday to read with my friend.",
+    "zh": "我們鎮上有一間小圖書館。它在公園旁邊。我每週六和朋友去那裡閱讀。",
+    "context": "依題目情境練習，作答後可反覆重做。",
+    "question": "用清楚的聲音朗讀，留意句子停頓。",
+    "mode": "speak",
+    "hint": "找出題目的關鍵資訊，再試一次。",
+    "explain": "對照題目中的資訊，留意文意與句子結構。",
+    "sample": "Our town has a small library. It is next to the park. I go there every Saturday to read with my friend.",
+    "passage": "Our town has a small library. It is next to the park. I go there every Saturday to read with my friend."
+  },
+  {
+    "id": "gept-elementary-026",
+    "level": "elementary",
+    "skill": "speaking",
+    "type": "read-aloud",
+    "title": "Read Aloud",
+    "en": "I work in a little shop. I help people find what they need. I enjoy talking to the customers.",
+    "zh": "我在一家小店工作。我幫大家找到需要的東西，也喜歡和顧客交談。",
+    "context": "依題目情境練習，作答後可反覆重做。",
+    "question": "用清楚的聲音朗讀，留意句子停頓。",
+    "mode": "speak",
+    "hint": "找出題目的關鍵資訊，再試一次。",
+    "explain": "對照題目中的資訊，留意文意與句子結構。",
+    "sample": "I work in a little shop. I help people find what they need. I enjoy talking to the customers.",
+    "passage": "I work in a little shop. I help people find what they need. I enjoy talking to the customers."
+  },
+  {
+    "id": "gept-elementary-027",
+    "level": "elementary",
+    "skill": "speaking",
+    "type": "answer-question",
+    "title": "Answer a Question",
+    "en": "I usually visit my family on weekends.",
+    "zh": "我週末通常去探望家人。",
+    "context": "依題目情境練習，作答後可反覆重做。",
+    "question": "聽問題後，用自己的經驗回答。",
+    "mode": "speak",
+    "hint": "找出題目的關鍵資訊，再試一次。",
+    "explain": "對照題目中的資訊，留意文意與句子結構。",
+    "sample": "I usually visit my family on weekends.",
+    "audio": "What do you usually do on weekends?",
+    "hidePrompt": true
+  },
+  {
+    "id": "gept-elementary-028",
+    "level": "elementary",
+    "skill": "speaking",
+    "type": "answer-question",
+    "title": "Answer a Question",
+    "en": "I take the bus to work.",
+    "zh": "我搭公車上班。",
+    "context": "依題目情境練習，作答後可反覆重做。",
+    "question": "聽問題後，用自己的經驗回答。",
+    "mode": "speak",
+    "hint": "找出題目的關鍵資訊，再試一次。",
+    "explain": "對照題目中的資訊，留意文意與句子結構。",
+    "sample": "I take the bus to work.",
+    "audio": "How do you get to work or school?",
+    "hidePrompt": true
+  },
+  {
+    "id": "gept-intermediate-001",
+    "level": "intermediate",
+    "skill": "listening",
+    "type": "picture",
+    "title": "At the Bus Stop",
+    "en": "The bus has not arrived yet.",
+    "zh": "公車還沒到。",
+    "context": "依題目情境練習，作答後可反覆重做。",
+    "question": "看圖聽敘述，選出正確選項。",
+    "mode": "choice",
+    "hint": "找出題目的關鍵資訊，再試一次。",
+    "explain": "畫面中的人站在公車站旁等待。",
+    "options": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": 2,
+    "picture": "bus",
+    "audio": "A. The passengers are already on the bus. B. The street is empty. C. People are waiting beside the bus stop. D. A woman is driving a car."
+  },
+  {
+    "id": "gept-intermediate-002",
+    "level": "intermediate",
+    "skill": "listening",
+    "type": "response",
+    "title": "A Helpful Reply",
+    "en": "I can show you the way.",
+    "zh": "我可以帶你認路。",
+    "context": "依題目情境練習，作答後可反覆重做。",
+    "question": "選出最合適的回應。",
+    "mode": "choice",
+    "hint": "找出題目的關鍵資訊，再試一次。",
+    "explain": "對方不確定路線，提供帶路是適切的回應。",
+    "options": [
+      "I can show you the way.",
+      "It was delicious.",
+      "I bought two.",
+      "Last month."
+    ],
+    "answer": 0,
+    "audio": "I am not sure how to get to the meeting room."
+  },
+  {
+    "id": "gept-intermediate-003",
+    "level": "intermediate",
+    "skill": "listening",
+    "type": "dialogue",
+    "title": "A Changed Appointment",
+    "en": "Could we meet a little later?",
+    "zh": "我們能晚一點見面嗎？",
+    "context": "依題目情境練習，作答後可反覆重做。",
+    "question": "When will the speakers meet?",
+    "mode": "choice",
+    "hint": "找出題目的關鍵資訊，再試一次。",
+    "explain": "原定兩點，延後一小時就是三點。",
+    "options": [
+      "At two.",
+      "At three.",
+      "At four.",
+      "At five."
+    ],
+    "answer": 1,
+    "audio": "A: Our meeting is at two, right? B: I have a dentist appointment. Could we meet an hour later? A: Sure. Question: When will they meet?"
+  },
+  {
+    "id": "gept-intermediate-004",
+    "level": "intermediate",
+    "skill": "listening",
+    "type": "talk",
+    "title": "A Station Announcement",
+    "en": "The train will leave from platform four.",
+    "zh": "火車將從第四月台出發。",
+    "context": "依題目情境練習，作答後可反覆重做。",
+    "question": "What has changed?",
+    "mode": "choice",
+    "hint": "找出題目的關鍵資訊，再試一次。",
+    "explain": "instead of 表示替換；改變的是月台，出發時間不變。",
+    "options": [
+      "The ticket price.",
+      "The destination.",
+      "The platform.",
+      "The date."
+    ],
+    "answer": 2,
+    "audio": "Attention please. The ten o clock train to River Town will now leave from platform four instead of platform two. The departure time has not changed. Question: What has changed?"
+  },
+  {
+    "id": "gept-intermediate-005",
+    "level": "intermediate",
+    "skill": "reading",
+    "type": "vocabulary",
+    "title": "Choose the Right Word",
+    "en": "Please confirm your reservation.",
+    "zh": "請確認你的預訂。",
+    "context": "依題目情境練習，作答後可反覆重做。",
+    "question": "Please ___ your reservation by Friday so we can prepare your room.",
+    "mode": "choice",
+    "hint": "找出題目的關鍵資訊，再試一次。",
+    "explain": "旅館需要確認預訂，confirm 符合文意。",
+    "options": [
+      "confirm",
+      "borrow",
+      "invent",
+      "refuse"
+    ],
+    "answer": 0
+  },
+  {
+    "id": "gept-intermediate-006",
+    "level": "intermediate",
+    "skill": "reading",
+    "type": "cloze",
+    "title": "An Invitation",
+    "en": "Let me know whether you can come.",
+    "zh": "請讓我知道你是否能來。",
+    "context": "依題目情境練習，作答後可反覆重做。",
+    "question": "Choose the word that completes the passage.",
+    "mode": "choice",
+    "hint": "找出題目的關鍵資訊，再試一次。",
+    "explain": "whether 引導「是否」的名詞子句。",
+    "options": [
+      "whether",
+      "unless",
+      "during",
+      "although"
+    ],
+    "answer": 0,
+    "passage": "We are having a farewell party for our teacher next week. Please let me know ___ you can come. I need to order enough food for everyone."
+  },
+  {
+    "id": "gept-intermediate-007",
+    "level": "intermediate",
+    "skill": "reading",
+    "type": "reading",
+    "title": "Compare Two Notices",
+    "en": "The event has moved indoors.",
+    "zh": "活動已移到室內。",
+    "context": "依題目情境練習，作答後可反覆重做。",
+    "question": "What should participants do?",
+    "mode": "choice",
+    "hint": "找出題目的關鍵資訊，再試一次。",
+    "explain": "更新公告優先；活動移至 school hall，且不必自己帶椅子。",
+    "options": [
+      "Bring a bicycle.",
+      "Go to the school hall.",
+      "Arrive a day early.",
+      "Cancel their tickets."
+    ],
+    "answer": 1,
+    "passage": "Original notice: Community music afternoon, Saturday at 2 p.m., River Park. Bring a chair.\nUpdate: Because heavy rain is expected, the event will take place in the school hall across the street. The starting time is unchanged. Chairs are provided."
+  },
+  {
+    "id": "gept-intermediate-008",
+    "level": "intermediate",
+    "skill": "writing",
+    "type": "translation",
+    "title": "Translate a Short Message",
+    "en": "Public transportation can save us time.",
+    "zh": "大眾運輸可以節省時間。",
+    "context": "依題目情境練習，作答後可反覆重做。",
+    "question": "將下列段落譯成英文：我以前每天開車上班。最近我開始搭火車，因為比較方便。我也能在路上看書。",
+    "mode": "open",
+    "hint": "找出題目的關鍵資訊，再試一次。",
+    "explain": "對照題目中的資訊，留意文意與句子結構。",
+    "sample": "I used to drive to work every day. Recently, I have started taking the train because it is more convenient. I can also read on the way.",
+    "targetWords": 35,
+    "minWords": 12
+  },
+  {
+    "id": "gept-intermediate-009",
+    "level": "intermediate",
+    "skill": "writing",
+    "type": "essay",
+    "title": "A Useful Habit",
+    "en": "A small habit can make a big difference.",
+    "zh": "一個小習慣能帶來很大的改變。",
+    "context": "依題目情境練習，作答後可反覆重做。",
+    "question": "寫約 120 字，描述你養成的一個實用習慣，解釋原因，並舉例說明它如何改變生活。",
+    "mode": "open",
+    "hint": "找出題目的關鍵資訊，再試一次。",
+    "explain": "對照題目中的資訊，留意文意與句子結構。",
+    "sample": "Last year, I started preparing my bag before going to bed. Before that, I often rushed around in the morning looking for my keys and notebook. Sometimes I even missed the bus. My sister suggested making a short list and checking it every evening. At first, I thought this habit was unnecessary, but I decided to try it. Now I put everything beside the door after dinner. This only takes a few minutes, and my mornings are much calmer. For example, last Monday I woke up late but still caught the bus because my bag was ready. I have learned that a small habit can save time and reduce stress.",
+    "targetWords": 120,
+    "minWords": 30
+  },
+  {
+    "id": "gept-intermediate-010",
+    "level": "intermediate",
+    "skill": "speaking",
+    "type": "read-aloud",
+    "title": "A Community Garden",
+    "en": "Neighbors can learn from one another.",
+    "zh": "鄰居可以互相學習。",
+    "context": "依題目情境練習，作答後可反覆重做。",
+    "question": "清楚朗讀短文，再聽自己的錄音，留意停頓與語調。",
+    "mode": "speak",
+    "hint": "找出題目的關鍵資訊，再試一次。",
+    "explain": "對照題目中的資訊，留意文意與句子結構。",
+    "sample": "Our neighborhood has a new community garden. People grow vegetables and share tools there. On weekends, volunteers teach children how to care for plants. The garden provides fresh food and gives neighbors a chance to learn from one another.",
+    "passage": "Our neighborhood has a new community garden. People grow vegetables and share tools there. On weekends, volunteers teach children how to care for plants. The garden provides fresh food and gives neighbors a chance to learn from one another."
+  },
+  {
+    "id": "gept-intermediate-011",
+    "level": "intermediate",
+    "skill": "speaking",
+    "type": "answer-question",
+    "title": "Describe a Favorite Place",
+    "en": "I enjoy spending time by the river.",
+    "zh": "我喜歡在河邊度過時間。",
+    "context": "依題目情境練習，作答後可反覆重做。",
+    "question": "聽問題，回答地點並說明原因。",
+    "mode": "speak",
+    "hint": "找出題目的關鍵資訊，再試一次。",
+    "explain": "對照題目中的資訊，留意文意與句子結構。",
+    "sample": "I enjoy the riverside park because it is quiet. I often walk there after work. The fresh air helps me relax.",
+    "audio": "What is your favorite place in your town, and why do you like it?",
+    "hidePrompt": true
+  },
+  {
+    "id": "gept-intermediate-012",
+    "level": "intermediate",
+    "skill": "speaking",
+    "type": "picture-description",
+    "title": "Describe the Scene",
+    "en": "The family is enjoying a picnic.",
+    "zh": "這家人正在享受野餐。",
+    "context": "依題目情境練習，作答後可反覆重做。",
+    "question": "Describe the people, the setting, and what may happen next. 描述人物、地點與接下來可能發生的事。",
+    "mode": "speak",
+    "hint": "找出題目的關鍵資訊，再試一次。",
+    "explain": "對照題目中的資訊，留意文意與句子結構。",
+    "sample": "A family is having a picnic in a park. They are sitting near a tree with food and drinks. The weather seems pleasant. After eating, they may play a game or take a walk together.",
+    "picture": "picnic"
+  },
+  {
+    "id": "gept-upper-001",
+    "level": "upper",
+    "skill": "listening",
+    "type": "response",
+    "title": "Make a Suggestion",
+    "en": "We could ask for an extension.",
+    "zh": "我們可以申請延長期限。",
+    "context": "依題目情境練習，作答後可反覆重做。",
+    "question": "Choose the most appropriate response.",
+    "mode": "choice",
+    "hint": "找出題目的關鍵資訊，再試一次。",
+    "explain": "對方徵求趕不上期限時的對策；申請延期最相關。",
+    "options": [
+      "We could ask for an extension.",
+      "The building has three floors.",
+      "I ordered it yesterday.",
+      "It was made of wood."
+    ],
+    "answer": 0,
+    "audio": "We are unlikely to finish the report before Friday. What do you suggest?"
+  },
+  {
+    "id": "gept-upper-002",
+    "level": "upper",
+    "skill": "listening",
+    "type": "dialogue",
+    "title": "An Indirect Opinion",
+    "en": "The location matters more than the size.",
+    "zh": "地點比空間大小更重要。",
+    "context": "依題目情境練習，作答後可反覆重做。",
+    "question": "What does the second speaker imply?",
+    "mode": "choice",
+    "hint": "找出題目的關鍵資訊，再試一次。",
+    "explain": "說話者以客戶搭火車與另一辦公室近車站為理由，間接支持較小的辦公室。",
+    "options": [
+      "The office is too expensive.",
+      "A smaller office near the station may be better.",
+      "The team should work at home forever.",
+      "The station is closed."
+    ],
+    "answer": 1,
+    "audio": "A: This office is much larger than the other one. Should we rent it? B: It is spacious, but most of our clients travel by train. The smaller office is only a two minute walk from the station. Question: What does the second speaker imply?"
+  },
+  {
+    "id": "gept-upper-003",
+    "level": "upper",
+    "skill": "listening",
+    "type": "talk",
+    "title": "A Research Update",
+    "en": "The evidence is promising but limited.",
+    "zh": "證據令人期待，但仍有限。",
+    "context": "依題目情境練習，作答後可反覆重做。",
+    "question": "What is the main limitation of the study?",
+    "mode": "choice",
+    "hint": "找出題目的關鍵資訊，再試一次。",
+    "explain": "觀察只有兩週，因此需要更長研究；不是完全沒有資料。",
+    "options": [
+      "It had no participants.",
+      "It lasted only a short time.",
+      "It measured the wrong city.",
+      "It used no questionnaires."
+    ],
+    "answer": 1,
+    "audio": "A small study found that employees who took short outdoor breaks reported better concentration. However, the study followed them for only two weeks. Researchers say longer observation is needed before the results can support workplace policy. Question: What is the main limitation?"
+  },
+  {
+    "id": "gept-upper-004",
+    "level": "upper",
+    "skill": "reading",
+    "type": "vocabulary",
+    "title": "Precise Vocabulary",
+    "en": "The plan is financially feasible.",
+    "zh": "這項計畫在財務上可行。",
+    "context": "依題目情境練習，作答後可反覆重做。",
+    "question": "The proposal is attractive, but we must determine whether it is financially ___.",
+    "mode": "choice",
+    "hint": "找出題目的關鍵資訊，再試一次。",
+    "explain": "feasible 指可行，搭配 financially 表示財務上能實行。",
+    "options": [
+      "feasible",
+      "fragile",
+      "accidental",
+      "distant"
+    ],
+    "answer": 0
+  },
+  {
+    "id": "gept-upper-005",
+    "level": "upper",
+    "skill": "reading",
+    "type": "cloze",
+    "title": "A Balanced Argument",
+    "en": "Convenience does not always mean accessibility.",
+    "zh": "方便不一定代表人人都能使用。",
+    "context": "依題目情境練習，作答後可反覆重做。",
+    "question": "Choose the best connector.",
+    "mode": "choice",
+    "hint": "找出題目的關鍵資訊，再試一次。",
+    "explain": "前後形成轉折；Nevertheless 表示儘管如此。",
+    "options": [
+      "Nevertheless",
+      "Similarly",
+      "For instance",
+      "In other words"
+    ],
+    "answer": 0,
+    "passage": "Online appointments reduce waiting times for many patients. ___, people without reliable internet may find the system difficult to use. Clinics should therefore retain a telephone option."
+  },
+  {
+    "id": "gept-upper-006",
+    "level": "upper",
+    "skill": "reading",
+    "type": "reading",
+    "title": "Evaluate a Claim",
+    "en": "A correlation does not prove causation.",
+    "zh": "相關性不能證明因果關係。",
+    "context": "依題目情境練習，作答後可反覆重做。",
+    "question": "Which conclusion is best supported?",
+    "mode": "choice",
+    "hint": "找出題目的關鍵資訊，再試一次。",
+    "explain": "樣本自願參與、未控制其他因素，因此只能說有關聯。",
+    "options": [
+      "Reading certainly causes longer lives.",
+      "Income never affects health.",
+      "The survey shows an association, not a proven cause.",
+      "All adults read equally often."
+    ],
+    "answer": 2,
+    "passage": "A survey found that adults who read frequently also reported better health. Participants chose whether to join the survey, and the researchers did not control for income, exercise, or access to health care. The report recommends further research before drawing causal conclusions."
+  },
+  {
+    "id": "gept-upper-007",
+    "level": "upper",
+    "skill": "writing",
+    "type": "translation",
+    "title": "Translate a Public Notice",
+    "en": "Access should remain available to everyone.",
+    "zh": "服務應持續開放給所有人使用。",
+    "context": "依題目情境練習，作答後可反覆重做。",
+    "question": "將本段譯成英文：雖然線上服務提高了效率，我們不應忽略不熟悉數位工具的人。因此，圖書館將保留現場諮詢，並提供免費的基礎課程。",
+    "mode": "open",
+    "hint": "找出題目的關鍵資訊，再試一次。",
+    "explain": "對照題目中的資訊，留意文意與句子結構。",
+    "sample": "Although online services have improved efficiency, we should not overlook people who are unfamiliar with digital tools. The library will therefore continue to offer in-person assistance and provide free introductory courses.",
+    "targetWords": 45,
+    "minWords": 15
+  },
+  {
+    "id": "gept-upper-008",
+    "level": "upper",
+    "skill": "writing",
+    "type": "essay",
+    "title": "A Flexible Working Policy",
+    "en": "Flexibility requires clear expectations.",
+    "zh": "彈性安排需要明確的期待。",
+    "context": "依題目情境練習，作答後可反覆重做。",
+    "question": "寫約 180 字：公司是否應允許員工自由選擇遠距工作的天數？提出立場、理由、例子與可能的限制。",
+    "mode": "open",
+    "hint": "找出題目的關鍵資訊，再試一次。",
+    "explain": "對照題目中的資訊，留意文意與句子結構。",
+    "sample": "Companies should offer some flexibility in remote work, but the policy needs clear expectations. Employees who avoid long commutes may have more time and energy for demanding tasks. For instance, a writer may work more effectively at home on days that require uninterrupted concentration. However, complete freedom can make collaboration difficult if colleagues are rarely available at the same time. New employees may also miss informal opportunities to learn from experienced staff. A balanced policy could let teams choose regular office days while allowing individuals to work remotely on other days. Managers should evaluate results rather than the number of hours spent at a desk. They should also provide accessible communication tools and review the arrangement regularly. This approach recognizes that different tasks require different working conditions. Flexibility is useful when both employees and managers understand their responsibilities. It is also important to recognize that some employees lack a quiet workspace at home. They should retain access to suitable office facilities without being treated as less independent. Finally, the policy should be adjusted through discussion rather than imposed as a permanent rule before its effects are understood.",
+    "targetWords": 180,
+    "minWords": 40
+  },
+  {
+    "id": "gept-upper-009",
+    "level": "upper",
+    "skill": "speaking",
+    "type": "answer-question",
+    "title": "Explain Your Position",
+    "en": "Public spaces should serve different needs.",
+    "zh": "公共空間應滿足不同需求。",
+    "context": "依題目情境練習，作答後可反覆重做。",
+    "question": "聽題目後說明立場，並舉一個例子。",
+    "mode": "speak",
+    "hint": "找出題目的關鍵資訊，再試一次。",
+    "explain": "對照題目中的資訊，留意文意與句子結構。",
+    "sample": "I would improve public transportation first. It could help people who cannot drive and reduce traffic. For example, frequent evening buses would make it easier for workers to get home safely.",
+    "audio": "If your town could improve only one public service this year, which service would you choose and why?",
+    "hidePrompt": true
+  },
+  {
+    "id": "gept-upper-010",
+    "level": "upper",
+    "skill": "speaking",
+    "type": "picture-description",
+    "title": "Interpret a Scene",
+    "en": "The situation may have several explanations.",
+    "zh": "這個情況可能有多種解釋。",
+    "context": "依題目情境練習，作答後可反覆重做。",
+    "question": "Describe the scene and suggest two possible reasons why these people are waiting.",
+    "mode": "speak",
+    "hint": "找出題目的關鍵資訊，再試一次。",
+    "explain": "對照題目中的資訊，留意文意與句子結構。",
+    "sample": "Several people are waiting at a bus stop. One possibility is that they are on their way to work or school. Another is that they are meeting someone before a trip. Their relaxed posture suggests that they do not expect a long delay, but the picture alone cannot confirm this.",
+    "picture": "bus"
+  },
+  {
+    "id": "gept-upper-011",
+    "level": "upper",
+    "skill": "speaking",
+    "type": "presentation",
+    "title": "Present an Argument",
+    "en": "A good policy balances access and cost.",
+    "zh": "好的政策要兼顧使用機會與成本。",
+    "context": "依題目情境練習，作答後可反覆重做。",
+    "question": "Discuss whether museums should offer free admission. Give reasons, consider a counterargument, and reach a conclusion.",
+    "mode": "speak",
+    "hint": "找出題目的關鍵資訊，再試一次。",
+    "explain": "對照題目中的資訊，留意文意與句子結構。",
+    "sample": "Free admission can make museums more accessible, especially to families and students. However, museums still need funds to maintain collections and pay staff. A practical compromise is free entry to permanent collections with charges for special exhibitions. This broadens access without ignoring financial needs."
+  },
+  {
+    "id": "gept-advanced-001",
+    "level": "advanced",
+    "skill": "listening",
+    "type": "short-conversation",
+    "title": "A Qualified Recommendation",
+    "en": "The recommendation is conditional.",
+    "zh": "這項建議附有條件。",
+    "context": "依題目情境練習，作答後可反覆重做。",
+    "question": "What is the consultant recommending?",
+    "mode": "choice",
+    "hint": "找出題目的關鍵資訊，再試一次。",
+    "explain": "顧問支持擴大小規模試行，而非立即全面導入。",
+    "options": [
+      "Immediate expansion without review.",
+      "A limited trial before wider adoption.",
+      "Abandoning the project permanently.",
+      "Replacing all staff."
+    ],
+    "answer": 1,
+    "audio": "A: Shall we introduce the new system across all departments? B: The preliminary results are encouraging, but they come from a single team. I would be more comfortable extending the pilot to two additional departments before committing the whole organization. Question: What is the consultant recommending?"
+  },
+  {
+    "id": "gept-advanced-002",
+    "level": "advanced",
+    "skill": "listening",
+    "type": "long-conversation",
+    "title": "Two Stakeholders",
+    "en": "Agreement on goals may conceal different priorities.",
+    "zh": "目標一致可能掩蓋不同的優先考量。",
+    "context": "依題目情境練習，作答後可反覆重做。",
+    "question": "Where do the speakers differ?",
+    "mode": "choice",
+    "hint": "找出題目的關鍵資訊，再試一次。",
+    "explain": "兩人同意改善使用機會，但對優先延長時間或處理交通有不同看法。",
+    "options": [
+      "Whether public access matters.",
+      "Whether to start with longer hours or improved transport.",
+      "Whether the center should close.",
+      "Whether staff should be paid."
+    ],
+    "answer": 1,
+    "audio": "Director: We agree that the learning center should reach more residents. I suggest extending evening hours. Coordinator: Access is important, but residents in our survey said the last bus leaves before our current closing time. Longer hours alone may not help them. Director: Could we combine an evening bus service with a trial extension? Coordinator: Yes, provided we evaluate who actually benefits and account for staff workload. Question: Where do the speakers initially differ?"
+  },
+  {
+    "id": "gept-advanced-003",
+    "level": "advanced",
+    "skill": "listening",
+    "type": "long-talk",
+    "title": "An Evidence-Based Decision",
+    "en": "An average can hide unequal outcomes.",
+    "zh": "平均值可能掩蓋不均等的結果。",
+    "context": "依題目情境練習，作答後可反覆重做。",
+    "question": "What is the main caution in the talk?",
+    "mode": "choice",
+    "hint": "找出題目的關鍵資訊，再試一次。",
+    "explain": "講者要求觀察不同群體的經驗，避免只憑平均值判斷公平。",
+    "options": [
+      "All indicators are useless.",
+      "A higher average may not mean every group benefits.",
+      "Surveys should never be used.",
+      "Costs have already disappeared."
+    ],
+    "answer": 1,
+    "audio": "A city reported that its digital permit system reduced average waiting time by forty percent. This is a meaningful improvement, but an average alone cannot establish that the reform was equitable. Residents with reliable internet completed applications quickly, while some older applicants relied on understaffed help desks. Evaluators should examine the distribution of waiting times, the experience of different groups, and whether assistance remained available. Efficiency and fairness are related goals, but they are not interchangeable. Question: What is the main caution?"
+  },
+  {
+    "id": "gept-advanced-004",
+    "level": "advanced",
+    "skill": "reading",
+    "type": "skimming",
+    "title": "Scan an Evaluation Brief",
+    "en": "The review date is separate from the launch date.",
+    "zh": "檢討日期與上線日期不同。",
+    "context": "依題目情境練習，作答後可反覆重做。",
+    "question": "When will the pilot be reviewed?",
+    "mode": "choice",
+    "hint": "找出題目的關鍵資訊，再試一次。",
+    "explain": "略讀尋找 evaluation meeting，不要把開始或擴大日期當作檢討日期。",
+    "options": [
+      "March 3.",
+      "April 15.",
+      "June 30.",
+      "December 1."
+    ],
+    "answer": 2,
+    "passage": "Pilot brief: Neighborhood delivery hub\nPlanning approved: March 3\nService begins: April 15\nEvaluation meeting: June 30\nPossible wider rollout: December 1, subject to evaluation\nThe trial will measure delivery traffic, access for small businesses, and resident satisfaction."
+  },
+  {
+    "id": "gept-advanced-005",
+    "level": "advanced",
+    "skill": "reading",
+    "type": "careful-reading",
+    "title": "Read the Qualification",
+    "en": "The author questions the inference, not the goal.",
+    "zh": "作者質疑的是推論，而不是目標。",
+    "context": "依題目情境練習，作答後可反覆重做。",
+    "question": "Which statement best captures the author’s position?",
+    "mode": "choice",
+    "hint": "找出題目的關鍵資訊，再試一次。",
+    "explain": "作者沒有否定政策，只指出無法由自行車增加直接推得開車減少。",
+    "options": [
+      "The policy can never work.",
+      "The evidence does not yet justify a universal claim.",
+      "Every survey result is false.",
+      "The outcome was measured perfectly."
+    ],
+    "answer": 1,
+    "passage": "Supporters claim that providing free bicycles will necessarily reduce car use. The pilot is certainly promising: bicycle trips increased substantially. Yet the report does not identify which journeys these trips replaced. Some may have substituted for walking or existing public transport. The missing comparison does not establish that the policy failed; it means the claim about reduced car use remains underdetermined. A stronger evaluation would track prior travel patterns and compare similar neighborhoods over time."
+  },
+  {
+    "id": "gept-advanced-006",
+    "level": "advanced",
+    "skill": "writing",
+    "type": "summary",
+    "title": "Synthesize Two Sources",
+    "en": "Synthesis should preserve both agreement and tension.",
+    "zh": "綜合摘要應保留共識與分歧。",
+    "context": "依題目情境練習，作答後可反覆重做。",
+    "question": "Read both sources. Write a synthesis of approximately 250 words comparing their claims, evidence, and limitations. Use your own words.",
+    "mode": "open",
+    "hint": "找出題目的關鍵資訊，再試一次。",
+    "explain": "對照題目中的資訊，留意文意與句子結構。",
+    "sample": "Both sources support improving library access, but they emphasize different barriers. Source A presents extended opening hours as a way to serve shift workers, while Source B stresses that opening hours alone cannot address transport and caregiving constraints. Their proposals are complementary rather than mutually exclusive. However, both rely on limited local evidence. A pilot combining selected evening sessions with transport support would allow the city to compare participation across groups. Evaluation should measure who attends, who remains excluded, staff workload, and cost. The decision should therefore be based on several indicators rather than total visits alone. The strength of Source A is that it offers a specific, relatively simple service change. Its survey gives existing users a direct opportunity to describe their preferences. Nevertheless, the sample excludes the people most likely to face barriers to participation, so the percentage cannot be generalized to the whole population. Source B helps fill this gap by consulting infrequent users, although interviews with twenty-four residents cannot establish how common each obstacle is.\n\nA combined trial would test whether the proposed measures reinforce one another. For example, selected evening sessions could be coordinated with a bus service and a simplified booking process. The city should record participation without assuming that higher attendance automatically demonstrates equal access. Brief interviews with residents who still do not attend would provide essential context. The sources therefore support a cautious, inclusive experiment rather than an immediate commitment to a single permanent solution.",
+    "passage": "Source A — Service memo: A three-month survey of 180 current library users found that 60 percent wanted evening access. The memo recommends two late evenings each week. It acknowledges that non-users were not surveyed.\n\nSource B — Community interview report: Interviews with 24 residents who rarely use the library identified unreliable buses, childcare needs, and unfamiliar booking procedures as barriers. The authors propose transport support and simpler booking, while noting that the small sample cannot represent the entire town.",
+    "targetWords": 250,
+    "minWords": 50
+  },
+  {
+    "id": "gept-advanced-007",
+    "level": "advanced",
+    "skill": "writing",
+    "type": "chart-writing",
+    "title": "Compare Two Data Tables",
+    "en": "The trend should be interpreted in context.",
+    "zh": "應在脈絡中解讀趨勢。",
+    "context": "依題目情境練習，作答後可反覆重做。",
+    "question": "Compare the two tables. Write approximately 250 words describing trends and recommending what the city should investigate next. Distinguish observations from speculation.",
+    "mode": "open",
+    "hint": "找出題目的關鍵資訊，再試一次。",
+    "explain": "對照題目中的資訊，留意文意與句子結構。",
+    "sample": "The tables show rising digital use alongside a smaller increase in supported access. Online applications grew from 400 to 900, whereas help-desk visits rose from 100 to 140. Average online waiting time fell, but help-desk waiting increased. These observations suggest that the channels experienced different pressures. They do not establish why residents chose a particular channel or whether the same people used both. Before reducing in-person support, the city should examine staffing, demographic patterns, and unresolved applications. A reasonable next step is to test additional assistance and compare results across both channels. The increase in online applications is much larger in absolute terms, but the help desk also handles more applications than before. This makes it inappropriate to describe in-person demand as disappearing. The waiting-time figures further suggest that growth has not been accompanied by equal improvements in both channels. While online waits halved, help-desk waits increased by fifteen minutes.\n\nSeveral explanations are possible. Staffing may have remained unchanged, or the cases arriving at the desk may have become more complex. The tables provide no evidence that allows us to choose confidently between these possibilities. They also do not reveal whether applications were completed successfully or how satisfied residents were with the service.\n\nThe next evaluation should therefore combine operational records with interviews. It should compare case complexity, completion rates, and staffing levels over similar periods. Until that evidence is available, retaining assistance while testing additional support is more defensible than assuming that online growth removes the need for human help.",
+    "passage": "Table 1 — Monthly applications\nChannel | Year 1 | Year 2\nOnline | 400 | 900\nHelp desk | 100 | 140\n\nTable 2 — Average wait (minutes)\nChannel | Year 1 | Year 2\nOnline | 12 | 6\nHelp desk | 20 | 35",
+    "targetWords": 250,
+    "minWords": 50
+  },
+  {
+    "id": "gept-advanced-008",
+    "level": "advanced",
+    "skill": "speaking",
+    "type": "interview",
+    "title": "A Reflective Interview",
+    "en": "I would reconsider the assumptions first.",
+    "zh": "我會先重新檢視假設。",
+    "context": "依題目情境練習，作答後可反覆重做。",
+    "question": "Describe a difficult decision you made. Explain your reasoning, what you learned, and what might change your judgment now.",
+    "mode": "speak",
+    "hint": "找出題目的關鍵資訊，再試一次。",
+    "explain": "對照題目中的資訊，留意文意與句子結構。",
+    "sample": "I once had to choose between a fast rollout and a longer pilot. I initially favored speed, but interviews revealed that some users could not access the proposed service. We extended the pilot and added support. I learned to distinguish a successful demonstration from an inclusive service. I would revisit the decision if stronger evidence showed that delay created greater harm."
+  },
+  {
+    "id": "gept-advanced-009",
+    "level": "advanced",
+    "skill": "speaking",
+    "type": "information-exchange",
+    "title": "Negotiate a Shared Plan",
+    "en": "Could you clarify which constraint is essential?",
+    "zh": "你能說明哪項限制是必要的嗎？",
+    "context": "依題目情境練習，作答後可反覆重做。",
+    "question": "Role A: You manage a library with a limited staffing budget. Role B: Your partner represents residents who need evening access. Exchange information, ask clarifying questions, and agree on a pilot. You may practice both roles alone.",
+    "mode": "speak",
+    "hint": "找出題目的關鍵資訊，再試一次。",
+    "explain": "對照題目中的資訊，留意文意與句子結構。",
+    "sample": "A: We can fund two additional staff shifts each week. Which evenings would help most? B: Residents suggested Tuesday and Thursday, but transport ends early on Thursday. Could we begin with Tuesday and Saturday? A: Saturday is feasible. Let us test both sessions and review attendance and staffing after a month."
+  },
+  {
+    "id": "gept-advanced-010",
+    "level": "advanced",
+    "skill": "speaking",
+    "type": "presentation",
+    "title": "A Balanced Recommendation",
+    "en": "A credible recommendation acknowledges uncertainty.",
+    "zh": "可信的建議會承認不確定性。",
+    "context": "依題目情境練習，作答後可反覆重做。",
+    "question": "Present a recommendation on whether a city should replace printed notices with a digital-only service. Address efficiency, inclusion, costs, and the evidence needed.",
+    "mode": "speak",
+    "hint": "找出題目的關鍵資訊，再試一次。",
+    "explain": "對照題目中的資訊，留意文意與句子結構。",
+    "sample": "A digital-first approach may improve speed and reduce printing, but digital-only communication risks excluding residents without reliable access. I would recommend retaining targeted print support while testing improved digital notices. The city should compare comprehension and reach across groups, not merely count page views. A review could then assess whether resources are being used effectively and equitably."
+  },
+  {
+    "id": "gept-superior-001",
+    "level": "superior",
+    "skill": "writing",
+    "type": "integrated-writing",
+    "title": "An Integrated Policy Brief",
+    "en": "Efficiency must be assessed alongside accountability.",
+    "zh": "評估效率時也應考量問責。",
+    "context": "依題目情境練習，作答後可反覆重做。",
+    "question": "Read the source and listen to the interview. Write a policy brief that integrates both perspectives, evaluates assumptions, and proposes an accountable pilot. Formal superior tasks are much longer; this is a self-paced preparatory exercise. You may build toward 750 words.",
+    "mode": "open",
+    "hint": "找出題目的關鍵資訊，再試一次。",
+    "explain": "對照題目中的資訊，留意文意與句子結構。",
+    "sample": "The proposed grant allocation system should be evaluated as a change in public decision making, rather than merely as an administrative shortcut. Faster processing and consistent criteria are valuable, but they are not sufficient grounds for replacing existing procedures. Both sources suggest that the central issue is how efficiency interacts with unequal access, the interpretation of historical data, and the public's ability to challenge decisions. I recommend a limited, independently evaluated pilot with explicit conditions for revision before any wider adoption.\n\nThe reading identifies a practical source of inequality: communities have not always had equal access to advice when preparing applications. An award may therefore reflect not only the quality of a project but also the applicant's ability to present it in the expected form. If previous awards become the model for future decisions, a system may learn to reproduce advantages associated with professional support. The interview develops this concern by distinguishing consistency from fairness. Applying the same procedure repeatedly can produce predictable results without resolving the inequality built into the evidence on which that procedure relies.\n\nThese claims do not establish that automation must fail. The sources provide no direct comparison between the proposed system and the current process, nor do they demonstrate that human decisions are free from similar problems. A responsible recommendation must avoid treating uncertainty as proof either of success or of inevitable harm. Instead, the pilot should investigate whether the system improves relevant outcomes compared with a clearly described alternative. The existing process should be documented so that evaluators can identify changes in decision time, explanation quality, access, and the handling of disputed cases.\n\nBefore the pilot begins, the city should publish understandable evaluation criteria and explain which information influences an award. Transparency should be meaningful to applicants rather than confined to technical documentation. Assisted applications should be available through channels that do not require advanced digital skills. The city should also consult community groups about barriers that may not be visible in application records. Assistance needs to be offered consistently, since a support program that reaches only well-connected organizations could recreate the problem it is intended to address.\n\nAn independent appeal mechanism is equally important. Applicants should receive an explanation of a decision and a practical way to request review. Reviewers must have the authority to reconsider the substance of a case, not merely confirm that a procedure was followed. The city should distinguish appeals based on misunderstanding, procedural failure, and disagreement about merit. An increase in appeals would not automatically demonstrate that the system is worse: it might show that review has become more accessible. However, repeated corrections involving the same groups would justify investigation and potentially suspension.\n\nEvaluation should combine quantitative and qualitative evidence. Processing time and administrative cost should be measured alongside application completion, award distribution, and the experience of unsuccessful applicants. Comparisons between communities can identify patterns, but raw differences alone cannot explain their causes. Evaluators should examine project characteristics, access to assistance, and changes in participation. Interviews can help reveal whether residents understand the criteria and trust the review process. Reports should describe limitations openly, including small samples and the possibility that the pilot attracts unusually motivated participants.\n\nClear governance is necessary if these findings are to influence practice. Responsibility for approving, monitoring, and changing the system should be assigned before implementation. The city should specify the conditions under which expansion would be postponed, an application would receive human review, or the pilot would be stopped. Independent oversight should include expertise in evaluation and representation from affected communities. Public reports should explain both improvements and unresolved concerns, while protecting applicants' personal information. These arrangements would make accountability a continuing process rather than a promise made at launch.\n\nFinally, the decision to expand should depend on a balanced judgment supported by evidence. A reduction in average processing time would be encouraging, but it should not outweigh persistent exclusion or an ineffective appeal process. Conversely, correctable difficulties should not be used to dismiss a reform that improves access and decision quality. A carefully designed pilot can show which benefits are credible, which risks require further action, and which assumptions need revision. By treating efficiency, fairness, and accountability as related but distinct objectives, the city can make a more defensible decision about the role automation should play in community funding.",
+    "passage": "Reading — A city plans to introduce an automated system for allocating community grants. Advocates expect faster decisions and more consistent criteria. Critics argue that historical application data may reflect unequal access to advice. A public audit recommends publishing evaluation criteria, offering assisted applications, and retaining a meaningful appeal process. It also calls for monitoring which communities receive funding over time.\n\nThis is a shortened practice input, not a full-length superior examination text.",
+    "audio": "In a policy interview, a researcher explains that consistent decisions are not necessarily fair decisions. If some communities previously lacked support in preparing applications, a system trained on past awards may reproduce that disadvantage. The researcher supports a limited pilot with independent evaluation, public reporting, and an accessible appeals process. Faster processing should be treated as one outcome among several.",
+    "targetWords": 750,
+    "minWords": 80
+  },
+  {
+    "id": "gept-superior-002",
+    "level": "superior",
+    "skill": "speaking",
+    "type": "integrated-speaking",
+    "title": "Present and Defend a Proposal",
+    "en": "A robust proposal can withstand informed questioning.",
+    "zh": "穩健的提案能經得起知情的提問。",
+    "context": "依題目情境練習，作答後可反覆重做。",
+    "question": "Read and listen to the sources. Present your recommendation, then answer: What evidence would change your position? How would you respond if efficiency improved but appeals increased? Practice both the presentation and spontaneous answers, without a deadline.",
+    "mode": "speak",
+    "hint": "找出題目的關鍵資訊，再試一次。",
+    "explain": "對照題目中的資訊，留意文意與句子結構。",
+    "sample": "I recommend a limited pilot with public criteria and an independent appeal process. The key issue is whether the system improves decisions for all communities, not just whether it processes applications faster. I would change my recommendation if monitoring showed persistent exclusion that could not be corrected. If appeals increased, I would examine whether this reflected more accessible review or a rise in substantive errors before interpreting the trend.",
+    "passage": "Reading — A city plans to introduce an automated system for allocating community grants. Advocates expect faster decisions and more consistent criteria. Critics argue that historical application data may reflect unequal access to advice. A public audit recommends publishing evaluation criteria, offering assisted applications, and retaining a meaningful appeal process. It also calls for monitoring which communities receive funding over time.\n\nThis is a shortened practice input, not a full-length superior examination text.",
+    "audio": "In a policy interview, a researcher explains that consistent decisions are not necessarily fair decisions. If some communities previously lacked support in preparing applications, a system trained on past awards may reproduce that disadvantage. The researcher supports a limited pilot with independent evaluation, public reporting, and an accessible appeals process. Faster processing should be treated as one outcome among several."
+  }
 ];
 </script><script>'use strict';
-const $=s=>document.querySelector(s), lessons=window.LESSONS, KEY='little-deer-progress-v1';
+const $=s=>document.querySelector(s), KEY='little-deer-progress-v1', DRAFT_KEY='little-deer-drafts-v1';
+const LEVELS={foundation:{en:'Foundation',zh:'生活英文',description:'從 A1 生活句子開始；可自由重訪任何站點。'},elementary:{en:'Elementary',zh:'初級',description:'14 種題型、28 題原創分題練習：看圖辨義、問答、對話、短文聽解、詞彙、段落填空、閱讀理解、三類單句寫作、段落寫作與三類口說。'},intermediate:{en:'Intermediate',zh:'中級',description:'12 題原創分題練習，加入簡短談話、中譯英、作文、朗讀及看圖敘述。'},upper:{en:'High-Intermediate',zh:'中高級',description:'11 題原創分題練習，練習推論、跨文本閱讀、翻譯、論述與口頭申述。'},advanced:{en:'Advanced',zh:'高級',description:'10 題縮短素材的進階準備練習，含長篇對話／談話策略、略讀、精讀、摘要、圖表寫作、面談、訊息交換與申述。不是完整長度模擬卷。'},superior:{en:'Superior',zh:'優級',description:'2 題整合式準備任務，結合聽讀素材、政策寫作與口頭申述／答辯。素材已縮短，非完整優級模擬測驗；優級實際考試採專案辦理。'}};
+const SKILLS={foundation:'Daily English · 生活英文',listening:'Listening · 聽力',reading:'Reading · 閱讀',writing:'Writing · 寫作',speaking:'Speaking · 口說'};
+const TYPES={picture:'Picture Listening · 看圖辨義',response:'Questions & Responses · 問答',dialogue:'Conversations · 對話','short-talk-picture':'Talk & Pictures · 短文聽解',talk:'Short Talks · 簡短談話',vocabulary:'Vocabulary · 詞彙',cloze:'Cloze · 段落填空',reading:'Reading Comprehension · 閱讀理解',rewrite:'Sentence Rewriting · 句子改寫',combine:'Sentence Combining · 句子合併',reorder:'Word Order · 重組',paragraph:'Paragraph Writing · 段落寫作',repeat:'Repetition · 複誦','read-aloud':'Read Aloud · 朗讀','answer-question':'Answer Questions · 回答問題',translation:'Translation · 中譯英',essay:'Essay Writing · 作文','picture-description':'Picture Description · 看圖敘述',presentation:'Presentation · 申述','short-conversation':'Short Conversations & Talks · 短篇對話及談話','long-conversation':'Long Conversation · 長篇對話','long-talk':'Long Talk · 長篇談話',skimming:'Skimming & Scanning · 略讀','careful-reading':'Careful Reading · 精讀',summary:'Summary Writing · 摘要寫作','chart-writing':'Chart Writing · 圖表寫作',interview:'Interview · 暖身面談','information-exchange':'Information Exchange · 訊息交換','integrated-writing':'Integrated Writing · 整合式寫作','integrated-speaking':'Integrated Speaking · 整合式口說'};
+const lessons=[...window.LESSONS.map(l=>({...l,level:'foundation',skill:'foundation',mode:'choice'})),...window.EXAM_TASKS];
 const day=(date=new Date())=>new Intl.DateTimeFormat('sv-SE',{timeZone:'Asia/Taipei',year:'numeric',month:'2-digit',day:'2-digit'}).format(date);
-let records={},page='home',current=null,flipped=false,moving=false,position=0,today=day(),musicOn=false,speaking=false,audio,master,timer,speechTimer,speechSerial=0;
+let records={},drafts={},page='home',current=null,flipped=false,moving=false,position=0,mapLevel='foundation',travelToken=0,today=day(),musicOn=false,speaking=false,audio,master,timer,speechTimer,speechSerial=0;
+let attempted=false,submitted=false,reviewReady=false,recordingActive=false,recorded=false,recorder=null,mediaStream=null,recordURL=null,recordSerial=0,recordLimit;
+const known=id=>lessons.find(l=>l.id===id);
 function notice(t){$('#storageNotice').textContent=t}
-function validRecord(r){return r&&typeof r.id==='string'&&typeof r.completedAt==='string'&&Number.isFinite(Date.parse(r.completedAt))&&/^\d{4}-\d{2}-\d{2}T/.test(r.completedAt)&&Date.parse(r.completedAt)<=Date.now()+60000}
-function merge(items){let count=0;for(const r of items){if(!validRecord(r))continue;const l=lessons.find(l=>l.id===r.id);if(l&&(l.date>today||day(new Date(r.completedAt))<l.date))continue;if(!records[r.id]||Date.parse(r.completedAt)<Date.parse(records[r.id].completedAt)){records[r.id]={id:r.id,completedAt:new Date(r.completedAt).toISOString()};count++}}return count}
-try{const saved=JSON.parse(localStorage.getItem(KEY)||'{"records":[]}');merge(Array.isArray(saved.records)?saved.records:[])}catch{notice('無法讀取進度；可嘗試匯入備份。')}
-function save(){try{localStorage.setItem(KEY,JSON.stringify({version:1,records:Object.values(records)}))}catch{notice('瀏覽器無法保存進度，請匯出 JSON 備份。')}}
-function state(l){return records[l.id]?'completed':l.date>today?'locked':l.date===today?'today':'todo'}
-function point(i){return{x:50+Math.sin(i*1.65)*24,y:105+i*170}}
+function validRecord(r){return r&&typeof r.id==='string'&&r.id.length<150&&typeof r.completedAt==='string'&&Number.isFinite(Date.parse(r.completedAt))&&/^\d{4}-\d{2}-\d{2}T/.test(r.completedAt)&&Date.parse(r.completedAt)<=Date.now()+60000}
+function merge(items){let count=0;for(const r of items){if(!validRecord(r))continue;if(!records[r.id]||Date.parse(r.completedAt)<Date.parse(records[r.id].completedAt)){records[r.id]={id:r.id,completedAt:new Date(r.completedAt).toISOString(),method:r.method==='self-review'?'self-review':'answer'};count++}}return count}
+function mergeDrafts(data){if(!data||typeof data!=='object'||Array.isArray(data))return;for(const [id,text] of Object.entries(data))if(known(id)&&typeof text==='string'&&text.length<=40000&&!drafts[id])drafts[id]=text}
+try{const saved=JSON.parse(localStorage.getItem(KEY)||'{"records":[]}');merge(Array.isArray(saved.records)?saved.records:[]);mergeDrafts(JSON.parse(localStorage.getItem(DRAFT_KEY)||'{}'))}catch{notice('無法讀取部分進度；可匯入 JSON 備份。')}
+function save(){try{localStorage.setItem(KEY,JSON.stringify({version:1,records:Object.values(records)}));localStorage.setItem(DRAFT_KEY,JSON.stringify(drafts))}catch{notice('瀏覽器無法保存進度，請匯出 JSON 備份。')}}
+function state(l){return records[l.id]?'completed':'todo'}
+function mapLessons(){return lessons.filter(l=>l.level===mapLevel)}
+function point(i){return{x:50+Math.sin(i*1.65)*24,y:105+i*190}}
 function deerAt(p){$('#deer').style.left=p.x+'%';$('#deer').style.top=p.y+'px'}
-function renderMap(){const height=lessons.length*170+80;$('#trail').style.height=height+'px';$('#route').setAttribute('viewBox',`0 0 1000 ${height}`);$('#route').setAttribute('preserveAspectRatio','none');const pts=lessons.map((_,i)=>point(i));$('#route').innerHTML=`<path d="M ${pts.map(p=>`${p.x*10},${p.y}`).join(' L ')}" fill="none" stroke="#f6e7bd" stroke-width="45" stroke-linecap="round" stroke-linejoin="round"/><path d="M ${pts.map(p=>`${p.x*10},${p.y}`).join(' L ')}" fill="none" stroke="#c6b88f" stroke-width="2" stroke-dasharray="5 8"/>`;$('#stations').replaceChildren();lessons.forEach((l,i)=>{const s=state(l),p=point(i),el=document.createElement('div');el.className='station '+s;el.style.left=p.x+'%';el.style.top=p.y+'px';const b=document.createElement('button');b.textContent=s==='completed'?'✓':s==='locked'?'🔒':String(i+1).padStart(2,'0');b.setAttribute('aria-label',`${l.title} · ${s==='todo'?'To Do':s}`);b.setAttribute('aria-disabled',s==='locked');b.onclick=()=>moveTo(i);el.append(b);const title=document.createElement('strong');title.textContent=l.title;el.append(title);const label=document.createElement('small');label.textContent=({completed:'✓ Completed 已完成',today:'◉ Today 今日',todo:'○ To Do 可補做',locked:'🔒 Locked 尚未開放'})[s]+' · '+l.date;el.append(label);if(records[l.id]){const marker=document.createElement('button');marker.className='marker';marker.textContent=l.en+' · '+day(new Date(records[l.id].completedAt));marker.onclick=()=>moveTo(i);el.append(marker)}$('#stations').append(el)});$('#daily').textContent=`Taipei · ${today} ／ ${lessons.some(l=>l.date>today)?'每天解鎖一站，舊站隨時補做。':'全部站點已開放，隨時回來複習。'}`;$('#progress').textContent=`${lessons.filter(l=>records[l.id]).length} / ${lessons.length} collected`;if(!moving)deerAt(point(position))}
-function show(p){page=p;for(const name of ['home','mapPage','libraryPage'])$('#'+name).hidden=name!==p;if(p==='mapPage')renderMap();if(p==='libraryPage')renderLibrary();window.scrollTo(0,0)}
-async function moveTo(target){refreshDate();if(moving)return;if(state(lessons[target])==='locked'){$('#mapNotice').textContent=`${lessons[target].date}（台灣時間）開放。`;return}moving=true;$('#mapNotice').textContent='小鹿正在前往 '+lessons[target].title;$('#deer').classList.add('walking');const dir=target>=position?1:-1;const indices=[];if(target===position)indices.push(target);else for(let i=position+dir;dir>0?i<=target:i>=target;i+=dir)indices.push(i);for(const idx of indices){const from=point(position),to=point(idx),duration=matchMedia('(prefers-reduced-motion: reduce)').matches?70:480;await new Promise(resolve=>{const start=performance.now();function frame(now){const t=Math.min((now-start)/duration,1);deerAt({x:from.x+(to.x-from.x)*t,y:from.y+(to.y-from.y)*t});if(t<1)requestAnimationFrame(frame);else resolve()}requestAnimationFrame(frame)});position=idx;$('#deer').scrollIntoView({block:'nearest',inline:'nearest',behavior:'auto'})}moving=false;$('#deer').classList.remove('walking');$('#mapNotice').textContent='已抵達 '+lessons[target].title;openLesson(lessons[target])}
-function openLesson(l){refreshDate();if(l.date>today)return;current=l;flipped=false;$('#lessonTitle').textContent=l.title;$('#phraseText').textContent=l.en;$('#context').textContent='情境 · '+l.context;$('#question').textContent=l.question;$('#feedback').textContent='選一個答案，試試看。';$('#audioStatus').textContent='';$('#backMap').hidden=true;$('#options').replaceChildren();l.options.forEach((opt,i)=>{const b=document.createElement('button');b.textContent=opt;b.onclick=()=>answer(i);$('#options').append(b)});if(!$('#lesson').open)$('#lesson').showModal()}
-function answer(i){if(i!==current.answer){$('#feedback').textContent='再試一次 · '+current.hint;return}if(!records[current.id]){records[current.id]={id:current.id,completedAt:new Date().toISOString()};save()}$('#feedback').textContent='✓ 答對了！'+current.explain+' 句子已收藏。';$('#backMap').hidden=false;for(const b of $('#options').children)b.disabled=true;renderMap();if(page==='libraryPage')renderLibrary()}
-function closeLesson(){stopSpeech();$('#lesson').close()}
-function renderLibrary(){const q=$('#search').value.toLocaleLowerCase().trim();const list=lessons.filter(l=>records[l.id]&&(l.en+' '+l.zh+' '+l.context).toLocaleLowerCase().includes(q)).sort((a,b)=>($('#sort').value==='old'?1:-1)*(Date.parse(records[a.id].completedAt)-Date.parse(records[b.id].completedAt)));$('#phrases').replaceChildren();if(!list.length){const p=document.createElement('p');p.textContent=q?'找不到符合的句子。':'Your trail starts here. 完成一站，收藏第一句英文。';$('#phrases').append(p)}for(const l of list){const article=document.createElement('article');article.className='phrase-entry';for(const [tag,text] of [['small',day(new Date(records[l.id].completedAt))+' · Completed'],['h2',l.en],['p',l.zh],['p',l.context]]){const el=document.createElement(tag);el.textContent=text;article.append(el)}const listen=document.createElement('button');listen.textContent='▶ Listen';listen.onclick=()=>speak(l.en);const practice=document.createElement('button');practice.textContent='Practice · 再練習';practice.onclick=()=>openLesson(l);article.append(listen,practice);$('#phrases').append(article)}}
+function element(tag,text,className){const el=document.createElement(tag);if(text!==undefined)el.textContent=text;if(className)el.className=className;return el}
+function renderMap(){const list=mapLessons(),height=list.length*190+100;$('#trail').style.height=height+'px';$('#route').setAttribute('viewBox',`0 0 1000 ${height}`);$('#route').setAttribute('preserveAspectRatio','none');const path=list.map((_,i)=>point(i)).map(p=>`${p.x*10},${p.y}`).join(' L ');$('#route').innerHTML=`<path d="M ${path}" fill="none" stroke="#f6e7bd" stroke-width="45" stroke-linecap="round" stroke-linejoin="round"/><path d="M ${path}" fill="none" stroke="#c6b88f" stroke-width="2" stroke-dasharray="5 8"/>`;$('#stations').replaceChildren();list.forEach((l,i)=>{const s=state(l),p=point(i),el=element('div',undefined,'station '+s);el.style.left=p.x+'%';el.style.top=p.y+'px';const b=element('button',s==='completed'?'✓':String(i+1).padStart(2,'0'));b.setAttribute('aria-label',`${l.title} · ${s==='todo'?'To Do':'Completed'}`);b.onclick=()=>moveTo(i);el.append(b,element('strong',l.title),element('small',s==='completed'?'✓ Completed 已完成':'○ To Do 可練習'));if(records[l.id]){const marker=element('button',l.en+' · '+day(new Date(records[l.id].completedAt)),'marker');marker.onclick=()=>moveTo(i);el.append(marker)}$('#stations').append(el)});$('#daily').textContent='全部站點隨時開放 · 無完成期限 · 可不限次重做';$('#progress').textContent=`${lessons.filter(l=>records[l.id]).length} / ${lessons.length} collected`;if(!moving)deerAt(point(position))}
+function cancelTravel(){travelToken++;moving=false;$('#deer').classList.remove('walking')}
+function show(p){if(p!=='mapPage')cancelTravel();page=p;for(const name of ['home','mapPage','libraryPage','examPage'])$('#'+name).hidden=name!==p;if(p==='mapPage')renderMap();if(p==='libraryPage')renderLibrary();if(p==='examPage')renderExam();window.scrollTo(0,0)}
+async function moveTo(target){const list=mapLessons();if(moving||!list[target])return;moving=true;const token=++travelToken;$('#mapNotice').textContent='小鹿正在前往 '+list[target].title;$('#deer').classList.add('walking');const dir=target>=position?1:-1,indices=[];if(target===position)indices.push(target);else for(let i=position+dir;dir>0?i<=target:i>=target;i+=dir)indices.push(i);const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches,duration=reduced?30:Math.min(480,1500/indices.length);for(const idx of indices){const from=point(position),to=point(idx);await new Promise(resolve=>{const start=performance.now();function frame(now){if(token!==travelToken){resolve();return}const t=Math.min((now-start)/duration,1);deerAt({x:from.x+(to.x-from.x)*t,y:from.y+(to.y-from.y)*t});if(t<1)requestAnimationFrame(frame);else resolve()}requestAnimationFrame(frame)});if(token!==travelToken)return;position=idx;$('#deer').scrollIntoView({block:'nearest',inline:'nearest',behavior:'auto'})}moving=false;$('#deer').classList.remove('walking');$('#mapNotice').textContent='已抵達 '+list[target].title;openLesson(list[target])}
+function fillLevel(select,foundation){for(const [id,l] of Object.entries(LEVELS)){if(!foundation&&id==='foundation')continue;const option=element('option',l.en+' · '+l.zh);option.value=id;select.append(option)}}
+fillLevel($('#mapLevel'),true);fillLevel($('#examLevel'),false);
+$('#mapLevel').onchange=()=>{cancelTravel();mapLevel=$('#mapLevel').value;position=0;renderMap();$('#mapViewport').scrollTop=0};
+function filteredTasks(){return lessons.filter(l=>l.level===$('#examLevel').value&&($('#examSkill').value==='all'||l.skill===$('#examSkill').value)&&($('#examType').value==='all'||l.type===$('#examType').value))}
+function refreshTypes(){const prev=$('#examType').value;$('#examType').replaceChildren();const all=element('option','All Types · 全部題型');all.value='all';$('#examType').append(all);const types=[...new Set(lessons.filter(l=>l.level===$('#examLevel').value&&($('#examSkill').value==='all'||l.skill===$('#examSkill').value)).map(l=>l.type))];for(const type of types){const o=element('option',TYPES[type]);o.value=type;$('#examType').append(o)}$('#examType').value=types.includes(prev)?prev:'all'}
+function renderExam(){const list=filteredTasks(),level=$('#examLevel').value;$('#levelDescription').textContent=LEVELS[level].description;$('#examProgress').textContent=`${list.filter(l=>records[l.id]).length} / ${list.length} practiced`;$('#examTasks').replaceChildren();for(const l of list){const article=element('article',undefined,'task-tile');article.append(element('small',SKILLS[l.skill]+' · '+(records[l.id]?'✓ 已完成，可重做':'○ 可練習')),element('h2',l.title),element('small',TYPES[l.type]),element('p',l.question));const b=element('button',records[l.id]?'↻ Practice Again · 再練一次':'Start Practice · 開始練習');b.dataset.taskId=l.id;b.onclick=()=>startExamTask(l.id);article.append(b);$('#examTasks').append(article)}$('#continuePractice').disabled=!list.length;$('#examNotice').textContent=list.length?'選擇任一題開始。選擇題／單句題自動核對；開放式作答完成自評後收藏。':'這個篩選沒有題目，請選其他技能或題型。'}
+$('#examLevel').onchange=()=>{refreshTypes();renderExam()};$('#examSkill').onchange=()=>{refreshTypes();renderExam()};$('#examType').onchange=renderExam;$('#continuePractice').onclick=()=>{const list=filteredTasks(),l=list.find(l=>!records[l.id])||list[0];if(l)startExamTask(l.id)};
+function startExamTask(id){const l=known(id);if(!l)return;cancelTravel();mapLevel=l.level;$('#mapLevel').value=mapLevel;position=0;show('mapPage');moveTo(mapLessons().findIndex(x=>x.id===id))}
+// Small original SVG scenes; no external image assets.
+function picture(scene){const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');svg.setAttribute('viewBox','0 0 300 160');svg.classList.add('task-picture');svg.setAttribute('role','img');const descriptions={water:'一個人正遞水杯給另一人',bus:'兩個人站在公車站旁等待',book:'桌上有一本打開的書',picnic:'一家人在公園樹下野餐'};svg.setAttribute('aria-label',descriptions[scene]||scene);const ground='<rect width="300" height="160" fill="#e2ead7"/><path d="M0 130 Q140 90 300 130 V160 H0Z" fill="#b9cd9b"/>';const person=(x,y,color)=>`<circle cx="${x}" cy="${y}" r="10" fill="#d8a67f"/><path d="M${x} ${y+13} v30 M${x-15} ${y+25} h30 M${x} ${y+42} l-10 25 M${x} ${y+42} l10 25" stroke="${color}" stroke-width="8" stroke-linecap="round"/>`;const scenes={water:person(95,48,'#42694f')+person(205,48,'#b55c40')+'<path d="M110 73 H164" stroke="#42694f" stroke-width="8"/><path d="M157 60 h17 l-3 25 h-12z" fill="#8abacc" stroke="#fff" stroke-width="3"/>',bus:'<path d="M230 40 V140" stroke="#5b7350" stroke-width="7"/><rect x="207" y="14" width="47" height="37" rx="5" fill="#fff9df"/><text x="230" y="38" text-anchor="middle" font-size="15" fill="#244d3f">BUS</text>'+person(95,51,'#42694f')+person(150,51,'#b55c40'),book:'<path d="M45 105 H255" stroke="#876446" stroke-width="12"/><path d="M80 50 Q115 35 150 55 Q185 35 220 50 V105 Q185 90 150 110 Q115 90 80 105Z" fill="#fffaf0" stroke="#52744f" stroke-width="4"/><path d="M150 55 V110" stroke="#52744f" stroke-width="3"/>',picnic:'<rect x="232" y="40" width="13" height="90" fill="#90744c"/><circle cx="239" cy="38" r="38" fill="#7fa06c"/><path d="M45 118 H210 L235 150 H20Z" fill="#d19d7c"/>'+person(90,44,'#42694f')+person(157,52,'#b55c40')+'<rect x="112" y="116" width="40" height="14" rx="5" fill="#f7e6ac"/>'};svg.innerHTML=ground+(scenes[scene]||scenes.book);return svg}
+function cleanupRecording(){recordSerial++;clearTimeout(recordLimit);if(recorder&&recorder.state!=='inactive')recorder.stop();if(mediaStream)mediaStream.getTracks().forEach(t=>t.stop());mediaStream=null;recorder=null;recordingActive=false;recorded=false;$('#recording').pause();$('#recording').removeAttribute('src');$('#recording').hidden=true;if(recordURL)URL.revokeObjectURL(recordURL);recordURL=null;$('#record').disabled=false;$('#stopRecord').hidden=true;updateMusic()}
+function wordCount(text){return(text.match(/[A-Za-z]+(?:['’-][A-Za-z]+)*/g)||[]).length}
+function saveDraft(text){if(current){drafts[current.id]=text.slice(0,40000);save()}}
+function openLesson(l){stopSpeech();cleanupRecording();current=l;flipped=false;attempted=false;submitted=false;reviewReady=false;$('#lessonTitle').textContent=l.title;$('#taskMeta').textContent=LEVELS[l.level].en+' · '+LEVELS[l.level].zh+' / '+(TYPES[l.type]||SKILLS[l.skill]);$('#phraseText').textContent=l.en;$('#flip').hidden=l.level!=='foundation';$('#taskVisual').replaceChildren();if(l.picture)$('#taskVisual').append(picture(l.picture));if(l.pictureOptions){const row=element('div',undefined,'picture-options');l.pictureOptions.forEach((scene,i)=>{const fig=element('figure');fig.append(picture(scene),element('figcaption',String.fromCharCode(65+i)));row.append(fig)});$('#taskVisual').append(row)}$('#passage').hidden=!l.passage;$('#passage').textContent=l.passage||'';$('#context').textContent='情境 · '+l.context;$('#question').textContent=l.question;$('#feedback').textContent=l.mode==='choice'?'選一個答案試試看；答錯可不限次重試。':l.mode==='text'?'輸入完整句子後核對，可不限次重試。':'完成作答後，對照參考範例並自評。';$('#audioStatus').textContent='';$('#listen').hidden=l.skill==='reading'||l.skill==='writing'&&!l.audio;$('#listen').textContent=l.audio?'▶ Listen to Prompt · 聽題目':'▶ Listen · 聽美式英文';$('#backMap').hidden=true;$('#nextTask').hidden=true;$('#retry').hidden=true;$('#showReference').hidden=true;$('#reference').hidden=true;$('#reference').textContent='';$('#selfReview').hidden=true;$('#reviewChecks').replaceChildren();$('#options').replaceChildren();$('#writtenResponse').hidden=!['text','open'].includes(l.mode);$('#spokenResponse').hidden=l.mode!=='speak';$('#response').value=drafts[l.id]||'';$('#spokenNotes').value=drafts[l.id]||'';$('#recordStatus').textContent='';updateWordCount();if(l.mode==='choice')l.options.forEach((opt,i)=>{const b=element('button',String.fromCharCode(65+i)+'. '+opt);b.onclick=()=>answer(i);$('#options').append(b)});if(!$('#lesson').open)$('#lesson').showModal()}
+function markComplete(method){if(!records[current.id]){records[current.id]={id:current.id,completedAt:new Date().toISOString(),method};save()}$('#backMap').hidden=false;$('#nextTask').hidden=current.level==='foundation';$('#retry').hidden=false;renderMap();if(page==='libraryPage')renderLibrary()}
+function showSolution(){if(!attempted&&!submitted)return;const l=current;$('#reference').hidden=false;$('#reference').replaceChildren();const parts=[];if(l.audio)parts.push('Transcript · 聽力文字\n'+l.audio);if(l.sample)parts.push('Reference · 參考作答（開放式題目不只一種答案）\n'+l.sample);else if(l.options)parts.push('Answer · 答案\n'+l.options[l.answer]);if(l.zh)parts.push('Phrase · '+l.en+'\n'+l.zh);if(l.explain)parts.push('Explanation · '+l.explain);$('#reference').textContent=parts.join('\n\n')}
+function answer(i){attempted=true;$('#showReference').hidden=false;$('#retry').hidden=false;if(i!==current.answer){$('#feedback').textContent='再試一次 · '+current.hint+' 答錯不會扣除既有進度。';return}$('#feedback').textContent='✓ 答對了！'+current.explain+' 已收藏，可隨時再練。';showSolution();markComplete('answer')}
+function normalized(s){return s.normalize('NFKC').trim().replace(/[’‘]/g,"'").replace(/\s+/g,' ').replace(/\s+([.,?!;:])/g,'$1')}
+function updateWordCount(){const l=current;if(!l)return;$('#wordCount').textContent=wordCount($('#response').value)+' words · 字數'+(l.targetWords?` ／ 建議目標約 ${l.targetWords} 字（無時間限制）`:'')}
+function submitResponse(){const text=$('#response').value.trim();saveDraft(text);if(!wordCount(text)){$('#feedback').textContent='先寫下英文作答，再核對；不用趕時間。';return}attempted=true;$('#retry').hidden=false;if(current.mode==='text'){$('#showReference').hidden=false;const match=current.accepted.some(a=>normalized(a)===normalized(text));if(match){$('#feedback').textContent='✓ 答對了！'+current.explain;showSolution();markComplete('answer')}else{$('#feedback').textContent='再試一次 · '+current.hint+' 請留意大小寫與句尾標點。可查看參考後繼續練。'}}else{if(wordCount(text)<(current.minWords||10)){$('#feedback').textContent=`已保存草稿。請再補充一些內容，至少先寫 ${current.minWords||10} 個英文單字，再進行自評。`;return}submitted=true;prepareSelfReview();$('#feedback').textContent='作答已提交供自評。請對照範例檢查內容、結構及用字；本站不自動判定作文正誤或官方級分。'}}
+function prepareSelfReview(){reviewReady=true;$('#showReference').hidden=false;showSolution();$('#selfReview').hidden=false;$('#reviewChecks').replaceChildren();const checks=current.mode==='speak'?['我已實際開口練習，並回聽錄音或核對回答筆記。','我已檢查回答是否切題、資訊是否足夠。','我已檢查發音、停頓與句子，並知道下次要改善的地方。']:['我已對照題意，檢查內容是否完整、切題。','我已檢查句子連接、段落與文法。','我已檢查拼字、大小寫及標點，並知道下次要改善的地方。'];checks.forEach(text=>{const label=element('label');const input=document.createElement('input');input.type='checkbox';label.append(input,element('span',text));$('#reviewChecks').append(label)})}
+$('#submitResponse').onclick=submitResponse;$('#response').oninput=()=>{saveDraft($('#response').value);updateWordCount();if(submitted){submitted=false;reviewReady=false;$('#selfReview').hidden=true}};$('#spokenNotes').oninput=()=>{saveDraft($('#spokenNotes').value);reviewReady=false;$('#selfReview').hidden=true};$('#showReference').onclick=showSolution;$('#completeReview').onclick=()=>{if(!reviewReady||recordingActive)return;if([...$('#reviewChecks').querySelectorAll('input')].some(x=>!x.checked)){$('#feedback').textContent='請先逐項檢核；有需要可以修改作答或重新錄音。';return}markComplete('self-review');$('#feedback').textContent='✓ 已完成自評並收藏。這是練習紀錄，不是官方評分。可隨時再練。'};$('#reviewSpeaking').onclick=()=>{if(recordingActive){$('#recordStatus').textContent='請先停止錄音，再回放與自評。';return}if(!recorded&&wordCount($('#spokenNotes').value)<3){$('#recordStatus').textContent='請先錄音，或實際開口練習後輸入至少三個英文單字的回答筆記。';return}attempted=true;submitted=true;prepareSelfReview();$('#retry').hidden=false;$('#feedback').textContent='請回聽錄音或核對回答筆記，再完成自我檢核；不提供自動口說評分。'};
+$('#retry').onclick=()=>{const l=current;openLesson(l);$('#feedback').textContent='↻ 新一輪練習，次數不限。既有完成紀錄會保留。'};
+$('#nextTask').onclick=()=>{const list=current.level===$('#examLevel').value?filteredTasks():lessons.filter(l=>l.level===current.level);const i=list.findIndex(l=>l.id===current.id),next=list[(i+1)%list.length];if(next){closeLesson();startExamTask(next.id)}};
+$('#record').onclick=async()=>{const l=current;cleanupRecording();const serial=recordSerial;reviewReady=false;$('#selfReview').hidden=true;if(!navigator.mediaDevices?.getUserMedia||!window.MediaRecorder){$('#recordStatus').textContent='此瀏覽器無法錄音。請大聲練習後輸入回答筆記，再進行自評。';return}$('#record').disabled=true;$('#recordStatus').textContent='正在請求麥克風權限…';try{const stream=await navigator.mediaDevices.getUserMedia({audio:true});if(serial!==recordSerial||current!==l||!$('#lesson').open){stream.getTracks().forEach(t=>t.stop());return}stopSpeech();mediaStream=stream;recorder=new MediaRecorder(stream);const chunks=[];recorder.ondataavailable=e=>{if(e.data.size)chunks.push(e.data)};recorder.onstop=()=>{stream.getTracks().forEach(t=>t.stop());if(serial!==recordSerial)return;clearTimeout(recordLimit);recordingActive=false;$('#record').disabled=false;$('#stopRecord').hidden=true;if(chunks.length){const blob=new Blob(chunks,{type:chunks[0].type||'audio/webm'});recordURL=URL.createObjectURL(blob);$('#recording').src=recordURL;$('#recording').hidden=false;recorded=true;$('#recordStatus').textContent='錄音完成，可回放或重新錄音。離開教材後錄音會清除。'}else $('#recordStatus').textContent='沒有收到錄音，請重試或使用回答筆記。';updateMusic()};recorder.onerror=()=>{if(serial!==recordSerial)return;cleanupRecording();$('#recordStatus').textContent='錄音失敗，仍可重新錄音或使用回答筆記。'};recorder.start();recordingActive=true;updateMusic();$('#stopRecord').hidden=false;$('#recordStatus').textContent='● 錄音中…完成後按 Stop，可不限次重錄。';recordLimit=setTimeout(()=>{if(recorder?.state==='recording'){recorder.stop();$('#recordStatus').textContent='已保存這段錄音，可接續錄製或使用回答筆記。'}},600000)}catch{if(serial!==recordSerial)return;cleanupRecording();$('#recordStatus').textContent='未取得麥克風權限。可在瀏覽器允許後重試，或實際練習後輸入回答筆記。'}};
+$('#stopRecord').onclick=()=>{if(recorder?.state==='recording')recorder.stop()};$('#recording').onplay=()=>{stopSpeech();updateMusic()};$('#recording').onpause=()=>updateMusic();$('#recording').onended=()=>updateMusic();
+function closeLesson(){stopSpeech();cleanupRecording();$('#lesson').close()}
+function renderLibrary(){const q=$('#search').value.toLocaleLowerCase().trim();const list=lessons.filter(l=>records[l.id]&&(l.en+' '+l.zh+' '+l.context+' '+l.title+' '+LEVELS[l.level].zh).toLocaleLowerCase().includes(q)).sort((a,b)=>($('#sort').value==='old'?1:-1)*(Date.parse(records[a.id].completedAt)-Date.parse(records[b.id].completedAt)));$('#phrases').replaceChildren();if(!list.length)$('#phrases').append(element('p',q?'找不到符合的句子。':'Your trail starts here. 完成練習，收藏第一句英文。'));for(const l of list){const article=element('article',undefined,'phrase-entry');article.append(element('small',day(new Date(records[l.id].completedAt))+' · '+LEVELS[l.level].zh+(records[l.id].method==='self-review'?' · 自評練習':' · Completed')),element('h2',l.en),element('p',l.zh),element('p',l.context));const listen=element('button','▶ Listen');listen.onclick=()=>speak(l.en);const practice=element('button','Practice · 再練習');practice.onclick=()=>openLesson(l);article.append(listen,practice);$('#phrases').append(article)}}
 // Original instrumental loop, synthesized locally; no recordings or external audio assets.
-function initAudio(){if(audio)return;const AC=window.AudioContext||window.webkitAudioContext;if(!AC)throw Error('audio unavailable');audio=new AC();master=audio.createGain();master.gain.value=0;master.connect(audio.destination);let beat=0;const melody=[72,76,79,76,74,77,81,77,71,74,79,74,72,76,79,83];function tick(){if(audio.state==='running'&&musicOn&&!speaking){const start=audio.currentTime;const play=(note,duration,volume,type)=>{const osc=audio.createOscillator(),gain=audio.createGain();osc.type=type;osc.frequency.value=440*2**((note-69)/12);gain.gain.setValueAtTime(0,start);gain.gain.linearRampToValueAtTime(volume,start+.025);gain.gain.exponentialRampToValueAtTime(.0001,start+duration);osc.connect(gain);gain.connect(master);osc.start(start);osc.stop(start+duration+.02)};play(melody[beat%16],.48,.22,'sine');if(beat%4===0)play([48,53,55,48][Math.floor(beat/4)%4],1.5,.17,'triangle');beat++}}timer=setInterval(tick,360);tick()}
-function updateMusic(){if(master)master.gain.setTargetAtTime(musicOn&&!speaking?.12:0,audio.currentTime,.025);$('#music').textContent=musicOn?'♫ Music On':'♫ Music Off';$('#music').setAttribute('aria-pressed',String(musicOn));$('#lessonMusic').textContent=$('#music').textContent;$('#lessonMusic').setAttribute('aria-pressed',String(musicOn))}
+function initAudio(){if(audio)return;const AC=window.AudioContext||window.webkitAudioContext;if(!AC)throw Error('audio unavailable');audio=new AC();master=audio.createGain();master.gain.value=0;master.connect(audio.destination);let beat=0;const melody=[72,76,79,76,74,77,81,77,71,74,79,74,72,76,79,83];function tick(){if(audio.state==='running'&&musicOn&&!speaking&&!recordingActive&&$('#recording').paused){const start=audio.currentTime;const play=(note,duration,volume,type)=>{const osc=audio.createOscillator(),gain=audio.createGain();osc.type=type;osc.frequency.value=440*2**((note-69)/12);gain.gain.setValueAtTime(0,start);gain.gain.linearRampToValueAtTime(volume,start+.025);gain.gain.exponentialRampToValueAtTime(.0001,start+duration);osc.connect(gain);gain.connect(master);osc.start(start);osc.stop(start+duration+.02)};play(melody[beat%16],.48,.22,'sine');if(beat%4===0)play([48,53,55,48][Math.floor(beat/4)%4],1.5,.17,'triangle');beat++}}timer=setInterval(tick,360);tick()}
+function updateMusic(){if(master)master.gain.setTargetAtTime(musicOn&&!speaking&&!recordingActive&&$('#recording').paused?.12:0,audio.currentTime,.025);$('#music').textContent=musicOn?'♫ Music On':'♫ Music Off';$('#music').setAttribute('aria-pressed',String(musicOn));$('#lessonMusic').textContent=$('#music').textContent;$('#lessonMusic').setAttribute('aria-pressed',String(musicOn))}
 $('#music').onclick=async()=>{musicOn=!musicOn;try{if(musicOn){initAudio();await audio.resume()}updateMusic()}catch{musicOn=false;updateMusic();notice('音樂無法播放，仍可繼續學習。')}};
 $('#lessonMusic').onclick=()=>$('#music').onclick();
 function stopSpeech(){speechSerial++;clearTimeout(speechTimer);if('speechSynthesis'in window)speechSynthesis.cancel();speaking=false;updateMusic()}
-function speak(text){stopSpeech();if(!('speechSynthesis'in window)){$('#audioStatus').textContent='此瀏覽器暫不支援朗讀，仍可閱讀與答題。';notice('此瀏覽器暫不支援朗讀。');return}const serial=speechSerial;speaking=true;updateMusic();$('#audioStatus').textContent='Listening… 朗讀中';const u=new SpeechSynthesisUtterance(text);u.lang='en-US';u.rate=.78;const voice=speechSynthesis.getVoices().find(v=>v.lang==='en-US');if(voice)u.voice=voice;function done(failed){if(serial!==speechSerial)return;clearTimeout(speechTimer);speaking=false;updateMusic();$('#audioStatus').textContent=failed?'朗讀暫時無法使用，可繼續答題。':'朗讀完成';if(failed)notice('朗讀暫時無法使用，可繼續閱讀與答題。')}u.onend=()=>done(false);u.onerror=()=>done(true);speechTimer=setTimeout(()=>{if(serial===speechSerial){speechSynthesis.cancel();done(true)}},15000);try{speechSynthesis.speak(u)}catch{done(true)}}
+function speak(text){stopSpeech();if(!('speechSynthesis'in window)){$('#audioStatus').textContent='此瀏覽器暫不支援朗讀，仍可閱讀與答題。';notice('此瀏覽器暫不支援朗讀。');return}const serial=speechSerial;speaking=true;updateMusic();$('#audioStatus').textContent='Listening… 朗讀中';const u=new SpeechSynthesisUtterance(text);u.lang='en-US';u.rate=.78;const voice=speechSynthesis.getVoices().find(v=>v.lang==='en-US');if(voice)u.voice=voice;function done(failed){if(serial!==speechSerial)return;clearTimeout(speechTimer);speaking=false;updateMusic();$('#audioStatus').textContent=failed?'朗讀暫時無法使用，可繼續答題。':'朗讀完成';if(failed)notice('朗讀暫時無法使用，可繼續閱讀與答題。')}u.onend=()=>done(false);u.onerror=()=>done(true);speechTimer=setTimeout(()=>{if(serial===speechSerial){speechSynthesis.cancel();done(true)}},Math.max(15000,text.length*120));try{speechSynthesis.speak(u)}catch{done(true)}}
+$('#start').onclick=()=>show('mapPage');$('#startExam').onclick=()=>show('examPage');$('#mapNav').onclick=()=>show('mapPage');$('#examNav').onclick=()=>show('examPage');$('#libraryNav').onclick=()=>show('libraryPage');$('.brand').onclick=e=>{e.preventDefault();show('home')};$('#close').onclick=closeLesson;$('#lesson').addEventListener('cancel',()=>{stopSpeech();cleanupRecording()});$('#backMap').onclick=()=>{closeLesson();show('mapPage')};$('#flip').onclick=()=>{flipped=!flipped;$('#phraseText').textContent=flipped?current.zh:current.en};$('#listen').onclick=()=>{if(recordingActive){$('#audioStatus').textContent='請先停止錄音，再聽題目。';return}$('#recording').pause();speak(current.audio||current.en)};$('#search').oninput=renderLibrary;$('#sort').onchange=renderLibrary;
+function step(n){if(page!=='mapPage'||$('#lesson').open||moving)return;const target=Math.max(0,Math.min(mapLessons().length-1,position+n));moveTo(target)}document.querySelectorAll('[data-step]').forEach(b=>b.onclick=()=>step(Number(b.dataset.step)));document.addEventListener('keydown',e=>{if(page==='mapPage'&&!$('#lesson').open&&['ArrowUp','ArrowLeft','ArrowDown','ArrowRight'].includes(e.key)&&!['INPUT','SELECT','TEXTAREA'].includes(e.target.tagName)){e.preventDefault();step(['ArrowUp','ArrowLeft'].includes(e.key)?-1:1)}});
 function refreshDate(){const next=day();if(next!==today){today=next;renderMap();if(page==='libraryPage')renderLibrary()}}
-setInterval(refreshDate,15000);document.addEventListener('visibilitychange',()=>{if(!document.hidden){refreshDate();if(musicOn&&audio)audio.resume().catch(()=>{})}});window.addEventListener('focus',refreshDate);window.addEventListener('storage',e=>{if(e.key===KEY){try{merge(JSON.parse(e.newValue).records||[]);renderMap();renderLibrary()}catch{}}});
-$('#start').onclick=()=>show('mapPage');$('#mapNav').onclick=()=>show('mapPage');$('#libraryNav').onclick=()=>show('libraryPage');$('.brand').onclick=e=>{e.preventDefault();show('home')};$('#close').onclick=closeLesson;$('#lesson').addEventListener('cancel',()=>stopSpeech());$('#backMap').onclick=()=>{closeLesson();show('mapPage')};$('#flip').onclick=()=>{flipped=!flipped;$('#phraseText').textContent=flipped?current.zh:current.en};$('#listen').onclick=()=>speak(current.en);$('#search').oninput=renderLibrary;$('#sort').onchange=renderLibrary;
-function step(n){if(page!=='mapPage'||$('#lesson').open||moving)return;const target=Math.max(0,Math.min(lessons.length-1,position+n));moveTo(target)}document.querySelectorAll('[data-step]').forEach(b=>b.onclick=()=>step(Number(b.dataset.step)));document.addEventListener('keydown',e=>{if(page==='mapPage'&&!$('#lesson').open&&['ArrowUp','ArrowLeft','ArrowDown','ArrowRight'].includes(e.key)&&!['INPUT','SELECT','TEXTAREA'].includes(e.target.tagName)){e.preventDefault();step(['ArrowUp','ArrowLeft'].includes(e.key)?-1:1)}});
-$('#export').onclick=()=>{const blob=new Blob([JSON.stringify({app:'Little Deer English Trail',version:1,records:Object.values(records)},null,2)],{type:'application/json'});const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='little-deer-'+today+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),2000);notice('備份已匯出。')};$('#import').onchange=async e=>{const f=e.target.files[0];if(!f)return;try{if(f.size>2e6)throw Error();const data=JSON.parse(await f.text());if(data.version!==1||!Array.isArray(data.records))throw Error();const count=merge(data.records);save();renderMap();renderLibrary();notice(`已合併 ${count} 筆紀錄；重複與無效紀錄已略過。`)}catch{notice('匯入失敗：請選擇有效的版本 1 JSON 備份（小於 2 MB）。')}e.target.value=''};renderMap();
+setInterval(refreshDate,15000);document.addEventListener('visibilitychange',()=>{if(!document.hidden){refreshDate();if(musicOn&&audio)audio.resume().catch(()=>{})}});window.addEventListener('focus',refreshDate);window.addEventListener('storage',e=>{if(e.key===KEY){try{merge(JSON.parse(e.newValue||'{"records":[]}').records||[]);renderMap();if(page==='libraryPage')renderLibrary();if(page==='examPage')renderExam()}catch{}}});
+$('#export').onclick=()=>{const blob=new Blob([JSON.stringify({app:'Little Deer English Trail',version:1,records:Object.values(records),drafts},null,2)],{type:'application/json'});const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='little-deer-'+day()+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),2000);notice('備份已匯出（完成紀錄與文字草稿；不包含錄音）。')};$('#import').onchange=async e=>{const f=e.target.files[0];if(!f)return;try{if(f.size>2e6)throw Error();const data=JSON.parse(await f.text());if(data.version!==1||!Array.isArray(data.records))throw Error();const count=merge(data.records);mergeDrafts(data.drafts);save();renderMap();if(page==='libraryPage')renderLibrary();if(page==='examPage')renderExam();notice(`已合併 ${count} 筆紀錄；重複與無效紀錄已略過。既有草稿保留。`)}catch{notice('匯入失敗：請選擇有效的版本 1 JSON 備份（小於 2 MB）。')}e.target.value=''};
+refreshTypes();renderMap();
 </script></body></html>

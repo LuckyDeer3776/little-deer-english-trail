@@ -1,31 +1,61 @@
 # Little Deer English Trail
 
-Static, mobile-first A1 American English learning trail. #DEVDAYCOMMUNITU
+A self-paced American English trail with original GEPT practice. #DEVDAYCOMMUNITU
 
-## Open locally
+Public website: https://luckydeer3776.github.io/little-deer-english-trail/
 
-Open index.html in Chrome or Safari. No build, package installation, or external assets are required. For consistent localStorage behavior, use a local web server:
+## What changed
+
+All lessons are available immediately. There are no opening dates, daily locks, due dates, or limits on retries. Previous completions remain saved under the original browser storage key and the original eight phrase IDs. Completion dates are automatic historical timestamps, not deadlines and not dates the learner needs to set.
+
+The site contains 8 original A1 phrase stations and 63 original GEPT preparatory tasks:
+
+| Level | Tasks | Scope |
+| --- | ---: | --- |
+| Elementary 初級 | 28 | Two tasks for each of 14 task families across listening, reading, writing and speaking |
+| Intermediate 中級 | 12 | Picture listening, responses, dialogue, talks, vocabulary, cloze, reading, translation, essay, read-aloud, questions and picture description |
+| High-Intermediate 中高級 | 11 | Responses, dialogue, talks, vocabulary, cloze, reading, translation, essay, questions, picture description and presentation |
+| Advanced 高級 | 10 | Short/long conversations and talks, scanning, careful reading, synthesis, charts, interview, information exchange and presentation |
+| Superior 優級 | 2 | Integrated writing and speaking, with shortened reading/listening inputs |
+
+These are original, separate practice exercises, not official exam questions, complete full-length papers, a certification service, or a guarantee of passing. Advanced and superior inputs are intentionally shortened. Consult official GEPT specifications for full-length examinations and registration. Superior is offered on a commissioned basis. Official sources: [Elementary](https://www.gept.org.tw/Exam_Intro/t01_introduction.asp), [Intermediate](https://www.gept.org.tw/Exam_Intro/t02_introduction.asp), [High-Intermediate](https://www.gept.org.tw/Exam_Intro/t03_introduction.asp), [Advanced](https://www.gept.org.tw/Exam_Intro/t04_introduction.asp), [Superior](https://www.gept.org.tw/Exam_Intro/t05_introduction.asp).
+
+## How to practice
+
+- Start Learning opens the generated map. Choose a trail level and a station. The deer travels along the route and opens the card at arrival.
+- GEPT Practice / Explore GEPT opens the question bank. Filter by level, skill and task family. Every question is available without a schedule.
+- Wrong choice or sentence answer: read the hint and try again without limit. After an attempt you can reveal reference material, then retry. Revealing a reference alone does not complete a task.
+- Correct choice or matching sentence: completion is saved once. Retry starts a fresh attempt with answers hidden and keeps the earlier completion.
+- Free writing: save a draft, submit for self-review, compare the model and check content, structure and language. This is not automatic essay grading. Sentence checks are reference matches, including listed variants; they are not a general grammar engine. Sentence rewriting tasks check capitalization and punctuation.
+- Speaking: listen/read the prompt, record and replay, then self-review. Grant microphone access if prompted. On unsupported devices or denied permission, speak aloud and enter answer notes before reviewing. There is no automatic pronunciation score or official grade. Recordings stay in the page and are discarded when leaving the card. A single recording is capped at ten minutes to bound device resource use; re-recording is unlimited.
+- My Phrase Library uses the same completion records. Search English/Chinese, sort by historical completion date, listen or practice again. Self-reviewed tasks are labelled accordingly.
+
+## Local use and deployment
+
+No dependencies or build step are required. Serve this folder with:
 
     python3 -m http.server 8000
 
-Open http://localhost:8000. single-file.html contains the same app in one HTML file. Browser storage belongs to its origin; local file storage may vary by browser. Use JSON backup before switching to a different host or browser. The public release requires no login, download, or extraction once published.
+Open http://localhost:8000. GitHub Pages serves `main` from `/(root)` and republishes pushes. The `index.html` asset query version should be updated after relevant releases so returning visitors receive matching assets. No private projects or user progress belong in this repository.
 
-## Public website
+`single-file.html` is a bundled alternative. Local file storage and microphone availability vary by browser, so HTTPS hosting is recommended.
 
-https://luckydeer3776.github.io/little-deer-english-trail/
+## Edit content
 
-This repository contains only Little Deer English Trail and its teaching materials. GitHub Pages serves the main branch from the repository root. To update the site, edit the modular files and commit to main; Pages rebuilds automatically. Keep lesson IDs stable to preserve existing learning records. No build or dependency installation is required.
+- `lessons.js`: the original 8 A1 phrase stations.
+- `exam-data.js`: 63 original GEPT preparatory tasks. Add a task with a permanent unique `id`, `level`, `skill`, `type`, `title`, `en`, `zh`, `context`, `question`, and `mode`. No dates are required. Do not rename existing IDs or remove old content.
+- Modes: `choice` uses `options` and a zero-based `answer`; `text` uses `accepted` answer variants; `open` and `speak` use a `sample` reference and self-review. Optional fields include `passage`, `audio`, `picture`, `pictureOptions`, `hint`, `explain`, `minWords`, `targetWords`.
+- `app.js`: level/type labels, rendering, persistence, audio and practice behavior. Map geometry and question filters derive from content data.
+- To add a new type or level, add its label/description to `TYPES` or `LEVELS` in `app.js` along with the corresponding task data.
 
-## Add lessons
+After modular changes, rebuild single-file.html by embedding style.css, lessons.js, exam-data.js and app.js into index.html in that order, removing their external tags.
 
-Edit lessons.js. Append an object with a unique permanent `id`, a Taipei opening `date` in YYYY-MM-DD format, `title`, `en`, `zh`, `context`, `question`, `options`, zero-based `answer`, `hint`, and `explain`. Keep dates unique and in ascending order to unlock one station daily. Never rename released IDs. Leave existing entries in place to preserve historical stations and searchable phrases. The first batch opens 2026-11-05 through 2026-11-12 (Asia/Taipei); there are two catch-up stations on the event day, 2026-11-07. Thereafter all opened stations stay available.
+## Storage and backup
 
-The map geometry is generated from lesson order. No manual route changes are needed. No reset occurs when all lessons are released. Completion records are stored once per ID, with an ISO timestamp. Displayed completion dates use Asia/Taipei. Imports merge valid records, retain the earliest completion timestamp, reject malformed dates, future completions and completions before opening. Unknown IDs are retained as valid records for compatibility with future catalog versions but do not appear until their lesson exists.
+Completions use `little-deer-progress-v1`. Text drafts use `little-deer-drafts-v1`. Old version-1 backups remain supported. Export includes completion records and text drafts, but no microphone recordings. Import merges valid ISO timestamps, preserves earliest completion per ID, deduplicates, rejects future/malformed completion timestamps, and retains existing drafts. Records with unknown IDs are retained but only appear once the matching content exists. No release-date restrictions apply.
 
-After editing the modular files, update single-file.html if you distribute it: replace its embedded style, lesson-data and app-script sections with the corresponding files. GitHub Pages uses index.html and does not depend on single-file.html.
+Progress and drafts are local to this browser and origin. Export before clearing data or changing devices. Storage failure shows a message; practicing remains possible. No accounts, analytics, APIs, server database, or recording uploads are used.
 
-## Audio and assets
+## Audio and art
 
-Music is an original repeating 16-note instrumental melody with bass, synthesized with Web Audio sine/triangle oscillators at low gain. No third-party music, recordings, external images, external fonts, APIs or analytics are used. The background loop starts only after Music On. Speech uses the device Web Speech API, requesting en-US at a slow rate. Available voices, network needs and audible output depend on device settings. Audio failure does not block learning. System deer emoji rendering differs by device.
-
-See LICENSE.txt for permissions, ACCEPTANCE.md for verification, and YOUTUBE.txt for description copy.
+Background music is an original quiet instrumental loop synthesized locally with Web Audio; starts only after Music On. Music mutes during speech, microphone recording and recorded-audio playback and follows the current on/off preference afterward. Speech requests the device's en-US voice. Unsupported audio does not prevent learning. Picture tasks use original inline SVG art. No external music, images or fonts are bundled. See LICENSE.txt and ACCEPTANCE.md.
