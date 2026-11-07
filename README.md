@@ -48,7 +48,7 @@ Open http://localhost:8000. GitHub Pages serves `main` from `/(root)` and republ
 - `app.js`: level/type labels, rendering, persistence, audio and practice behavior. Map geometry and question filters derive from content data.
 - To add a new type or level, add its label/description to `TYPES` or `LEVELS` in `app.js` along with the corresponding task data.
 
-After modular changes, rebuild single-file.html by embedding style.css, lessons.js, exam-data.js and app.js into index.html in that order, removing their external tags.
+After modular or media changes, run `python3 tools/build-standalone.py` to rebuild the standalone HTML with styles, scripts, original puzzle images and song MP3s embedded.
 
 ## Storage and backup
 
@@ -59,3 +59,19 @@ Progress and drafts are local to this browser and origin. Export before clearing
 ## Audio and art
 
 Background music is an original quiet instrumental loop synthesized locally with Web Audio; starts only after Music On. Music mutes during speech, microphone recording and recorded-audio playback and follows the current on/off preference afterward. Speech requests the device's en-US voice. Unsupported audio does not prevent learning. Picture tasks use original inline SVG art. No external music, images or fonts are bundled. See LICENSE.txt and ACCEPTANCE.md.
+
+## The Rest Grove — games and songs
+
+`Play & Songs` opens optional breaks without changing learning completion records:
+
+- **Little Fish Pond:** six large, softly animated fish; catch any five with touch, mouse or keyboard. No timer, score penalty, or learning gate. Replay freely. Reduced-motion preference stops the swimming animation.
+- **Forest Picture Puzzle:** a 3×3 swap puzzle using one of two original pictures. Select any two pieces to swap; every shuffle is solvable. Keyboard arrows move focus, Enter/Space selects. Show the reference image or piece numbers at any time. No dragging or countdown required.
+- **Little English Songs:** three original short songs with synthesized vocals, original instrumental arrangements and synchronized English/Traditional Chinese lyrics. Native audio controls offer play/pause/seek/volume, and the page adds track selection and optional looping. No autoplay. See AUDIO-CREDITS.md and FLITE-NOTICE.txt.
+
+The map generates optional rest markers between lessons at randomized intervals and varies fish, puzzle and song stops. A plan stays stable for that trail during the open session; reopening can produce different stops. After practicing three different lesson IDs in a session, a dismissible invitation offers a break. It never blocks answers or opens a game automatically. `Surprise Break` can start either game without waiting.
+
+Songs may continue between website sections after the user starts playback. Background instrumental music is muted while a song plays. Songs pause for lesson speech, microphone recording, recorded-audio playback and games; they resume only if the user still wants the song on. A Stop Song control is available on learning cards. Media failure leaves learning and the other activities available.
+
+`play.js` manages rest markers, games and song coordination. `songs-data.js` contains song metadata, audio paths and bilingual lyric timings. MP3s are in `assets/audio/`; puzzle SVGs are in `assets/art/`. Add future songs using the same metadata schema, with a verified license and credits. Game win counts use the separate local key `little-deer-rest-v1`. They are independent from phrase completions and are not part of the learning JSON backup.
+
+The standalone HTML embeds the two puzzle images and three MP3s so it can play them without downloading adjacent files. This makes that optional file larger than the modular website.

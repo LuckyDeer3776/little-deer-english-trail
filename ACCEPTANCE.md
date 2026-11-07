@@ -40,3 +40,14 @@ The owner-created public repository is LuckyDeer3776/little-deer-english-trail. 
 ## Picture-answer clarity fix
 
 All three picture-listening tasks now display the complete English answer choices instead of letter-only placeholders. Both picture-answer tasks show directly clickable images with descriptive English captions. Targeted Chromium checks verified all five affected tasks: readable option content, correct choice counts, image click handling, incorrect-answer retry, hidden reference on a fresh attempt, and desktop/mobile layouts, with no JavaScript errors. These checks validate practice behavior; they do not assess official-exam equivalence.
+
+## Rest Grove upgrade — local Chromium PASS
+
+- Randomized optional rest markers appeared between lessons and remained stable during a trail's open session. Three distinct practiced IDs showed a dismissible invitation. Skipping did not alter progress.
+- Fish targets were keyboard-focusable native buttons. Catching five won a round; replay reset it. Puzzle swaps could solve the board; reference image, number hints, keyboard focus and replay passed. Both games had no countdown and left phrase completion records unchanged. Independent win counts survived reload.
+- All three actual MP3 assets decoded and played in Chromium, with valid 40–60 second durations. No song autoplay occurred on entering the grove. Lyrics highlighted, track changes worked and looping could be enabled.
+- Shared audio checks verified quiet background music during song playback, automatic song pause for mocked lesson speech and open games, resumption afterward, and preservation of an explicit manual Stop Song choice. Speech callbacks were mocked for deterministic logic; these tests do not establish subjective singing quality or actual-device audio behavior.
+- Phone layouts including 320px and desktop layouts passed without horizontal page overflow. No uncaught JavaScript errors in the game/song run.
+- Safari hardware remains pending: specifically verify MP3 controls/looping, resume after Web Speech and microphone interruptions, direct fish touch targets, puzzle taps and reduced-motion preference on a physical iPhone.
+
+Additional checks passed for automatic song interruption/resumption during synthetic-microphone capture and recorded-audio playback, Stop Song inside a lesson, map keyboard suppression behind a game, normal fish animation and continued answering after a forced MP3 load failure. Standalone embedded songs and puzzle art were verified over HTTP without separate asset requests. Direct file:// navigation could not be tested because the managed browser blocks that scheme by administrator policy.
