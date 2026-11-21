@@ -82,6 +82,24 @@ def run(browser, mobile):
         stayed(0)
         if action == 'playback':
             page.evaluate("delete document.querySelector('#recording').paused")
+    page.evaluate('''()=>{
+        window.originalSpeechSpeak=speechSynthesis.speak;
+        speechSynthesis.speak=utterance=>{window.mockPrompt=utterance};
+    }''')
+    for timing in ('before completion', 'before travel'):
+        arrive(0)
+        if timing == 'before completion':
+            press('#listen')
+        correct()
+        if timing == 'before travel':
+            page.wait_for_timeout(2700)
+            page.evaluate('speak(current.en)')
+        assert page.evaluate('speaking && !!window.mockPrompt')
+        stayed(0)
+        expect(page.locator('#lesson')).to_be_visible()
+        assert page.evaluate('speaking'), 'Travel must not interrupt the spoken prompt'
+    press('#close')
+    page.evaluate('()=>{speechSynthesis.speak=window.originalSpeechSpeak}')
     arrive(7)
     answer = page.evaluate('current.answer')
     press(f'#options button:nth-child({answer + 1})')
@@ -163,7 +181,7 @@ def run(browser, mobile):
         expect(page.locator('#advanceActions')).to_be_hidden()
         page.evaluate('()=>{Storage.prototype.setItem=window.realSet}')
     assert not errors, errors
-    print(f'PASS {"mobile touch 390x844" if mobile else "desktop"}: visible completion panel, animation, auto/manual, typing/playback/cancel, last station, exam, self-review, reload, storage errors; no console errors')
+    print(f'PASS {"mobile touch 390x844" if mobile else "desktop"}: visible completion panel, animation, auto/manual, typing/playback/cancel, spoken prompt blocks countdown/travel, last station, exam, self-review, reload, storage errors; no console errors')
     context.close()
 
 
