@@ -41,8 +41,11 @@ def run(browser, mobile):
         answer = page.evaluate('current.answer')
         press(f'#options button:nth-child({answer + 1})')
         expect(page.locator('#clearCelebration')).to_be_visible()
+        expect(page.locator('#advancePanel')).to_be_in_viewport(ratio=0.99)
         expect(page.locator('#nextTask')).to_be_hidden()
         expect(page.locator('#advanceActions')).to_be_visible(timeout=3000)
+        expect(page.locator('#advancePanel')).to_be_in_viewport(ratio=0.99)
+        expect(page.locator('#advanceNow')).to_be_in_viewport(ratio=1)
 
     def stayed(index):
         page.wait_for_timeout(3300)
@@ -54,6 +57,8 @@ def run(browser, mobile):
     arrive(0)
     correct()
     expect(page.locator('#advanceMessage')).to_contain_text('小鹿將前往下一關')
+    expect(page.locator('#advanceCancel')).to_be_in_viewport(ratio=1)
+    page.screenshot(path=f'/tmp/fix-{"mobile" if mobile else "desktop"}.png')
     page.wait_for_function('position===1 && current.id===mapLessons()[1].id && document.querySelector("#lesson").open', timeout=7000)
     press('#close')
     press('#autoAdvance')
@@ -158,7 +163,7 @@ def run(browser, mobile):
         expect(page.locator('#advanceActions')).to_be_hidden()
         page.evaluate('()=>{Storage.prototype.setItem=window.realSet}')
     assert not errors, errors
-    print(f'PASS {"mobile touch 390x844" if mobile else "desktop"}: animation, auto/manual, typing/playback/cancel, last station, exam, self-review, reload, storage errors; no console errors')
+    print(f'PASS {"mobile touch 390x844" if mobile else "desktop"}: visible completion panel, animation, auto/manual, typing/playback/cancel, last station, exam, self-review, reload, storage errors; no console errors')
     context.close()
 
 
