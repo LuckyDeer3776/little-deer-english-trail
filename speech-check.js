@@ -3,7 +3,7 @@
   const numbers='zero one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen twenty'.split(' ');
   const contractions={"it's":'it is',"i'm":'i am',"you're":'you are',"we're":'we are',"they're":'they are',"he's":'he is',"she's":'she is',"that's":'that is',"there's":'there is',"don't":'do not',"doesn't":'does not',"didn't":'did not',"can't":'can not',"won't":'will not',"isn't":'is not',"aren't":'are not',"i've":'i have',"i'll":'i will',"let's":'let us'};
   function tokens(text){return String(text||'').replace(/[’‘]/g,"'").match(/[A-Za-z0-9]+(?:'[A-Za-z]+)*/g)||[]}
-  function expand(word){const lower=word.toLowerCase();return (contractions[lower]||lower).split(' ').map(w=>/^\d+$/.test(w)&&Number(w)<=20?numbers[Number(w)]:w)}
+  function expand(word){const lower=word.toLowerCase();return (Object.prototype.hasOwnProperty.call(contractions,lower)?contractions[lower]:lower).split(' ').map(w=>/^\d+$/.test(w)&&Number(w)<=20?numbers[Number(w)]:w)}
   function words(text){return tokens(text).flatMap(expand)}
   function compare(target,heard){
     const original=tokens(target),a=original.flatMap((word,index)=>expand(word).map(value=>({value,index}))),b=words(heard);

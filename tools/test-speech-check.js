@@ -10,6 +10,7 @@ const cases=[
   ['contractions',()=>{assert.equal(compare('It’s fine, I am ready',"it is fine i'm ready").matched,5);assert.equal(compare('it is fine',"it's fine").matched,3)}],
   ['empty input',()=>{assert.deepEqual(compare('',''),{items:[],extra:[],matched:0,total:0});assert.equal(compare('Hello','').items[0].status,'missed');assert.deepEqual(compare('','hello').extra,['hello'])}],
   ['missing input',()=>assert.deepEqual(words(null),[])],
+  ['object property names',()=>{assert.deepEqual(words('constructor toString'),['constructor','tostring']);assert.equal(compare('the constructor works','the constructor works').matched,3)}],
   ['repeated word alignment',()=>assert.equal(compare('go go home','go home').matched,2)]
 ];
 for(const [name,test] of cases){test();console.log('PASS '+name)}
