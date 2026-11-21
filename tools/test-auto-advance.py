@@ -41,6 +41,7 @@ def run(browser, mobile):
         answer = page.evaluate('current.answer')
         press(f'#options button:nth-child({answer + 1})')
         expect(page.locator('#clearCelebration')).to_be_visible()
+        expect(page.locator('#nextTask')).to_be_hidden()
         expect(page.locator('#advanceActions')).to_be_visible(timeout=3000)
 
     def stayed(index):
@@ -115,6 +116,8 @@ def run(browser, mobile):
         box.check()
     press('#completeReview')
     expect(page.locator('#clearCelebration')).to_be_visible()
+    assert task['level'] != 'foundation'
+    expect(page.locator('#nextTask')).to_be_visible()
     assert page.evaluate('(id)=>!!JSON.parse(localStorage.getItem(KEY)).records.find(r=>r.id===id&&r.method==="self-review")', task['id'])
     press('#close')
     press('#mapNav')
