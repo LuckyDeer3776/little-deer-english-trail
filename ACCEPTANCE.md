@@ -60,6 +60,15 @@ Additional checks passed for automatic song interruption/resumption during synth
 - The original song player remained reachable and playable. The rebuilt standalone included all 13 recommendation cards plus embedded original audio. Existing fish/puzzle/song tests passed after the new catalog was integrated.
 - Phone layout down to 320px and desktop layout passed with no horizontal page overflow or uncaught JavaScript errors. Safari hardware remains pending, especially new-tab focus return and media resume behavior.
 
+## Mobile experience batch — iOS Simulator Safari + local Chromium PASS
+
+- iPhone 17 Simulator Safari (402px wide): the page was 40px wider than the screen on every page because of the hidden Import JSON file input. After the fix the page width matches the screen exactly on Home, Map, Library, GEPT and Rest Grove. Chromium at 320, 375, 402 and 1280px also showed no horizontal overflow.
+- Simulator Safari: every select used 13px text before the fix (iOS zooms in on focus below 16px). After the fix every select, search box and textarea is 16px on touch screens. Desktop sizes are unchanged.
+- Chromium with a synthetic microphone: pressing Record while a song was paused for read-aloud briefly restarted the song before recording began. After the fix the song stays paused while recording and resumes once recording stops.
+- Chromium tab switch: before the fix the song and background music kept playing in a hidden tab. After the fix the song pauses, the AudioContext suspends, and both resume when the tab is visible again, keeping the Music On choice.
+- No autoplay on load, a completion survived reload, the fish game reached 5/5, the puzzle had 9 tiles, and no uncaught JavaScript errors occurred.
+- Safari blocks scripted playback without a tap, so audio resume after recording and after a tab switch still needs a check on a physical iPhone.
+
 ## Promotion kit
 
 The promo/ download page includes a 45-second 1080p H.264/AAC film, a PNG/SVG website QR, a portrait QR poster, a YouTube thumbnail, Chinese/English SRT files and suggested description text. Independent QR decoding, full movie decoding, browser playback/seek, download hash matching and responsive preview checks passed. Details and actual-device/platform limits are recorded in promo/README.md. Only original site footage and original music are included; external YouTube performances are not part of the film.
