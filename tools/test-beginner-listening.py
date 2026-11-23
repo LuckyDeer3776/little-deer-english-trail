@@ -171,6 +171,40 @@ def check_reference_keyboard(browser):
     print("PASS: English review questions and answers identify as English; Chinese text retains zh-Hant.")
 
 
+def check_spoken_review(browser):
+    page = browser.new_page(reduced_motion="reduce")
+    page.add_init_script("""window.SpeechRecognition = class {
+        start() {
+            this.onresult({results: [[{transcript: 'I visit friends'}]]});
+        }
+        stop() {
+            this.onresult({results: [[{transcript: 'I visit my family'}]]});
+            this.onend();
+        }
+        abort() {}
+    };""")
+    open_bank(page, "index.html")
+    page.locator("#examSkill").select_option("speaking")
+    page.locator('[data-task-id="gept-elementary-027"]').click()
+    page.locator("#checkReading").click()
+    page.locator("#stopRecognition").click()
+    page.locator("#reviewSpeaking").click()
+    answer = page.locator("#reference .review-block").filter(
+        has=page.get_by_role("heading", name="你的答案", exact=True)
+    ).locator("strong")
+    expect(answer).to_have_text("I visit my family")
+    page.locator("#spokenNotes").fill("I go to the park")
+    page.locator("#reviewSpeaking").click()
+    expect(answer).to_have_text("I go to the park")
+    page.locator("#spokenNotes").fill("")
+    page.locator("#retry").click()
+    page.evaluate("recorded = true")
+    page.locator("#reviewSpeaking").click()
+    expect(answer).to_have_text("請回放你的錄音。")
+    page.close()
+    print("PASS: speaking review shows notes, latest recognition transcript, or recording fallback in that order.")
+
+
 def check_layout(browser, screenshot_dir):
     for width, height in ((320, 568), (375, 900), (390, 844), (1366, 900)):
         page = browser.new_page(viewport={"width": width, "height": height}, reduced_motion="reduce")
@@ -219,5 +253,6 @@ if __name__ == "__main__":
         browser = playwright.chromium.launch(executable_path=shutil.which("google-chrome"))
         check_grading(browser)
         check_reference_keyboard(browser)
+        check_spoken_review(browser)
         check_layout(browser, shots)
         browser.close()
