@@ -175,17 +175,33 @@ def check_spoken_review(browser):
     page = browser.new_page(reduced_motion="reduce")
     page.add_init_script("""window.SpeechRecognition = class {
         start() {
-            this.onresult({results: [[{transcript: 'I visit friends'}]]});
+            this.emit('I visit friends', false);
         }
         stop() {
-            this.onresult({results: [[{transcript: 'I visit my family'}]]});
+            this.emit(window.shortFinal ? 'visit family' : 'I visit my family', true);
             this.onend();
+        }
+        emit(transcript, isFinal) {
+            const result = [{transcript}];
+            result.isFinal = isFinal;
+            this.onresult({results: [result]});
         }
         abort() {}
     };""")
     open_bank(page, "index.html")
     page.locator("#examSkill").select_option("speaking")
     page.locator('[data-task-id="gept-elementary-027"]').click()
+    expect(page.locator("#checkReading")).to_be_visible()
+    page.clock.install()
+    page.evaluate("window.shortFinal = true")
+    page.locator("#checkReading").click()
+    page.clock.fast_forward(21_000)
+    expect(page.locator("#stopRecognition")).to_be_visible()
+    page.clock.fast_forward(99_000)
+    expect(page.locator("#stopRecognition")).to_be_hidden()
+    page.locator("#reviewSpeaking").click()
+    expect(page.locator("#selfReview")).to_be_hidden()
+    page.evaluate("window.shortFinal = false")
     page.locator("#checkReading").click()
     page.locator("#stopRecognition").click()
     page.locator("#reviewSpeaking").click()
@@ -210,6 +226,7 @@ def check_spoken_review(browser):
     page.locator("#close").click()
     expect(page.locator("#reference")).to_be_empty()
     page.close()
+    print("PASS: open-answer recognition runs past 20 seconds, and a short final transcript cannot unlock self-review.")
     print("PASS: speaking review shows notes, latest recognition transcript, or recording fallback in that order.")
     print("PASS: closing the speaking lesson clears the rendered answer review.")
 
