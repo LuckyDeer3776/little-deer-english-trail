@@ -78,6 +78,7 @@ def check_grading(browser):
             expect(sections.locator("h4")).to_have_text(["題目", "你的答案", "正確答案", "中文解釋"])
             expect(sections.nth(1).locator("strong")).to_have_text(f"{chr(65 + selected)}. {option}")
             expect(sections.nth(2).locator("strong")).to_have_text(f"{letter}. {answer}")
+            expect(sections.nth(2).locator("p").first).to_have_attribute("lang", "en")
             expect(sections.nth(2).locator("p").nth(1)).to_have_text(translation)
             expect(sections.nth(0).locator("p").nth(1)).to_have_text(task["audio"])
             expect(sections.nth(0).locator("p").nth(2)).to_have_text(task["audioZh"])
@@ -116,8 +117,24 @@ def check_reference_keyboard(browser):
     expect(button).to_be_hidden()
     page.keyboard.press("Tab")
     expect(page.locator("#retry")).to_be_focused()
+
+    def review_language(text):
+        return panel.get_by_text(text, exact=True).evaluate("el => el.closest('[lang]').lang")
+
+    assert review_language("What time does the shop close on Friday?") == "en"
+    assert review_language("A. At five.") == "en"
+    assert review_language("B. At six.") == "en"
+    assert review_language("商店六點關門。") == "zh-Hant"
+    page.locator("#close").click()
+    page.evaluate("openLesson(known('water-002'))")
+    page.locator("#options button").nth(1).click()
+    assert review_language("這句話是在做什麼？") == "zh-Hant"
+    assert panel.get_by_text("B. 主動提供水", exact=True).evaluate_all(
+        "nodes => nodes.map(node => node.closest('[lang]').lang)"
+    ) == ["zh-Hant", "zh-Hant"]
     page.close()
     print("PASS: keyboard focus moves from Show Reference to the answer review, then to Try Again.")
+    print("PASS: English review questions and answers identify as English; Chinese text retains zh-Hant.")
 
 
 def check_layout(browser, screenshot_dir):

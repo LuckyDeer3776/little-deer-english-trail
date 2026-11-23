@@ -49,10 +49,11 @@ function reviewBlock(label,text,translation,{lang,bold=false}={}){
   return block;
 }
 function choiceLabel(l,i){return String.fromCharCode(65+i)+'. '+l.options[i]}
+function reviewLanguage(text){return /[a-z]/i.test(text)&&!/\p{Script=Han}/u.test(text)?'en':undefined}
 function showSolution(){
   if(!attempted&&!submitted)return;
   const l=current, panel=$('#reference');
-  const question=reviewBlock('題目',l.question);
+  const question=reviewBlock('題目',l.question,null,{lang:reviewLanguage(l.question)});
   if(l.audio){
     const transcript=element('p',l.audio);
     transcript.lang='en';
@@ -66,9 +67,9 @@ function showSolution(){
   }
   panel.replaceChildren(question);
   if(l.mode==='choice'){
-    const format={lang:l.optionsZh?'en':undefined,bold:true};
-    panel.append(reviewBlock('你的答案',choiceLabel(l,lastAnswer),l.optionsZh?.[lastAnswer],format),
-      reviewBlock('正確答案',choiceLabel(l,l.answer),l.optionsZh?.[l.answer],format));
+    const choiceReview=(label,i)=>reviewBlock(label,choiceLabel(l,i),l.optionsZh?.[i],
+      {lang:reviewLanguage(l.options[i]),bold:true});
+    panel.append(choiceReview('你的答案',lastAnswer),choiceReview('正確答案',l.answer));
   }else{
     const notes=l.mode==='speak'?$('#spokenNotes').value.trim():lastAnswer;
     panel.append(reviewBlock('你的答案',notes||'請回放你的錄音。',null,{bold:true}));
