@@ -1,5 +1,6 @@
 """Run with Python Playwright and Chrome; optionally pass a screenshot directory."""
 from pathlib import Path
+import re
 import shutil
 import sys
 
@@ -17,6 +18,31 @@ EXPECTED = [
     ("A bus stop", "公車站", "B", "bus"),
     ("A bottle of water", "一瓶水", "A", "bottle"),
 ]
+CARD_LABELS = ["① 聽力原文與中文翻譯", "② 正確答案", "③ 重要單字與片語", "④ 答案解析"]
+EXPECTED_LINE_COUNTS = [3, 3, 1, 1, 3, 4, 3, 3]
+HAN = r"[\u3400-\u9fff]"
+GLOSSED_ENGLISH = rf"[a-zA-Z]+(?:[ ’'\-]+[a-zA-Z]+)*\s*（[^）]*{HAN}[^）]*）"
+
+
+def check_transcript_and_vocabulary(task, number):
+    lines = task["transcript"]
+    assert len(lines) == EXPECTED_LINE_COUNTS[number - 1]
+    assert all(en.strip() and re.search(HAN, zh) for en, zh in lines)
+    assert any(task["zh"].rstrip("。") in zh for _, zh in lines)
+    for en, zh in lines:
+        label = re.match(r"^([A-C])[:.]", en)
+        if label:
+            assert zh.startswith(label[1] + "："), task["id"]
+        if en.startswith("Question:"):
+            assert zh.startswith("問題："), task["id"]
+    spoken_lines = [re.sub(r"^[A-C]: ", "", en) for en, _ in lines]
+    assert " ".join(spoken_lines) == task["audio"]
+    if number == 5:
+        assert [zh for _, zh in lines] == ["A：圖書館在哪裡？", "B：它就在麵包店旁邊。", "問題：圖書館在哪裡？"]
+    assert task["vocabulary"] and all(
+        re.search(r"[A-Za-z]", en) and re.search(HAN, zh) for en, zh in task["vocabulary"]
+    )
+    assert not re.search(r"[A-Za-z]", re.sub(GLOSSED_ENGLISH, "", task["explain"])), task["id"]
 
 
 def open_bank(page, source):
@@ -48,7 +74,7 @@ def check_grading(browser):
         assert chr(65 + task["answer"]) == letter and task["options"][task["answer"]] == answer
         assert len(task["optionsZh"]) == len(task["options"]) and all(task["optionsZh"])
         assert task["optionsZh"][task["answer"]] == translation
-        assert task["zh"].rstrip("。") in task["audioZh"] and letter in task["explain"]
+        check_transcript_and_vocabulary(task, number)
         if task["type"] == "picture":
             assert task["audio"] == " ".join(f"{chr(65 + i)}. {option}" for i, option in enumerate(task["options"]))
             assert task["picture"] == scene and task["en"] == answer
@@ -75,18 +101,25 @@ def check_grading(browser):
                 """id => JSON.parse(localStorage.getItem('little-deer-progress-v1') || '{"records":[]}')
                            .records.some(record => record.id === id)""", task_id
             )
-            expect(sections.locator("h4")).to_have_text(["題目", "你的答案", "正確答案", "中文解釋"])
-            expect(sections.nth(1).locator("strong")).to_have_text(f"{chr(65 + selected)}. {option}")
-            expect(sections.nth(2).locator("strong")).to_have_text(f"{letter}. {answer}")
-            expect(sections.nth(2).locator("p").first).to_have_attribute("lang", "en")
-            expect(sections.nth(2).locator("p").nth(1)).to_have_text(translation)
-            expect(sections.nth(0).locator("p").nth(1)).to_have_text(task["audio"])
-            expect(sections.nth(0).locator("p").nth(2)).to_have_text(task["audioZh"])
+            expect(sections.locator("h4")).to_have_text(CARD_LABELS)
+            answer_card = sections.nth(1)
+            expect(answer_card.locator("strong")).to_have_text([f"{letter}. {answer}", f"{chr(65 + selected)}. {option}"])
+            expect(answer_card.locator(".review-answer-label")).to_have_text("你的答案")
+            expect(answer_card.locator("p[lang=en]")).to_have_count(2)
+            expect(answer_card.locator(".review-row").first.locator("p").nth(1)).to_have_text(translation)
+            expect(answer_card.locator(".review-row").last.locator("p").last).to_have_text(task["optionsZh"][selected])
+            expect(sections.nth(0).locator(".review-row p")).to_have_text(
+                [line for pair in task["transcript"] for line in pair]
+            )
+            expect(sections.nth(0).locator(".review-row p[lang=en]")).to_have_count(len(task["transcript"]))
+            expect(sections.nth(2).locator("dt[lang=en]")).to_have_text([en for en, _ in task["vocabulary"]])
+            expect(sections.nth(2).locator("dd")).to_have_text([zh for _, zh in task["vocabulary"]])
             expect(sections.nth(3).locator("p")).to_have_text(task["explain"])
 
         options.nth(task["answer"]).click()
         expect(page.locator("#feedback")).to_contain_text("答對了")
         expect(sections.nth(1).locator("strong")).to_have_text(f"{letter}. {answer}")
+        expect(sections.nth(1).locator(".review-answer-label")).to_have_count(0)
         expect(page.locator("#nextTask")).to_be_visible()
         assert page.evaluate(
             """id => JSON.parse(localStorage.getItem('little-deer-progress-v1'))
@@ -100,6 +133,7 @@ def check_grading(browser):
     assert not errors, errors
     page.close()
     print("PASS: 8 elementary items, 8 correct and 16 incorrect attempts, TTS input and answer review.")
+    print("PASS: 8 bilingual transcripts, vocabulary lists, explanations and four distinct review cards.")
 
 
 def check_reference_keyboard(browser):
@@ -144,7 +178,7 @@ def check_layout(browser, screenshot_dir):
         tiles.nth(5).click()
         page.locator("#options button").nth(0).click()
         panel = page.locator("#reference")
-        expect(panel.locator("strong").nth(1)).to_have_text("B. Ten dollars.")
+        expect(panel.locator("strong").first).to_have_text("B. Ten dollars.")
         panel.evaluate("node => node.scrollIntoView({block: 'start'})")
         if screenshot_dir and width in (375, 1366):
             page.screenshot(path=screenshot_dir / f"beginner-listening-{width}.png")
@@ -156,16 +190,21 @@ def check_layout(browser, screenshot_dir):
             assert panel.evaluate("""node => {
                 const dialog = node.closest('dialog');
                 const {left, right} = dialog.getBoundingClientRect();
-                let bottom = 0;
+                const zh = node.querySelector('.review-row p:not([lang])');
+                const type = getComputedStyle(zh);
+                let bottom = -Infinity;
                 return left >= 0 && right <= innerWidth &&
                     dialog.scrollWidth <= dialog.clientWidth &&
-                    [node, ...node.querySelectorAll('section, h4, p')].every(el => {
+                    parseFloat(type.fontSize) >= 17 && parseFloat(type.lineHeight) >= 1.8 * 17 &&
+                    [node, ...node.querySelectorAll('section, h4, p, dt, dd')].every(el => {
                         if (el.scrollWidth > el.clientWidth) return false;
                         if (el.tagName !== 'SECTION') return true;
                         const box = el.getBoundingClientRect();
-                        const nonoverlapping = box.top >= bottom;
+                        const style = getComputedStyle(el);
+                        const separated = box.top - bottom >= 16 && parseFloat(style.borderTopWidth) > 0 &&
+                            style.backgroundColor !== getComputedStyle(node).backgroundColor;
                         bottom = box.bottom;
-                        return nonoverlapping;
+                        return separated;
                     });
             }"""), (width, "long text" if text else "actual review")
         page.locator("#feedback").scroll_into_view_if_needed()

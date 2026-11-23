@@ -12,7 +12,7 @@ window.EXAM_TASKS = [
     "question": "看圖，可先按 Listen 聽英文敘述，再點選與圖片相符的完整句子。",
     "mode": "choice",
     "hint": "留意人物正在做什麼。",
-    "explain": "圖中一個人正把一杯水遞給另一個人，所以選 A。圖中沒有洗車或關門。",
+    "explain": "圖中一個人正把一杯水遞給另一個人。洗車和關門都不是圖中的動作。",
     "options": [
       "A person is giving someone water.",
       "A person is washing a car.",
@@ -22,7 +22,12 @@ window.EXAM_TASKS = [
     "picture": "water",
     "optionsZh": ["有個人正在把水遞給另一個人。", "有個人正在洗車。", "有個人正在關門。"],
     "audio": "A. A person is giving someone water. B. A person is washing a car. C. A person is closing a door.",
-    "audioZh": "A. 有個人正在把水遞給另一個人。 B. 有個人正在洗車。 C. 有個人正在關門。"
+    "transcript": [
+      ["A. A person is giving someone water.", "A：有個人正在把水遞給另一個人。"],
+      ["B. A person is washing a car.", "B：有個人正在洗車。"],
+      ["C. A person is closing a door.", "C：有個人正在關門。"]
+    ],
+    "vocabulary": [["give someone water", "把水遞給某人"], ["wash a car", "洗車"], ["close a door", "關門"]]
   },
   {
     "id": "gept-elementary-002",
@@ -36,7 +41,7 @@ window.EXAM_TASKS = [
     "question": "看圖，可先按 Listen 聽英文敘述，再點選與圖片相符的完整句子。",
     "mode": "choice",
     "hint": "留意人物正在做什麼。",
-    "explain": "圖中兩個人站在公車站牌旁等公車，所以選 B。他們沒有游泳或吃午餐。",
+    "explain": "圖中兩個人站在公車站牌旁等公車；他們沒有游泳或吃午餐。",
     "options": [
       "They are swimming.",
       "They are waiting for the bus.",
@@ -46,7 +51,12 @@ window.EXAM_TASKS = [
     "picture": "bus",
     "optionsZh": ["他們正在游泳。", "他們正在等公車。", "他們正在吃午餐。"],
     "audio": "A. They are swimming. B. They are waiting for the bus. C. They are eating lunch.",
-    "audioZh": "A. 他們正在游泳。 B. 他們正在等公車。 C. 他們正在吃午餐。"
+    "transcript": [
+      ["A. They are swimming.", "A：他們正在游泳。"],
+      ["B. They are waiting for the bus.", "B：他們正在等公車。"],
+      ["C. They are eating lunch.", "C：他們正在吃午餐。"]
+    ],
+    "vocabulary": [["swim", "游泳"], ["wait for the bus", "等公車"], ["eat lunch", "吃午餐"]]
   },
   {
     "id": "gept-elementary-003",
@@ -59,8 +69,8 @@ window.EXAM_TASKS = [
     "context": "依題目情境練習，作答後可反覆重做。",
     "question": "聽一句英文，選出最合適的回應。",
     "mode": "choice",
-    "hint": "留意問句開頭的 What time。",
-    "explain": "What time 是在問幾點。A 回答早上九點；其他選項說的是顏色或數量。",
+    "hint": "留意對方是在問幾點。",
+    "explain": "對方問商店幾點開門，「早上九點」才有回答時間。其他選項說的是顏色或數量。",
     "options": [
       "At nine in the morning.",
       "It is blue.",
@@ -69,7 +79,8 @@ window.EXAM_TASKS = [
     "answer": 0,
     "optionsZh": ["早上九點。", "它是藍色的。", "兩顆蘋果。"],
     "audio": "What time does the store open?",
-    "audioZh": "商店幾點開門？"
+    "transcript": [["What time does the store open?", "商店幾點開門？"]],
+    "vocabulary": [["what time", "幾點"], ["open", "開門、開始營業"], ["at nine in the morning", "早上九點"]]
   },
   {
     "id": "gept-elementary-004",
@@ -82,8 +93,8 @@ window.EXAM_TASKS = [
     "context": "依題目情境練習，作答後可反覆重做。",
     "question": "聽一句英文，選出最合適的回應。",
     "mode": "choice",
-    "hint": "留意 Would you like…? 是在詢問對方想不想要。",
-    "explain": "對方問你想不想喝點茶。B 是禮貌接受的回應；交通方式和地點都不切題。",
+    "hint": "留意對方是在問你想不想喝點什麼。",
+    "explain": "對方問你想不想喝點茶。「好，麻煩你了」是禮貌接受的回應；交通方式和地點都不切題。",
     "options": [
       "By bus.",
       "Yes, please.",
@@ -92,7 +103,8 @@ window.EXAM_TASKS = [
     "answer": 1,
     "optionsZh": ["搭公車。", "好，麻煩你了。", "在公園。"],
     "audio": "Would you like some tea?",
-    "audioZh": "你想喝點茶嗎？"
+    "transcript": [["Would you like some tea?", "你想喝點茶嗎？"]],
+    "vocabulary": [["Would you like …?", "你想要……嗎？"], ["some tea", "一些茶"], ["Yes, please.", "好，麻煩你了。"]]
   },
   {
     "id": "gept-elementary-005",
@@ -101,12 +113,12 @@ window.EXAM_TASKS = [
     "type": "dialogue",
     "title": "Short Conversation",
     "en": "It is next to the bakery.",
-    "zh": "它在麵包店旁邊。",
+    "zh": "它就在麵包店旁邊。",
     "context": "依題目情境練習，作答後可反覆重做。",
     "question": "聽對話，回答問題。",
     "mode": "choice",
     "hint": "留意回答圖書館在哪裡的那一句。",
-    "explain": "對方說圖書館在麵包店旁邊，因此選 A。next to 的意思是「在……旁邊」。",
+    "explain": "題目問圖書館的位置。第二位說話者回答，圖書館就在麵包店旁邊，不在學校後面或車站裡面。",
     "options": [
       "Next to the bakery.",
       "Behind the school.",
@@ -115,7 +127,12 @@ window.EXAM_TASKS = [
     "answer": 0,
     "optionsZh": ["在麵包店旁邊。", "在學校後面。", "在車站裡面。"],
     "audio": "Where is the library? It is next to the bakery. Question: Where is the library?",
-    "audioZh": "圖書館在哪裡？它在麵包店旁邊。問題：圖書館在哪裡？"
+    "transcript": [
+      ["A: Where is the library?", "A：圖書館在哪裡？"],
+      ["B: It is next to the bakery.", "B：它就在麵包店旁邊。"],
+      ["Question: Where is the library?", "問題：圖書館在哪裡？"]
+    ],
+    "vocabulary": [["library", "圖書館"], ["next to", "在……旁邊"], ["bakery", "麵包店"]]
   },
   {
     "id": "gept-elementary-006",
@@ -129,7 +146,7 @@ window.EXAM_TASKS = [
     "question": "聽對話，回答問題。",
     "mode": "choice",
     "hint": "留意每個三明治的價格，以及顧客要買幾個。",
-    "explain": "一個三明治五美元，顧客要買兩個，所以 5 × 2 = 10 美元，選 B。",
+    "explain": "一個三明治五美元，顧客要買兩個，所以總共要付十美元（五乘以二）。",
     "options": [
       "Five dollars.",
       "Ten dollars.",
@@ -138,7 +155,13 @@ window.EXAM_TASKS = [
     "answer": 1,
     "optionsZh": ["五美元。", "十美元。", "兩美元。"],
     "audio": "How much is the sandwich? It is five dollars. I will take two. Question: How much will the customer pay?",
-    "audioZh": "這個三明治多少錢？五美元。我要兩個。問題：顧客要付多少錢？"
+    "transcript": [
+      ["A: How much is the sandwich?", "A：這個三明治多少錢？"],
+      ["B: It is five dollars.", "B：五美元。"],
+      ["A: I will take two.", "A：我要兩個。"],
+      ["Question: How much will the customer pay?", "問題：顧客要付多少錢？"]
+    ],
+    "vocabulary": [["how much", "多少錢"], ["I will take two.", "我要兩個。"], ["pay", "付錢"]]
   },
   {
     "id": "gept-elementary-007",
@@ -152,7 +175,7 @@ window.EXAM_TASKS = [
     "question": "聽短文和問題，點選正確的圖片作答。每張圖片下方都有英文選項。",
     "mode": "choice",
     "hint": "聽清楚約在哪裡碰面，而不是要去哪裡。",
-    "explain": "短文請你午餐後在公車站會合，因此選 B。博物館是搭車後要去的地方，不是集合地點。",
+    "explain": "短文請你午餐後在公車站會合。博物館是搭車後要去的地方，不是集合地點。",
     "options": [
       "A bottle of water",
       "A bus stop",
@@ -161,7 +184,12 @@ window.EXAM_TASKS = [
     "answer": 1,
     "optionsZh": ["一瓶水", "公車站", "一本打開的書"],
     "audio": "Meet us at the bus stop after lunch. We will take a bus to the museum. Question: Where should you meet us?",
-    "audioZh": "午餐後在公車站和我們會合。我們會搭公車去博物館。問題：你應該在哪裡和我們會合？",
+    "transcript": [
+      ["Meet us at the bus stop after lunch.", "午餐後在公車站和我們會合。"],
+      ["We will take a bus to the museum.", "我們會搭公車去博物館。"],
+      ["Question: Where should you meet us?", "問題：你應該在哪裡和我們會合？"]
+    ],
+    "vocabulary": [["meet us", "和我們會合"], ["bus stop", "公車站"], ["museum", "博物館"]],
     "pictureOptions": [
       "bottle",
       "bus",
@@ -180,7 +208,7 @@ window.EXAM_TASKS = [
     "question": "聽短文和問題，點選正確的圖片作答。每張圖片下方都有英文選項。",
     "mode": "choice",
     "hint": "聽清楚短文請你帶什麼去公園。",
-    "explain": "短文請你帶一瓶水去公園，因為那天會很熱，所以選 A。題目問要帶什麼，不是要去哪裡。",
+    "explain": "短文請你帶一瓶水去公園，因為那天會很熱。題目問的是要帶什麼，不是要去哪裡。",
     "options": [
       "A bottle of water",
       "A bus stop",
@@ -189,7 +217,12 @@ window.EXAM_TASKS = [
     "answer": 0,
     "optionsZh": ["一瓶水", "公車站", "一本打開的書"],
     "audio": "Please bring a bottle of water to the park. It will be a hot day. Question: What should you bring?",
-    "audioZh": "請帶一瓶水去公園。那天會很熱。問題：你應該帶什麼？",
+    "transcript": [
+      ["Please bring a bottle of water to the park.", "請帶一瓶水去公園。"],
+      ["It will be a hot day.", "那天會很熱。"],
+      ["Question: What should you bring?", "問題：你應該帶什麼？"]
+    ],
+    "vocabulary": [["bring", "帶來、帶去"], ["a bottle of water", "一瓶水"], ["a hot day", "炎熱的一天"]],
     "pictureOptions": [
       "bottle",
       "bus",

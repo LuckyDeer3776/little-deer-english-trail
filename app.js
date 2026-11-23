@@ -39,43 +39,87 @@ function wordCount(text){return(text.match(/[A-Za-z]+(?:['’-][A-Za-z]+)*/g)||[
 function saveDraft(text){if(current){drafts[current.id]=text.slice(0,40000);save()}}
 function openLesson(l){stopSpeech();cleanupRecording();current=l;lastAnswer=null;flipped=false;attempted=false;submitted=false;reviewReady=false;$('#lessonTitle').textContent=l.title;$('#taskMeta').textContent=LEVELS[l.level].en+' · '+LEVELS[l.level].zh+' / '+(TYPES[l.type]||SKILLS[l.skill]);$('#phraseText').textContent=l.en;$('#flip').hidden=l.level!=='foundation';$('#taskVisual').replaceChildren();if(l.picture)$('#taskVisual').append(picture(l.picture));$('#passage').hidden=!l.passage;$('#passage').textContent=l.passage||'';$('#context').textContent='情境 · '+l.context;$('#question').textContent=l.question;$('#feedback').textContent=l.mode==='choice'?'選一個答案試試看；答錯可不限次重試。':l.mode==='text'?'輸入完整句子後核對，可不限次重試。':'完成作答後，對照參考範例並自評。';$('#audioStatus').textContent='';$('#listen').hidden=l.skill==='reading'||l.skill==='writing'&&!l.audio;$('#listen').textContent=l.audio?'▶ Listen to Prompt · 聽題目':'▶ Listen · 聽美式英文';$('#backMap').hidden=true;$('#nextTask').hidden=true;$('#retry').hidden=true;$('#showReference').hidden=true;$('#reference').hidden=true;$('#reference').textContent='';$('#selfReview').hidden=true;$('#reviewChecks').replaceChildren();$('#options').replaceChildren();$('#options').className=l.pictureOptions?'picture-choice-options':'';$('#writtenResponse').hidden=!['text','open'].includes(l.mode);$('#spokenResponse').hidden=l.mode!=='speak';$('#response').value=drafts[l.id]||'';$('#spokenNotes').value=drafts[l.id]||'';$('#recordStatus').textContent='';updateWordCount();if(l.mode==='choice')l.options.forEach((_,i)=>{const b=element('button');if(l.pictureOptions){b.className='picture-choice';b.append(picture(l.pictureOptions[i]))}b.append(element('span',choiceLabel(l,i)));b.onclick=()=>answer(i);$('#options').append(b)});if(!$('#lesson').open)$('#lesson').showModal()}
 function markComplete(method){window.TrailLeisure?.completed(current.id);if(!records[current.id]){records[current.id]={id:current.id,completedAt:new Date().toISOString(),method};save()}$('#backMap').hidden=false;$('#nextTask').hidden=current.level==='foundation';$('#retry').hidden=false;renderMap();if(page==='libraryPage')renderLibrary()}
+function reviewSection(label){
+  const section=element('section',undefined,'review-block');
+  section.append(element('h4',label));
+  return section;
+}
 function reviewBlock(label,text,translation,{lang,bold=false}={}){
-  const block=element('section',undefined,'review-block');
+  const block=reviewSection(label);
   const line=element('p');
   line.append(bold?element('strong',text):document.createTextNode(text));
   if(lang)line.lang=lang;
-  block.append(element('h4',label),line);
+  block.append(line);
   if(translation)block.append(element('p',translation));
   return block;
 }
 function choiceLabel(l,i){return String.fromCharCode(65+i)+'. '+l.options[i]}
 function reviewLanguage(text){return /[a-z]/i.test(text)&&!/\p{Script=Han}/u.test(text)?'en':undefined}
-function showSolution(){
-  if(!attempted&&!submitted)return;
-  const l=current, panel=$('#reference');
+function listeningReview(l){
+  const transcript=reviewSection('① 聽力原文與中文翻譯');
+  transcript.append(element('p',l.question,'review-instructions'));
+  for(const [en,zh] of l.transcript){
+    const row=element('div',undefined,'review-row');
+    const original=element('p',en);
+    original.lang='en';
+    row.append(original,element('p',zh));
+    transcript.append(row);
+  }
+  const answers=reviewSection('② 正確答案');
+  const appendAnswer=(i,label)=>{
+    const row=element('div',undefined,'review-row');
+    if(label)row.append(element('p',label,'review-answer-label'));
+    const answer=element('p');
+    answer.lang='en';
+    answer.append(element('strong',choiceLabel(l,i)));
+    row.append(answer,element('p',l.optionsZh[i]));
+    answers.append(row);
+  };
+  appendAnswer(l.answer);
+  if(lastAnswer!==l.answer)appendAnswer(lastAnswer,'你的答案');
+
+  const vocabulary=reviewSection('③ 重要單字與片語');
+  const terms=element('dl');
+  for(const [en,zh] of l.vocabulary){
+    const row=element('div',undefined,'review-row');
+    const term=element('dt',en);
+    term.lang='en';
+    row.append(term,element('dd',zh));
+    terms.append(row);
+  }
+  vocabulary.append(terms);
+  return [transcript,answers,vocabulary,reviewBlock('④ 答案解析',l.explain)];
+}
+function generalReview(l){
   const question=reviewBlock('題目',l.question,null,{lang:reviewLanguage(l.question)});
   if(l.audio){
     const transcript=element('p',l.audio);
     transcript.lang='en';
     question.append(transcript);
-    if(l.audioZh)question.append(element('p',l.audioZh));
   }
-  if(l.zh&&!l.audioZh){
+  if(l.zh){
     const phrase=element('p',l.en);
     phrase.lang='en';
     question.append(phrase,element('p',l.zh));
   }
-  panel.replaceChildren(question);
+  const blocks=[question];
   if(l.mode==='choice'){
     const choiceReview=(label,i)=>reviewBlock(label,choiceLabel(l,i),l.optionsZh?.[i],
       {lang:reviewLanguage(l.options[i]),bold:true});
-    panel.append(choiceReview('你的答案',lastAnswer),choiceReview('正確答案',l.answer));
+    blocks.push(choiceReview('你的答案',lastAnswer),choiceReview('正確答案',l.answer));
   }else{
     const notes=l.mode==='speak'?$('#spokenNotes').value.trim():lastAnswer;
-    panel.append(reviewBlock('你的答案',notes||'請回放你的錄音。',null,{bold:true}));
-    if(l.sample)panel.append(reviewBlock(l.mode==='text'?'正確答案（範例）':'參考作答（不只一種答案）',l.sample,null,{lang:'en',bold:true}));
+    blocks.push(reviewBlock('你的答案',notes||'請回放你的錄音。',null,{bold:true}));
+    if(l.sample)blocks.push(reviewBlock(l.mode==='text'?'正確答案（範例）':'參考作答（不只一種答案）',l.sample,null,{lang:'en',bold:true}));
   }
-  if(l.explain)panel.append(reviewBlock('中文解釋',l.explain));
+  if(l.explain)blocks.push(reviewBlock('中文解釋',l.explain));
+  return blocks;
+}
+function showSolution(){
+  if(!attempted&&!submitted)return;
+  const l=current, panel=$('#reference');
+  panel.classList.toggle('listening-review',Boolean(l.transcript));
+  panel.replaceChildren(...(l.transcript?listeningReview(l):generalReview(l)));
   panel.hidden=false;
   const showReference=$('#showReference');
   if(document.activeElement===showReference)panel.focus();
