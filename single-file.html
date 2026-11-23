@@ -1487,7 +1487,7 @@ function merge(items){let count=0;for(const r of items){if(!validRecord(r))conti
 function mergeDrafts(data,dirty=false){if(!data||typeof data!=='object'||Array.isArray(data))return;for(const [id,text] of Object.entries(data))if(known(id)&&typeof text==='string'&&text.length<=40000&&!drafts[id]){drafts[id]=text;if(dirty)dirtyDrafts.add(id)}}
 function refreshDrafts(){const stored=JSON.parse(localStorage.getItem(DRAFT_KEY)||'{}'),pending=[...dirtyDrafts].map(id=>[id,drafts[id]]);drafts={};mergeDrafts(stored);for(const [id,text] of pending)drafts[id]=text}
 try{const saved=JSON.parse(localStorage.getItem(KEY)||'{"records":[]}');merge(Array.isArray(saved.records)?saved.records:[]);mergeDrafts(JSON.parse(localStorage.getItem(DRAFT_KEY)||'{}'))}catch{notice('無法讀取部分進度；可匯入 JSON 備份。')}
-function save(){try{const saved=JSON.parse(localStorage.getItem(KEY)||'{"records":[]}');merge(Array.isArray(saved?.records)?saved.records:[]);refreshDrafts();localStorage.setItem(KEY,JSON.stringify({version:1,records:Object.values(records)}));localStorage.setItem(DRAFT_KEY,JSON.stringify(drafts));dirtyDrafts.clear();return true}catch{notice('瀏覽器無法保存進度，請匯出 JSON 備份。');return false}}
+function save(){try{const saved=JSON.parse(localStorage.getItem(KEY)||'{"records":[]}');merge(Array.isArray(saved?.records)?saved.records:[])}catch{}try{refreshDrafts()}catch{}try{localStorage.setItem(KEY,JSON.stringify({version:1,records:Object.values(records)}));localStorage.setItem(DRAFT_KEY,JSON.stringify(drafts));dirtyDrafts.clear();return true}catch{notice('瀏覽器無法保存進度，請匯出 JSON 備份。');return false}}
 function state(l){return records[l.id]?'completed':'todo'}
 function mapLessons(){return lessons.filter(l=>l.level===mapLevel)}
 function point(i){return{x:50+Math.sin(i*1.65)*24,y:105+i*240}}

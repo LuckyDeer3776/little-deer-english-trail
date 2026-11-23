@@ -97,6 +97,59 @@ def run_cross_tab(browser):
     context.close()
 
 
+def run_storage_recovery(browser):
+    context = browser.new_context()
+    page = context.new_page()
+    errors = []
+    page.on('pageerror', lambda error: errors.append(str(error)))
+    page.on('console', lambda msg: errors.append(msg.text) if msg.type == 'error' else None)
+    page.route('**/favicon.ico', lambda route: route.fulfill(status=204))
+    for key in ('little-deer-progress-v1', 'little-deer-drafts-v1'):
+        for failure in ('malformed', 'unreadable'):
+            page.goto(url)
+            page.evaluate('localStorage.clear()')
+            page.reload()
+            task = page.evaluate('lessons.find(l=>l.mode==="open")')
+            page.evaluate('(id)=>openLesson(known(id))', task['id'])
+            page.locator('#response').fill('Keep this existing draft in memory.')
+            page.locator('#close').click()
+            page.evaluate('openLesson(lessons[0])')
+
+            def break_reads():
+                if failure == 'malformed':
+                    page.evaluate('(key)=>localStorage.setItem(key,"{broken")', key)
+                else:
+                    page.evaluate('''key=>{
+                        window.realGet=Storage.prototype.getItem;
+                        Storage.prototype.getItem=function(k){
+                            if(k===key)throw Error('blocked read');
+                            return window.realGet.call(this,k);
+                        };
+                    }''', key)
+
+            def restore_reads():
+                if failure == 'unreadable':
+                    page.evaluate('()=>{Storage.prototype.getItem=window.realGet}')
+
+            break_reads()
+            page.locator('#options button').nth(0).click()
+            restore_reads()
+            assert page.evaluate('JSON.parse(localStorage.getItem(KEY)).records.some(r=>r.id===lessons[0].id)')
+            assert page.evaluate('(id)=>JSON.parse(localStorage.getItem(DRAFT_KEY))[id]', task['id']) == 'Keep this existing draft in memory.'
+            page.locator('#close').click()
+            page.evaluate('(id)=>openLesson(known(id))', task['id'])
+            break_reads()
+            page.locator('#response').fill('New draft saved despite bad storage reads.')
+            restore_reads()
+            page.reload()
+            assert page.evaluate('!!records[lessons[0].id]')
+            page.evaluate('(id)=>openLesson(known(id))', task['id'])
+            expect(page.locator('#response')).to_have_value('New draft saved despite bad storage reads.')
+    assert not errors, errors
+    print('PASS storage recovery: malformed/unreadable progress and drafts do not block completion or draft writes; data survives reload; no console errors')
+    context.close()
+
+
 def run(browser, mobile):
     context = browser.new_context(viewport={'width': 390, 'height': 844} if mobile else {'width': 1280, 'height': 900}, has_touch=mobile)
     page = context.new_page()
@@ -268,6 +321,7 @@ try:
     with sync_playwright() as p:
         browser = p.chromium.launch()
         run_cross_tab(browser)
+        run_storage_recovery(browser)
         for mobile in (False, True):
             run(browser, mobile)
         browser.close()
