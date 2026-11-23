@@ -97,6 +97,52 @@ def run_cross_tab(browser):
     context.close()
 
 
+def run_cross_tab_spoken_notes(browser):
+    with browser.new_context() as context:
+        first, second = context.new_page(), context.new_page()
+        first.goto(url)
+        for station in (0, 1):
+            answer = first.evaluate('i=>{openLesson(lessons[i]);return current.answer}', station)
+            first.locator('#options button').nth(answer).click()
+            first.locator('#close').click()
+        progress = first.evaluate('JSON.parse(localStorage.getItem(KEY))')
+        assert progress['version'] == 1 and len(progress['records']) == 2
+        first_id, second_id = first.evaluate('lessons.filter(l=>l.mode==="speak").slice(0,2).map(l=>l.id)')
+
+        def open_notes(tab, task_id):
+            tab.evaluate('(id)=>openLesson(known(id))', task_id)
+            return tab.locator('#spokenNotes')
+
+        for task_id, note in ((first_id, 'First original note.'), (second_id, 'Second original note.')):
+            open_notes(first, task_id).fill(note)
+            first.locator('#close').click()
+
+        second.goto(url)
+        first_notes, second_notes = open_notes(first, first_id), open_notes(second, second_id)
+        expect(first_notes).to_have_value('First original note.')
+        expect(second_notes).to_have_value('Second original note.')
+        first_notes.fill('First updated note.')
+        second_notes.fill('Second updated note.')
+        expect(first_notes).to_have_value('First updated note.')
+
+        first.reload()
+        expect(open_notes(first, second_id)).to_have_value('Second updated note.')
+        first.locator('#close').click()
+        expect(open_notes(first, first_id)).to_have_value('First updated note.')
+
+        second_notes.fill('Second newest note.')
+        first_notes.fill('First newest note.')
+        for tab in (second, first):
+            tab.reload()
+            assert tab.evaluate('JSON.parse(localStorage.getItem(KEY))') == progress
+            assert tab.evaluate('ids=>ids.every(id=>!!records[id])',
+                                [record['id'] for record in progress['records']])
+            expect(open_notes(tab, first_id)).to_have_value('First newest note.')
+            tab.locator('#close').click()
+            expect(open_notes(tab, second_id)).to_have_value('Second newest note.')
+    print('PASS cross-tab speaking notes: interleaved edits and reloads keep both latest notes and existing v1 progress')
+
+
 def run_cross_tab_read_failure(browser):
     for key in ('little-deer-progress-v1', 'little-deer-drafts-v1'):
         with browser.new_context() as context:
@@ -484,6 +530,7 @@ try:
     with sync_playwright() as p:
         browser = p.chromium.launch()
         run_cross_tab(browser)
+        run_cross_tab_spoken_notes(browser)
         run_cross_tab_read_failure(browser)
         run_storage_recovery(browser)
         run_corrupt_archive_quota(browser)
