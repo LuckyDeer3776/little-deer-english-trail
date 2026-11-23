@@ -1,6 +1,7 @@
 """Run with python3 tools/test-auto-advance.py (pip install playwright; playwright install chromium)."""
 from functools import partial
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
+import json
 from pathlib import Path
 from threading import Thread
 
@@ -16,6 +17,84 @@ root = Path(__file__).resolve().parents[1]
 server = ThreadingHTTPServer(('127.0.0.1', 0), partial(QuietHandler, directory=str(root)))
 Thread(target=server.serve_forever, daemon=True).start()
 url = f'http://127.0.0.1:{server.server_port}'
+
+
+def run_cross_tab(browser):
+    context = browser.new_context()
+    editor = context.new_page()
+    errors = []
+
+    def watch(page):
+        page.on('pageerror', lambda error: errors.append(str(error)))
+        page.on('console', lambda msg: errors.append(msg.text) if msg.type == 'error' else None)
+        page.route('**/favicon.ico', lambda route: route.fulfill(status=204))
+
+    watch(editor)
+    editor.goto(url)
+    task = editor.evaluate('lessons.find(l=>l.mode==="open")')
+    editor.evaluate('(id)=>openLesson(known(id))', task['id'])
+    editor.locator('#response').fill('My initial draft.')
+    replay = context.new_page()
+    watch(replay)
+    replay.goto(url)
+    editor.locator('#response').fill('My newer draft must survive replay in another tab.')
+    replay.evaluate('openLesson(lessons[0])')
+    replay.locator('#options button').nth(0).click()
+    actual = replay.evaluate('(id)=>JSON.parse(localStorage.getItem(DRAFT_KEY))[id]', task['id'])
+    assert actual == 'My newer draft must survive replay in another tab.', f'Cross-tab replay lost newer draft: {actual!r}'
+    replay.locator('#close').click()
+    replay.evaluate('(id)=>openLesson(known(id))', task['id'])
+    expect(replay.locator('#response')).to_have_value(actual)
+    editor.locator('#response').fill('')
+    replay.locator('#close').click()
+    replay.evaluate('openLesson(lessons[0])')
+    replay.locator('#options button').nth(0).click()
+    assert replay.evaluate('(id)=>JSON.parse(localStorage.getItem(DRAFT_KEY))[id]', task['id']) == ''
+    editor.reload()
+    editor.evaluate('(id)=>openLesson(known(id))', task['id'])
+    expect(editor.locator('#response')).to_have_value('')
+    other = replay.evaluate('lessons.filter(l=>l.mode==="open")[1]')
+    replay.locator('#close').click()
+    replay.evaluate('(id)=>openLesson(known(id))', other['id'])
+    replay.locator('#response').fill('An independent draft in the other tab.')
+    editor.locator('#response').fill('Updated first draft.')
+    assert editor.evaluate('(id)=>JSON.parse(localStorage.getItem(DRAFT_KEY))[id]', other['id']) == 'An independent draft in the other tab.'
+    editor.evaluate('''()=>{
+        window.realDraftSet=Storage.prototype.setItem;
+        Storage.prototype.setItem=function(key,value){
+            if(key===DRAFT_KEY)throw Error('blocked draft write');
+            return window.realDraftSet.call(this,key,value);
+        };
+    }''')
+    editor.locator('#response').fill('Pending draft survives a failed write.')
+    expect(editor.locator('#storageNotice')).to_contain_text('匯出 JSON 備份')
+    assert editor.evaluate('(id)=>JSON.parse(localStorage.getItem(DRAFT_KEY))[id]', task['id']) == 'Updated first draft.'
+    editor.evaluate('()=>{Storage.prototype.setItem=window.realDraftSet}')
+    assert editor.evaluate('save()')
+    assert editor.evaluate('(id)=>JSON.parse(localStorage.getItem(DRAFT_KEY))[id]', task['id']) == 'Pending draft survives a failed write.'
+    # Saving must also read latest progress when storage events have not arrived.
+    stale = context.new_page()
+    watch(stale)
+    stale.add_init_script("window.addEventListener('storage',e=>e.stopImmediatePropagation())")
+    stale.goto(url)
+    editor.locator('#close').click()
+    editor.evaluate('openLesson(lessons[1])')
+    editor.locator('#options button').nth(1).click()
+    assert not stale.evaluate('!!records[lessons[1].id]')
+    assert stale.evaluate('save()')
+    assert stale.evaluate('JSON.parse(localStorage.getItem(KEY)).records.some(r=>r.id===lessons[1].id)')
+    imported = replay.evaluate('lessons.filter(l=>l.mode==="open")[2].id')
+    replay.locator('#import').set_input_files({
+        'name': 'backup.json', 'mimeType': 'application/json',
+        'buffer': json.dumps({'version': 1, 'records': [], 'drafts': {
+            task['id']: 'Do not replace the latest stored draft.', imported: 'Imported backup draft.'
+        }}).encode(),
+    })
+    replay.wait_for_function('(id)=>JSON.parse(localStorage.getItem(DRAFT_KEY))[id]==="Imported backup draft."', arg=imported)
+    assert replay.evaluate('(id)=>JSON.parse(localStorage.getItem(DRAFT_KEY))[id]', task['id']) == 'Pending draft survives a failed write.'
+    assert not errors, errors
+    print('PASS cross-tab: newer/empty/independent drafts survive replay and reload; stale saves preserve latest progress; no console errors')
+    context.close()
 
 
 def run(browser, mobile):
@@ -188,6 +267,7 @@ def run(browser, mobile):
 try:
     with sync_playwright() as p:
         browser = p.chromium.launch()
+        run_cross_tab(browser)
         for mobile in (False, True):
             run(browser, mobile)
         browser.close()
