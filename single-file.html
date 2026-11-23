@@ -47,7 +47,7 @@
 <dialog id="lesson"><button id="close" class="close" aria-label="關閉教材">×</button><span class="eyebrow">PRACTICE · AT YOUR OWN PACE</span><h2 id="lessonTitle"></h2><p id="taskMeta" class="task-meta"></p><div id="taskVisual"></div><div id="passage" class="passage" hidden></div><button id="flip" class="flashcard" aria-label="翻面看中文"><span id="phraseText"></span><small>↻ Tap to flip · 點一下翻面</small></button><button id="lessonMusic" aria-pressed="false">♫ Music Off</button><button id="lessonSongStop" hidden>■ Stop Song · 停止歌曲</button><button id="listen">▶ Listen · 聽美式英文</button><p id="audioStatus" role="status"></p><p id="context"></p><h3 id="question"></h3><div id="options"></div>
 <div id="writtenResponse" hidden><label for="response">Your Answer · 你的作答</label><textarea id="response" rows="6" spellcheck="true" lang="en" placeholder="Write in English… 可慢慢寫，草稿會自動保存"></textarea><p id="wordCount" class="muted"></p><button id="submitResponse">Check / Review · 核對與檢視</button></div>
 <div id="spokenResponse" hidden><p class="muted">可直接錄音再回放；若無法使用麥克風，可大聲練習並輸入回答筆記。錄音不會上傳。</p><button id="record">● Record · 開始錄音</button><button id="stopRecord" hidden>■ Stop · 停止錄音</button><audio id="recording" controls hidden></audio><p id="recordStatus" role="status"></p><label for="spokenNotes">Answer Notes · 回答筆記</label><textarea id="spokenNotes" rows="3" placeholder="記下你實際說出的內容…"></textarea><button id="reviewSpeaking">Review · 檢視練習</button></div>
-<button id="showReference" hidden>Show Reference · 看參考與解說</button><div id="reference" class="reference" hidden></div>
+<button id="showReference" hidden>Show Reference · 看參考與解說</button><div id="reference" class="reference" tabindex="-1" role="region" aria-label="作答解析" hidden></div>
 <div id="selfReview" hidden><p>Self Review · 自我檢核（不代表官方評分）</p><div id="reviewChecks"></div><button id="completeReview">Save Practice · 完成自評並收藏</button></div>
 <button id="retry" hidden>↻ Try Again · 再練一次</button><button id="nextTask" hidden>Next Practice · 下一題 →</button><p id="feedback" role="status"></p><button id="backMap" class="primary" hidden>Back to Map · 回到地圖 ↗</button></dialog>
 <dialog id="restDialog"><div class="rest-dialog-head"><span class="eyebrow">AN OPTIONAL LITTLE BREAK</span><button id="closeRest" class="close" aria-label="關閉休息小站">×</button></div><h2 id="restTitle"></h2><p id="restInstructions"></p><button id="restMusic" aria-pressed="false">♫ Music Off</button><section id="fishGame" hidden><div class="game-meter"><span id="fishScore">0 / 5 fish</span><span>No timer · 不計時</span></div><div id="fishPond" class="fish-pond" aria-label="撈魚池"></div><p id="fishMessage" role="status">點一條魚，輕鬆撈起來。</p><button id="replayFish">↻ A New Pond · 再玩一回</button></section><section id="puzzleGame" hidden><div class="game-meter"><span id="puzzleMoves">0 swaps · 交換次數</span><span>Take your time · 慢慢來</span></div><div id="puzzleBoard" class="puzzle-board" role="group" aria-label="九宮格拼圖"></div><div class="puzzle-tools"><button id="puzzlePreviewToggle" aria-expanded="false">Show Picture · 看原圖</button><label><input id="puzzleNumbers" type="checkbox"> 圖塊號碼提示</label></div><img id="puzzlePreview" hidden alt="拼圖完成後的參考原圖"><p id="puzzleMessage" role="status">先點一塊，再點另一塊交換。</p><button id="replayPuzzle">↻ New Puzzle · 再拼一張</button></section><button id="restBack" class="primary">Back to Learning · 回去學習 ↗</button></dialog><script>// Foundation phrases. Keep permanent IDs; all lessons are available without dates.
@@ -1537,10 +1537,11 @@ function reviewBlock(label,text,translation,{lang,bold=false}={}){
   return block;
 }
 function choiceLabel(l,i){return String.fromCharCode(65+i)+'. '+l.options[i]}
+function reviewLanguage(text){return /[a-z]/i.test(text)&&!/\p{Script=Han}/u.test(text)?'en':undefined}
 function showSolution(){
   if(!attempted&&!submitted)return;
   const l=current, panel=$('#reference');
-  const question=reviewBlock('題目',l.question);
+  const question=reviewBlock('題目',l.question,null,{lang:reviewLanguage(l.question)});
   if(l.audio){
     const transcript=element('p',l.audio);
     transcript.lang='en';
@@ -1554,9 +1555,9 @@ function showSolution(){
   }
   panel.replaceChildren(question);
   if(l.mode==='choice'){
-    const format={lang:l.optionsZh?'en':undefined,bold:true};
-    panel.append(reviewBlock('你的答案',choiceLabel(l,lastAnswer),l.optionsZh?.[lastAnswer],format),
-      reviewBlock('正確答案',choiceLabel(l,l.answer),l.optionsZh?.[l.answer],format));
+    const choiceReview=(label,i)=>reviewBlock(label,choiceLabel(l,i),l.optionsZh?.[i],
+      {lang:reviewLanguage(l.options[i]),bold:true});
+    panel.append(choiceReview('你的答案',lastAnswer),choiceReview('正確答案',l.answer));
   }else{
     const notes=l.mode==='speak'?$('#spokenNotes').value.trim():lastAnswer;
     panel.append(reviewBlock('你的答案',notes||'請回放你的錄音。',null,{bold:true}));
@@ -1564,7 +1565,9 @@ function showSolution(){
   }
   if(l.explain)panel.append(reviewBlock('中文解釋',l.explain));
   panel.hidden=false;
-  $('#showReference').hidden=true;
+  const showReference=$('#showReference');
+  if(document.activeElement===showReference)panel.focus();
+  showReference.hidden=true;
 }
 function answer(i){
   attempted=true;lastAnswer=i;$('#retry').hidden=false;
