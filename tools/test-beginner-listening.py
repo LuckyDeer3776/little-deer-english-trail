@@ -193,9 +193,11 @@ def check_spoken_review(browser):
         has=page.get_by_role("heading", name="你的答案", exact=True)
     ).locator("strong")
     expect(answer).to_have_text("I visit my family")
+    assert answer.evaluate("el => el.closest('[lang]').lang") == "en"
     page.locator("#spokenNotes").fill("I go to the park")
     page.locator("#reviewSpeaking").click()
     expect(answer).to_have_text("I go to the park")
+    assert answer.evaluate("el => el.closest('[lang]').lang") == "zh-Hant"
     page.locator("#spokenNotes").fill("")
     page.locator("#retry").click()
     page.evaluate("recorded = true")

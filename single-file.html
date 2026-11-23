@@ -1678,8 +1678,9 @@ function generalReview(l){
       {lang:reviewLanguage(l.options[i]),bold:true});
     blocks.push(choiceReview('你的答案',lastAnswer),choiceReview('正確答案',l.answer));
   }else{
-    const response=l.mode==='speak'?$('#spokenNotes').value.trim()||recognitionTranscript:lastAnswer;
-    blocks.push(reviewBlock('你的答案',response||'請回放你的錄音。',null,{bold:true}));
+    const response=l.mode==='speak'?$('#spokenNotes').value.trim():lastAnswer;
+    const transcript=l.mode==='speak'&&!response?recognitionTranscript:'';
+    blocks.push(reviewBlock('你的答案',response||transcript||'請回放你的錄音。',null,{lang:transcript?'en':undefined,bold:true}));
     if(l.sample)blocks.push(reviewBlock(l.mode==='text'?'正確答案（範例）':'參考作答（不只一種答案）',l.sample,null,{lang:'en',bold:true}));
   }
   if(l.explain)blocks.push(reviewBlock('中文解釋',l.explain));
