@@ -1562,7 +1562,7 @@ const lessons=[...window.LESSONS.map(l=>({...l,level:'foundation',skill:'foundat
 const day=(date=new Date())=>new Intl.DateTimeFormat('sv-SE',{timeZone:'Asia/Taipei',year:'numeric',month:'2-digit',day:'2-digit'}).format(date);
 let records={},drafts={},page='home',current=null,flipped=false,moving=false,position=0,mapLevel='foundation',travelToken=0,today=day(),musicOn=false,speaking=false,audio,master,timer,speechTimer,speechSerial=0;
 let attempted=false,submitted=false,reviewReady=false,recordingActive=false,recorded=false,recorder=null,mediaStream=null,recordURL=null,recordSerial=0,recordLimit;
-const dirtyDrafts=new Set();
+const dirtyDrafts=new Map();
 let lastAnswer=null;
 let recognitionActive=false,recognizer=null,recognitionSerial=0,recognitionLimit,recognizedAttempt=false,recognitionTranscript='';
 const Recognition=()=>window.SpeechRecognition||window.webkitSpeechRecognition;
@@ -1583,10 +1583,39 @@ const known=id=>lessons.find(l=>l.id===id);
 function notice(t){$('#storageNotice').textContent=t}
 function validRecord(r){return r&&typeof r.id==='string'&&r.id.length<150&&typeof r.completedAt==='string'&&Number.isFinite(Date.parse(r.completedAt))&&/^\d{4}-\d{2}-\d{2}T/.test(r.completedAt)&&Date.parse(r.completedAt)<=Date.now()+60000}
 function merge(items){let count=0;for(const r of items){if(!validRecord(r))continue;if(!records[r.id]||Date.parse(r.completedAt)<Date.parse(records[r.id].completedAt)){records[r.id]={id:r.id,completedAt:new Date(r.completedAt).toISOString(),method:r.method==='self-review'?'self-review':'answer'};count++}}return count}
-function mergeDrafts(data,dirty=false){if(!data||typeof data!=='object'||Array.isArray(data))return;for(const [id,text] of Object.entries(data))if(known(id)&&typeof text==='string'&&text.length<=40000&&!drafts[id]){drafts[id]=text;if(dirty)dirtyDrafts.add(id)}}
-function refreshDrafts(){try{const stored=JSON.parse(localStorage.getItem(DRAFT_KEY)||'{}'),pending=[...dirtyDrafts].map(id=>[id,drafts[id]]);drafts={};mergeDrafts(stored);for(const [id,text] of pending)drafts[id]=text}catch{}}
-try{const saved=JSON.parse(localStorage.getItem(KEY)||'{"records":[]}');merge(Array.isArray(saved.records)?saved.records:[]);mergeDrafts(JSON.parse(localStorage.getItem(DRAFT_KEY)||'{}'))}catch{notice('無法讀取部分進度；可匯入 JSON 備份。')}
-function save(){try{const saved=JSON.parse(localStorage.getItem(KEY)||'{"records":[]}');merge(Array.isArray(saved?.records)?saved.records:[])}catch{}try{refreshDrafts()}catch{}try{localStorage.setItem(KEY,JSON.stringify({version:1,records:Object.values(records)}));localStorage.setItem(DRAFT_KEY,JSON.stringify(drafts));dirtyDrafts.clear();return true}catch{notice('瀏覽器無法保存進度，請匯出 JSON 備份。');return false}}
+const validDrafts=data=>data&&typeof data==='object'&&!Array.isArray(data);
+function readSnapshot(key,empty,valid,repair){
+  const raw=localStorage.getItem(key);
+  if(raw===null)return empty;
+  let data;
+  try{data=JSON.parse(raw)}catch{}
+  if(valid(data))return data;
+  if(!repair)throw Error('Invalid storage snapshot');
+  const prefix=key+'-corrupt-'+Date.now();
+  let backup=prefix,suffix=0;
+  while(localStorage.getItem(backup)!==null)backup=prefix+'-'+(++suffix);
+  localStorage.setItem(backup,raw);
+  return null;
+}
+function refreshProgress(repair=false){const stored=readSnapshot(KEY,{records:[]},data=>Array.isArray(data?.records),repair);if(stored)merge(stored.records)}
+function mergeDrafts(data,importing=false){if(!validDrafts(data))return;for(const [id,text] of Object.entries(data))if(known(id)&&typeof text==='string'&&text.length<=40000&&!drafts[id]&&(!importing||!dirtyDrafts.has(id))){drafts[id]=text;if(importing)dirtyDrafts.set(id,true)}}
+function refreshDrafts(repair=false){
+  const stored=readSnapshot(DRAFT_KEY,{},validDrafts,repair),pending=drafts;
+  if(!stored)return;
+  drafts={};mergeDrafts(stored);
+  for(const [id,imported] of dirtyDrafts){
+    if(imported&&drafts[id])dirtyDrafts.delete(id);
+    else drafts[id]=pending[id];
+  }
+}
+for(const refresh of [refreshProgress,refreshDrafts])try{refresh()}catch{notice('無法讀取部分進度；可匯入 JSON 備份。')}
+function save(){
+  let saved=true;
+  try{refreshProgress(true);localStorage.setItem(KEY,JSON.stringify({version:1,records:Object.values(records)}))}catch{saved=false}
+  try{refreshDrafts(true);localStorage.setItem(DRAFT_KEY,JSON.stringify(drafts));dirtyDrafts.clear()}catch{saved=false}
+  if(!saved)notice('瀏覽器無法保存進度，請匯出 JSON 備份。');
+  return saved;
+}
 function state(l){return records[l.id]?'completed':'todo'}
 function mapLessons(){return lessons.filter(l=>l.level===mapLevel)}
 function point(i){return{x:50+Math.sin(i*1.65)*24,y:105+i*240}}
@@ -1608,7 +1637,7 @@ function startExamTask(id){const l=known(id);if(!l)return;cancelTravel();mapLeve
 function picture(scene){const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');svg.setAttribute('viewBox','0 0 300 160');svg.classList.add('task-picture');svg.setAttribute('role','img');const descriptions={water:'一個人正遞水杯給另一人',bottle:'一瓶水',bus:'兩個人站在公車站旁等待',book:'桌上有一本打開的書',picnic:'一家人在公園樹下野餐'};svg.setAttribute('aria-label',descriptions[scene]||scene);const ground='<rect width="300" height="160" fill="#e2ead7"/><path d="M0 130 Q140 90 300 130 V160 H0Z" fill="#b9cd9b"/>';const person=(x,y,color)=>`<circle cx="${x}" cy="${y}" r="10" fill="#d8a67f"/><path d="M${x} ${y+13} v30 M${x-15} ${y+25} h30 M${x} ${y+42} l-10 25 M${x} ${y+42} l10 25" stroke="${color}" stroke-width="8" stroke-linecap="round"/>`;const scenes={water:person(95,48,'#42694f')+person(205,48,'#b55c40')+'<path d="M110 73 H164" stroke="#42694f" stroke-width="8"/><path d="M157 60 h17 l-3 25 h-12z" fill="#8abacc" stroke="#fff" stroke-width="3"/>',bottle:'<path d="M136 53 V43 H164 V53 L172 67 V120 Q172 127 165 127 H135 Q128 127 128 120 V67 Z" fill="#a9d6e7" stroke="#42694f" stroke-width="3"/><rect x="134" y="37" width="32" height="11" rx="3" fill="#42694f"/><path d="M131 86 H169 V105 H131 Z" fill="#fff9df"/>',bus:'<path d="M230 40 V140" stroke="#5b7350" stroke-width="7"/><rect x="207" y="14" width="47" height="37" rx="5" fill="#fff9df"/><text x="230" y="38" text-anchor="middle" font-size="15" fill="#244d3f">BUS</text>'+person(95,51,'#42694f')+person(150,51,'#b55c40'),book:'<path d="M45 105 H255" stroke="#876446" stroke-width="12"/><path d="M80 50 Q115 35 150 55 Q185 35 220 50 V105 Q185 90 150 110 Q115 90 80 105Z" fill="#fffaf0" stroke="#52744f" stroke-width="4"/><path d="M150 55 V110" stroke="#52744f" stroke-width="3"/>',picnic:'<rect x="232" y="40" width="13" height="90" fill="#90744c"/><circle cx="239" cy="38" r="38" fill="#7fa06c"/><path d="M45 118 H210 L235 150 H20Z" fill="#d19d7c"/>'+person(90,44,'#42694f')+person(157,52,'#b55c40')+'<rect x="112" y="116" width="40" height="14" rx="5" fill="#f7e6ac"/>'};svg.innerHTML=ground+(scenes[scene]||scenes.book);return svg}
 function cleanupRecording(){cleanupRecognition();recordSerial++;clearTimeout(recordLimit);if(recorder&&recorder.state!=='inactive')recorder.stop();if(mediaStream)mediaStream.getTracks().forEach(t=>t.stop());mediaStream=null;recorder=null;recordingActive=false;recorded=false;$('#recording').pause();$('#recording').removeAttribute('src');$('#recording').hidden=true;if(recordURL)URL.revokeObjectURL(recordURL);recordURL=null;$('#record').disabled=false;$('#stopRecord').hidden=true;updateMusic()}
 function wordCount(text){return(text.match(/[A-Za-z]+(?:['’-][A-Za-z]+)*/g)||[]).length}
-function saveDraft(text){if(current){drafts[current.id]=text.slice(0,40000);dirtyDrafts.add(current.id);save()}}
+function saveDraft(text){if(current){drafts[current.id]=text.slice(0,40000);dirtyDrafts.set(current.id,false);save()}}
 function openLesson(l){try{refreshDrafts()}catch{notice('無法讀取部分草稿；可匯入 JSON 備份。')}clearAdvance();$('#advancePanel').hidden=true;stopSpeech();cleanupRecording();current=l;lastAnswer=null;flipped=false;attempted=false;submitted=false;reviewReady=false;$('#lessonTitle').textContent=l.title;$('#taskMeta').textContent=LEVELS[l.level].en+' · '+LEVELS[l.level].zh+' / '+(TYPES[l.type]||SKILLS[l.skill]);$('#phraseText').textContent=l.en;$('#flip').hidden=l.level!=='foundation';$('#taskVisual').replaceChildren();if(l.picture)$('#taskVisual').append(picture(l.picture));$('#passage').hidden=!l.passage;$('#passage').textContent=l.passage||'';$('#context').textContent='情境 · '+l.context;$('#question').textContent=l.question;$('#feedback').textContent=l.mode==='choice'?'選一個答案試試看；答錯可不限次重試。':l.mode==='text'?'輸入完整句子後核對，可不限次重試。':'完成作答後，對照參考範例並自評。';$('#audioStatus').textContent='';$('#listen').hidden=l.skill==='reading'||l.skill==='writing'&&!l.audio;$('#listen').textContent=l.audio?'▶ Listen to Prompt · 聽題目':'▶ Listen · 聽美式英文';$('#backMap').hidden=true;$('#nextTask').hidden=true;$('#retry').hidden=true;$('#showReference').hidden=true;$('#reference').hidden=true;$('#reference').textContent='';$('#selfReview').hidden=true;$('#reviewChecks').replaceChildren();$('#options').replaceChildren();$('#options').className=l.pictureOptions?'picture-choice-options':'';$('#writtenResponse').hidden=!['text','open'].includes(l.mode);$('#spokenResponse').hidden=l.mode!=='speak';$('#response').value=drafts[l.id]||'';$('#spokenNotes').value=drafts[l.id]||'';$('#recordStatus').textContent='';resetRecognition();updateWordCount();if(l.mode==='choice')l.options.forEach((_,i)=>{const b=element('button');if(l.pictureOptions){b.className='picture-choice';b.append(picture(l.pictureOptions[i]))}b.append(element('span',choiceLabel(l,i)));b.onclick=()=>answer(i);$('#options').append(b)});if(!$('#lesson').open)$('#lesson').showModal()}
 function markComplete(method){window.TrailLeisure?.completed(current.id);if(!records[current.id])records[current.id]={id:current.id,completedAt:new Date().toISOString(),method};let confirmed=false;if(save())try{confirmed=JSON.parse(localStorage.getItem(KEY)).records.some(r=>r.id===current.id&&validRecord(r))}catch{}completionAdvance(confirmed);$('#backMap').hidden=false;$('#nextTask').hidden=current.level==='foundation';$('#retry').hidden=false;renderMap();if(page==='libraryPage')renderLibrary()}
 function reviewSection(label){
@@ -1731,7 +1760,7 @@ $('#start').onclick=()=>show('mapPage');$('#startExam').onclick=()=>show('examPa
 function step(n){if(page!=='mapPage'||$('#lesson').open||$('#restDialog').open||moving)return;const target=Math.max(0,Math.min(mapLessons().length-1,position+n));moveTo(target)}document.querySelectorAll('[data-step]').forEach(b=>b.onclick=()=>step(Number(b.dataset.step)));document.addEventListener('keydown',e=>{if(page==='mapPage'&&!$('#lesson').open&&!$('#restDialog').open&&['ArrowUp','ArrowLeft','ArrowDown','ArrowRight'].includes(e.key)&&!['INPUT','SELECT','TEXTAREA'].includes(e.target.tagName)){e.preventDefault();step(['ArrowUp','ArrowLeft'].includes(e.key)?-1:1)}});
 function refreshDate(){const next=day();if(next!==today){today=next;renderMap();if(page==='libraryPage')renderLibrary()}}
 setInterval(refreshDate,15000);document.addEventListener('visibilitychange',()=>{if(!document.hidden){refreshDate();if(musicOn&&audio)audio.resume().catch(()=>{})}updateMusic()});document.addEventListener('pointerdown',()=>{if(musicOn&&audio&&audio.state!=='running')audio.resume().catch(()=>{})},true);window.addEventListener('focus',refreshDate);window.addEventListener('storage',e=>{if(e.key===KEY){try{merge(JSON.parse(e.newValue||'{"records":[]}').records||[]);renderMap();if(page==='libraryPage')renderLibrary();if(page==='examPage')renderExam()}catch{}}});
-$('#export').onclick=()=>{const blob=new Blob([JSON.stringify({app:'Little Deer English Trail',version:1,records:Object.values(records),drafts},null,2)],{type:'application/json'});const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='little-deer-'+day()+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),2000);notice('備份已匯出（完成紀錄與文字草稿；不包含錄音）。')};$('#import').onchange=async e=>{const f=e.target.files[0];if(!f)return;try{if(f.size>2e6)throw Error();const data=JSON.parse(await f.text());if(data.version!==1||!Array.isArray(data.records))throw Error();const count=merge(data.records);refreshDrafts();mergeDrafts(data.drafts,true);const saved=save();renderMap();if(page==='libraryPage')renderLibrary();if(page==='examPage')renderExam();if(saved)notice(`已合併 ${count} 筆紀錄；重複與無效紀錄已略過。既有草稿保留。`)}catch{notice('匯入失敗：請選擇有效的版本 1 JSON 備份（小於 2 MB）。')}e.target.value=''};
+$('#export').onclick=()=>{const blob=new Blob([JSON.stringify({app:'Little Deer English Trail',version:1,records:Object.values(records),drafts},null,2)],{type:'application/json'});const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='little-deer-'+day()+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),2000);notice('備份已匯出（完成紀錄與文字草稿；不包含錄音）。')};$('#import').onchange=async e=>{const f=e.target.files[0];if(!f)return;try{if(f.size>2e6)throw Error();const data=JSON.parse(await f.text());if(data.version!==1||!Array.isArray(data.records))throw Error();const count=merge(data.records);try{refreshDrafts()}catch{}mergeDrafts(data.drafts,true);const saved=save();renderMap();if(page==='libraryPage')renderLibrary();if(page==='examPage')renderExam();if(saved)notice(`已合併 ${count} 筆紀錄；重複與無效紀錄已略過。既有草稿保留。`)}catch{notice('匯入失敗：請選擇有效的版本 1 JSON 備份（小於 2 MB）。')}e.target.value=''};
 const SETTINGS_KEY='little-deer-settings-v1',POSITION_KEY='little-deer-position-v1';
 let autoAdvance=true,advanceTimer,clearTimer,advanceTarget=null,advanceInterrupted=false,advanceSerial=0;
 function savePosition(){try{localStorage.setItem(POSITION_KEY,JSON.stringify({level:mapLevel,id:mapLessons()[position].id}))}catch{notice('無法保存地圖位置，請允許瀏覽器儲存資料。')}}

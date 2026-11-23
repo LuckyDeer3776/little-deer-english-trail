@@ -97,6 +97,57 @@ def run_cross_tab(browser):
     context.close()
 
 
+def run_cross_tab_read_failure(browser):
+    for key in ('little-deer-progress-v1', 'little-deer-drafts-v1'):
+        with browser.new_context() as context:
+            replay = context.new_page()
+            replay.add_init_script("window.addEventListener('storage', e => e.stopImmediatePropagation())")
+            replay.goto(url)
+            replay.evaluate('openLesson(lessons[0])')
+            replay.locator('#options button').first.click()
+            replay.locator('#close').click()
+            replay.evaluate('openLesson(lessons[0])')
+
+            editor = context.new_page()
+            editor.goto(url)
+            editor.evaluate('openLesson(lessons[1])')
+            editor.locator('#options button').nth(1).click()
+            editor.locator('#close').click()
+            other, pending = editor.evaluate('lessons.filter(l=>l.mode==="open").slice(0,2).map(l=>l.id)')
+            editor.evaluate('(id)=>openLesson(known(id))', other)
+            editor.locator('#response').fill('Saved in the other tab.')
+            assert replay.evaluate('(id)=>drafts[id]===undefined&&!records[lessons[1].id]', other)
+            original = editor.evaluate('(key)=>localStorage.getItem(key)', key)
+            replay.evaluate('''key=>{
+                window.realGet=Storage.prototype.getItem;
+                Storage.prototype.getItem=function(k){
+                    if(k===key)throw Error('blocked read');
+                    return window.realGet.call(this,k);
+                };
+            }''', key)
+            replay.locator('#options button').first.click()
+            replay.locator('#close').click()
+            replay.evaluate('openLesson(lessons[2])')
+            replay.locator('#options button').nth(replay.evaluate('lessons[2].answer')).click()
+            replay.locator('#close').click()
+            replay.evaluate('(id)=>openLesson(known(id))', pending)
+            replay.locator('#response').fill('Pending in the stale tab.')
+            expect(replay.locator('#storageNotice')).to_contain_text('瀏覽器無法保存進度')
+            assert editor.evaluate('(key)=>localStorage.getItem(key)', key) == original
+            if key == 'little-deer-progress-v1':
+                assert editor.evaluate('(id)=>JSON.parse(localStorage.getItem(DRAFT_KEY))[id]', pending) == 'Pending in the stale tab.'
+            else:
+                assert editor.evaluate('JSON.parse(localStorage.getItem(KEY)).records.some(r=>r.id===lessons[2].id)')
+
+            replay.evaluate('()=>{Storage.prototype.getItem=window.realGet}')
+            assert replay.evaluate('save()')
+            editor.reload()
+            assert editor.evaluate('!!records[lessons[1].id]&&!!records[lessons[2].id]')
+            assert editor.evaluate('(id)=>drafts[id]', other) == 'Saved in the other tab.'
+            assert editor.evaluate('(id)=>drafts[id]', pending) == 'Pending in the stale tab.'
+    print('PASS cross-tab read failure: unreadable snapshots are not overwritten; the other key saves, and retry merges both tabs’ work')
+
+
 def run_storage_recovery(browser):
     context = browser.new_context()
     page = context.new_page()
@@ -132,21 +183,39 @@ def run_storage_recovery(browser):
                     page.evaluate('()=>{Storage.prototype.getItem=window.realGet}')
 
             break_reads()
+            if failure == 'malformed':
+                page.evaluate('''key=>{
+                    window.realSet=Storage.prototype.setItem;
+                    Storage.prototype.setItem=function(k,v){
+                        if(k.startsWith(key+'-corrupt-'))throw Error('blocked backup write');
+                        return window.realSet.call(this,k,v);
+                    };
+                }''', key)
             page.locator('#options button').nth(0).click()
             restore_reads()
+            if failure == 'unreadable':
+                expect(page.locator('#storageNotice')).to_contain_text('瀏覽器無法保存進度')
+                assert page.evaluate('save()')
+            else:
+                assert page.evaluate('(key)=>localStorage.getItem(key)', key) == '{broken'
+                page.evaluate('()=>{Storage.prototype.setItem=window.realSet}')
+                assert page.evaluate('save()')
+                assert page.evaluate('key=>Object.keys(localStorage).some(k=>k.startsWith(key+"-corrupt-")&&localStorage.getItem(k)==="{broken")', key)
             assert page.evaluate('JSON.parse(localStorage.getItem(KEY)).records.some(r=>r.id===lessons[0].id)')
             assert page.evaluate('(id)=>JSON.parse(localStorage.getItem(DRAFT_KEY))[id]', task['id']) == 'Keep this existing draft in memory.'
             page.locator('#close').click()
             page.evaluate('(id)=>openLesson(known(id))', task['id'])
             break_reads()
-            page.locator('#response').fill('New draft saved despite bad storage reads.')
+            page.locator('#response').fill('New draft after bad storage reads.')
             restore_reads()
+            if failure == 'unreadable':
+                assert page.evaluate('save()')
             page.reload()
             assert page.evaluate('!!records[lessons[0].id]')
             page.evaluate('(id)=>openLesson(known(id))', task['id'])
-            expect(page.locator('#response')).to_have_value('New draft saved despite bad storage reads.')
+            expect(page.locator('#response')).to_have_value('New draft after bad storage reads.')
     assert not errors, errors
-    print('PASS storage recovery: malformed/unreadable progress and drafts do not block completion or draft writes; data survives reload; no console errors')
+    print('PASS storage recovery: corrupt snapshots are archived before recovery; unreadable snapshots retry after reads recover; data survives reload')
     context.close()
 
 
@@ -184,7 +253,7 @@ def run_import_recovery(browser):
         })
         page.wait_for_function('(id)=>drafts[id]==="Valid backup draft survives blocked storage."', arg=task['id'])
         assert page.evaluate('(id)=>!!records[id]', record['id'])
-        if failure == 'blocked reads and writes':
+        if failure.startswith('blocked'):
             expect(page.locator('#storageNotice')).to_contain_text('瀏覽器無法保存進度，請匯出 JSON 備份。')
         else:
             expect(page.locator('#storageNotice')).to_contain_text('已合併')
@@ -382,6 +451,7 @@ try:
     with sync_playwright() as p:
         browser = p.chromium.launch()
         run_cross_tab(browser)
+        run_cross_tab_read_failure(browser)
         run_storage_recovery(browser)
         run_import_recovery(browser)
         for mobile in (False, True):
