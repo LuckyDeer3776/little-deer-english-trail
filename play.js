@@ -33,7 +33,7 @@
   // automatic pause during speech/recording/gameplay preserves it for resuming.
   const song=$('#songPlayer'),songs=window.TRAIL_SONGS;
   let songIndex=0,songWanted=false,autoPauses=0,pendingPlay=false,sourceVersion=0;
-  function blocked(){return document.hidden||speaking||recordingActive||!$('#recording').paused||$('#restDialog').open}
+  function blocked(){return document.hidden||speaking||recordingActive||recognitionActive||!$('#recording').paused||$('#restDialog').open}
   function isSongPlaying(){return songWanted&&!blocked()}
   function pauseAutomatically(){if(!song.paused){autoPauses++;song.pause()}}
   function syncAudio(){if(blocked()){pauseAutomatically();if(songWanted&&!document.hidden)$('#songStatus').textContent='歌曲已暫停，等朗讀、錄音、回放或遊戲結束後繼續。'}else if(songWanted&&song.paused&&!pendingPlay){pendingPlay=true;const version=sourceVersion;song.play().catch(e=>{if(version!==sourceVersion||e?.name==='AbortError')return;songWanted=false;$('#songStatus').textContent='目前無法播放歌曲，請再按一次播放；仍可閱讀歌詞或繼續學習。'}).finally(()=>{pendingPlay=false;updateMusic()})}$('#songNowPlaying').hidden=!songWanted;$('#lessonSongStop').hidden=!songWanted;$('#songNowPlaying').textContent=blocked()?'■ Stop Song · 停止歌曲':'❚❚ Pause Song · 暫停歌曲';$('#restMusic').textContent=$('#music').textContent;$('#restMusic').setAttribute('aria-pressed',String(musicOn))}

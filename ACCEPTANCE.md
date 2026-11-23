@@ -1,3 +1,11 @@
+## Feature A — read-aloud speech recognition feedback
+
+Windows Chrome manual checks (open single-file.html or serve localhost): open a read-aloud task, tap Check Reading, allow permissions, read with omitted/extra words, stop, and check live transcript, highlighted target, recognition match count and slow missed-word buttons. Intermediate task 010 must compare the full sample, not its short heading. Try again; notes must remain unchanged. Open answers show transcript only. Verify Record/Listen/Slow cannot overlap recognition, recording and recognition remain separate, music ducks, closing/reopening clears recognition, and a transcript of three English words enables self-review. This is 語音辨識參考，不是專業發音評分.
+
+iPhone Safari hardware plan (pending): iOS 14.5+, Siri and Dictation must be on. Use HTTPS; accept first-use microphone and speech-recognition permission prompts. Check interim results, Stop, slow reading, repeat-task audio, retry and dialog cancel. Deny permissions and expect Traditional Chinese permission guidance; disable Siri/Dictation and expect service-not-allowed guidance; test no speech, unavailable microphone and offline/network fallback. Unsupported browsers such as Firefox must hide Check Reading and retain recording/notes. Confirm the mic indicator clears after stopping/closing and no transcript is saved to localStorage. Recording stays local to the page; recognition sends audio to the browser's speech service (Chrome/Google, Safari/Apple) only after tapping; the site does not upload or save recognition audio or transcripts.
+
+Options: Web Speech API is free and used here. In-browser Whisper is free but requires roughly 40–150 MB of model downloads and can be slow on phones; not used. Paid APIs are not enabled. Mocked Chromium checks do not verify actual speech quality, Windows permissions or iPhone hardware.
+
 # Verification — Self-paced GEPT upgrade
 
 ## Local automated Chromium: PASS
