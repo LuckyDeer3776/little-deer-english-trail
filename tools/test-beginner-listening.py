@@ -203,8 +203,15 @@ def check_spoken_review(browser):
     page.evaluate("recorded = true")
     page.locator("#reviewSpeaking").click()
     expect(answer).to_have_text("請回放你的錄音。")
+    page.locator("#checkReading").click()
+    page.locator("#stopRecognition").click()
+    page.locator("#reviewSpeaking").click()
+    expect(answer).to_have_text("I visit my family")
+    page.locator("#close").click()
+    expect(page.locator("#reference")).to_be_empty()
     page.close()
     print("PASS: speaking review shows notes, latest recognition transcript, or recording fallback in that order.")
+    print("PASS: closing the speaking lesson clears the rendered answer review.")
 
 
 def check_layout(browser, screenshot_dir):
