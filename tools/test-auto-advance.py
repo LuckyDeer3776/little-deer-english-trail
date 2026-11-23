@@ -219,6 +219,39 @@ def run_storage_recovery(browser):
     context.close()
 
 
+def run_corrupt_archive_quota(browser):
+    with browser.new_context() as context:
+        page = context.new_page()
+        page.goto(url)
+        task_id = page.evaluate('lessons.find(l=>l.mode==="open").id')
+        corrupt = '{broken' + 'x' * 100
+        page.evaluate('''raw=>{
+            localStorage.setItem(DRAFT_KEY, raw);
+            const setItem=Storage.prototype.setItem, prefix=DRAFT_KEY+'-corrupt-';
+            Storage.prototype.setItem=function(key,value){
+                if(key===DRAFT_KEY||key.startsWith(prefix)){
+                    const stored=Object.keys(this).filter(k=>k!==key&&(k===DRAFT_KEY||k.startsWith(prefix)));
+                    const used=stored.reduce((sum,k)=>sum+this.getItem(k).length,0);
+                    if(used+value.length>3*raw.length)throw new DOMException('Fixture quota exceeded','QuotaExceededError');
+                }
+                setItem.call(this,key,value);
+            };
+        }''', corrupt)
+        page.evaluate('(id)=>openLesson(known(id))', task_id)
+        for draft in ('x' * 500, 'y' * 500):
+            page.locator('#response').fill(draft)
+            expect(page.locator('#storageNotice')).to_contain_text('瀏覽器無法保存進度')
+            assert page.evaluate('localStorage.getItem(DRAFT_KEY)') == corrupt
+        page.locator('#response').fill('Short draft.')
+        assert page.evaluate('(id)=>JSON.parse(localStorage.getItem(DRAFT_KEY))[id]', task_id) == 'Short draft.'
+        assert page.evaluate('''Object.keys(localStorage).filter(k=>k.startsWith(DRAFT_KEY+'-corrupt-'))
+                                .map(k=>localStorage.getItem(k))''') == [corrupt]
+        page.reload()
+        page.evaluate('(id)=>openLesson(known(id))', task_id)
+        expect(page.locator('#response')).to_have_value('Short draft.')
+    print('PASS corrupt archive quota: retry reuses the backup and the shortened draft survives reload')
+
+
 def run_import_recovery(browser):
     context = browser.new_context()
     page = context.new_page()
@@ -453,6 +486,7 @@ try:
         run_cross_tab(browser)
         run_cross_tab_read_failure(browser)
         run_storage_recovery(browser)
+        run_corrupt_archive_quota(browser)
         run_import_recovery(browser)
         for mobile in (False, True):
             run(browser, mobile)

@@ -36,9 +36,14 @@ function readSnapshot(key,empty,valid,repair){
   try{data=JSON.parse(raw)}catch{}
   if(valid(data))return data;
   if(!repair)throw Error('Invalid storage snapshot');
-  const prefix=key+'-corrupt-'+Date.now();
-  let backup=prefix,suffix=0;
-  while(localStorage.getItem(backup)!==null)backup=prefix+'-'+(++suffix);
+  const prefix=key+'-corrupt-';
+  for(let i=0;i<localStorage.length;i++){
+    const archive=localStorage.key(i);
+    if(archive?.startsWith(prefix)&&localStorage.getItem(archive)===raw)return null;
+  }
+  const stamp=prefix+Date.now();
+  let backup=stamp,suffix=0;
+  while(localStorage.getItem(backup)!==null)backup=stamp+'-'+(++suffix);
   localStorage.setItem(backup,raw);
   return null;
 }
