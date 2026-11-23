@@ -150,6 +150,58 @@ def run_storage_recovery(browser):
     context.close()
 
 
+def run_import_recovery(browser):
+    context = browser.new_context()
+    page = context.new_page()
+    errors = []
+    page.on('pageerror', lambda error: errors.append(str(error)))
+    page.on('console', lambda msg: errors.append(msg.text) if msg.type == 'error' else None)
+    page.route('**/favicon.ico', lambda route: route.fulfill(status=204))
+    for failure in ('malformed progress', 'malformed drafts', 'blocked reads', 'blocked reads and writes'):
+        page.goto(url)
+        page.evaluate('localStorage.clear()')
+        page.reload()
+        task = page.evaluate('lessons.find(l=>l.mode==="open")')
+        record = page.evaluate('({id:lessons[0].id,completedAt:new Date().toISOString(),method:"answer"})')
+        if failure.startswith('malformed'):
+            key = 'little-deer-progress-v1' if failure.endswith('progress') else 'little-deer-drafts-v1'
+            page.evaluate('(key)=>localStorage.setItem(key,"{broken")', key)
+        else:
+            page.evaluate('''blockWrites=>{
+                window.importGet=Storage.prototype.getItem;
+                window.importSet=Storage.prototype.setItem;
+                Storage.prototype.getItem=function(key){
+                    if(key===KEY||key===DRAFT_KEY)throw Error('blocked read');
+                    return window.importGet.call(this,key);
+                };
+                if(blockWrites)Storage.prototype.setItem=function(){throw Error('blocked write')};
+            }''', failure == 'blocked reads and writes')
+        page.locator('#import').set_input_files({
+            'name': 'backup.json', 'mimeType': 'application/json',
+            'buffer': json.dumps({'version': 1, 'records': [record], 'drafts': {
+                task['id']: 'Valid backup draft survives blocked storage.'
+            }}).encode(),
+        })
+        page.wait_for_function('(id)=>drafts[id]==="Valid backup draft survives blocked storage."', arg=task['id'])
+        assert page.evaluate('(id)=>!!records[id]', record['id'])
+        if failure == 'blocked reads and writes':
+            expect(page.locator('#storageNotice')).to_contain_text('瀏覽器無法保存進度，請匯出 JSON 備份。')
+        else:
+            expect(page.locator('#storageNotice')).to_contain_text('已合併')
+        page.evaluate('(id)=>openLesson(known(id))', task['id'])
+        expect(page.locator('#response')).to_have_value('Valid backup draft survives blocked storage.')
+        if failure.startswith('blocked'):
+            page.evaluate('()=>{Storage.prototype.getItem=window.importGet;Storage.prototype.setItem=window.importSet}')
+            assert page.evaluate('save()')
+        page.reload()
+        assert page.evaluate('(id)=>!!records[id]', record['id'])
+        page.evaluate('(id)=>openLesson(known(id))', task['id'])
+        expect(page.locator('#response')).to_have_value('Valid backup draft survives blocked storage.')
+    assert not errors, errors
+    print('PASS import recovery: malformed JSON is repaired; blocked reads/writes retain imported records and visible drafts, preserve failure notice, and recover after reload; no console errors')
+    context.close()
+
+
 def run(browser, mobile):
     context = browser.new_context(viewport={'width': 390, 'height': 844} if mobile else {'width': 1280, 'height': 900}, has_touch=mobile)
     page = context.new_page()
@@ -322,6 +374,7 @@ try:
         browser = p.chromium.launch()
         run_cross_tab(browser)
         run_storage_recovery(browser)
+        run_import_recovery(browser)
         for mobile in (False, True):
             run(browser, mobile)
         browser.close()
