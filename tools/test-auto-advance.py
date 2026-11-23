@@ -98,8 +98,17 @@ def run(browser, mobile):
         stayed(0)
         expect(page.locator('#lesson')).to_be_visible()
         assert page.evaluate('speaking'), 'Travel must not interrupt the spoken prompt'
-    press('#close')
+    page.keyboard.press('Escape')
+    expect(page.locator('#lesson')).to_be_hidden()
+    assert not page.evaluate('speaking'), 'Escape must still stop spoken prompts'
     page.evaluate('()=>{speechSynthesis.speak=window.originalSpeechSpeak}')
+    arrive(0)
+    correct()
+    page.evaluate('recognitionActive=true')
+    stayed(0)
+    press('#advanceNow')
+    assert page.evaluate('position === 0 && recognitionActive'), 'Next must not interrupt speech recognition'
+    press('#close')
     arrive(7)
     answer = page.evaluate('current.answer')
     press(f'#options button:nth-child({answer + 1})')
