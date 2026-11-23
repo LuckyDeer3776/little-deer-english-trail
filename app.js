@@ -76,7 +76,9 @@ function showSolution(){
   }
   if(l.explain)panel.append(reviewBlock('中文解釋',l.explain));
   panel.hidden=false;
-  $('#showReference').hidden=true;
+  const showReference=$('#showReference');
+  if(document.activeElement===showReference)panel.focus();
+  showReference.hidden=true;
 }
 function answer(i){
   attempted=true;lastAnswer=i;$('#retry').hidden=false;

@@ -101,6 +101,25 @@ def check_grading(browser):
     print("PASS: 8 elementary items, 8 correct and 16 incorrect attempts, TTS input and answer review.")
 
 
+def check_reference_keyboard(browser):
+    page = browser.new_page(reduced_motion="reduce")
+    open_bank(page, "index.html")
+    page.locator("#examSkill").select_option("reading")
+    page.locator('[data-task-id="gept-elementary-013"]').click()
+    page.locator("#options button").first.click()
+    button = page.locator("#showReference")
+    button.focus()
+    expect(button).to_be_focused()
+    button.press("Enter")
+    panel = page.get_by_role("region", name="作答解析")
+    expect(panel).to_be_focused()
+    expect(button).to_be_hidden()
+    page.keyboard.press("Tab")
+    expect(page.locator("#retry")).to_be_focused()
+    page.close()
+    print("PASS: keyboard focus moves from Show Reference to the answer review, then to Try Again.")
+
+
 def check_layout(browser, screenshot_dir):
     for width, height in ((320, 568), (375, 900), (390, 844), (1366, 900)):
         page = browser.new_page(viewport={"width": width, "height": height}, reduced_motion="reduce")
@@ -143,5 +162,6 @@ if __name__ == "__main__":
     with sync_playwright() as playwright:
         browser = playwright.chromium.launch(executable_path=shutil.which("google-chrome"))
         check_grading(browser)
+        check_reference_keyboard(browser)
         check_layout(browser, shots)
         browser.close()
